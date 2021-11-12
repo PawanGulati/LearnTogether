@@ -14,7 +14,11 @@ import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {store} from './store'
 
-const mdTheme = createTheme();
+const mdTheme = createTheme({
+  typography: {
+    fontFamily: "Proxima Nova Alt",
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>

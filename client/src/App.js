@@ -12,7 +12,7 @@ import StudentHomeView from './views/components/student-views/StudentHomeView';
 function App(props) {
   let {pathname} = useLocation()
 
-  let user = true;
+  let user = null;
 
   return (
     <div className="App">
