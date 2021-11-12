@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import Font from './constants/fonts/Proxima Nova Alt Regular.otf'
+
 import CssBaseline from '@mui/material/CssBaseline';
 import {ThemeProvider, createTheme} from '@mui/material'
 
@@ -16,7 +18,7 @@ import {store} from './store'
 
 const mdTheme = createTheme({
   typography: {
-    fontFamily: "Proxima Nova Alt",
+    fontFamily: {Font},
   }
 });
 

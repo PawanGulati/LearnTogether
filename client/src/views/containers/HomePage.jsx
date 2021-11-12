@@ -8,10 +8,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BackGround from '../../constants/images/gradient_back.jpg'
 import Logo from '../components/Logo';
 import LoginPage from './LoginPage';
+import HomeThemedButton from '../components/HomeThemedButton';
+import SignupModal from '../components/SignupModal';
 
 const theme = createTheme();
 
 export default function SignInSide() {
+    const [text, setText] = React.useState("student");
+
+    // modal state
+    const [open, setOpen] = React.useState(true);
+    const handleOpen = (t) => {setOpen(true); setText(t)}
+    const handleClose = () => setOpen(false);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -31,7 +40,6 @@ export default function SignInSide() {
         <Grid
           item
           xs={false}
-          sm={4}
           md={7}
           sx={{
             backgroundImage: `url(${BackGround})`,
@@ -48,22 +56,26 @@ export default function SignInSide() {
                     position:'relative', 
                     zIndex:10, 
                     paddingTop:"200px",
-                    height: '100%', 
                     width:'100%',
                 }}>
-                    <Typography fontFamily="Proxima Nova Alt"
-                        variant="h2"
-                        color="#fff"
-                        // fontSize="68px"
-                        lineHeight="72px"
-                        fontWeight="900"
-                    >You’ll never study alone again</Typography>
-                    <Typography fontFamily="Proxima Nova Alt" color="#fff" mt={3} fontSize={18}>
-                        Join the <strong>largest global student community</strong> online and say goodbye to lack of motivation
-                    </Typography>
+                <Typography fontFamily="Proxima Nova Alt"
+                    variant="h2"
+                    color="#fff"
+                    lineHeight="72px"
+                    fontWeight="900"
+                >You’ll never study alone again</Typography>
+                <Typography fontFamily="Proxima Nova Alt" color="#fff" mt={3} mb={7} fontSize={18}>
+                    Join the <strong>largest global student community</strong> online and say goodbye to lack of motivation
+                </Typography>
+
+                <div style={{display:'flex', justifyContent:"space-around"}}>
+                    <HomeThemedButton text="mentor" handleOpen={()=>handleOpen("mentor")}/>
+                    <HomeThemedButton text="student" handleOpen={()=>handleOpen("student")}/>
+                    <SignupModal open={open} handleClose={handleClose} text={text}/>
+                </div>
             </div>
         </Grid>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} md={5} component={Paper} elevation={6} square>
             <LoginPage handleSubmit={handleSubmit}/>
         </Grid>
       </Grid>

@@ -33,6 +33,7 @@ export default function LoginPage({handleSubmit}) {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              fontFamily:"Proxima Nova Alt"
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>

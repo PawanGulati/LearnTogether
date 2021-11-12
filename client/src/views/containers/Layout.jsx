@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box'
 import React from 'react'
-import Header from '../components/Header'
 import HeaderDrawer from '../components/Header-Drawer'
 
 export default function Layout(props) {
