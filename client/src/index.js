@@ -4,9 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import CssBaseline from '@mui/material/CssBaseline';
+import {ThemeProvider, createTheme} from '@mui/material'
+
+// integrating react-router
+import {BrowserRouter} from 'react-router-dom'
+
+const mdTheme = createTheme();
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={mdTheme}>
+      <BrowserRouter>
+        <CssBaseline />
+        <App />
+      </BrowserRouter>  
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
