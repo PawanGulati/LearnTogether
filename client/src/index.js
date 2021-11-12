@@ -10,6 +10,10 @@ import {ThemeProvider, createTheme} from '@mui/material'
 // integrating react-router
 import {BrowserRouter} from 'react-router-dom'
 
+// integrating REDUX 
+import {Provider} from 'react-redux'
+import {store} from './store'
+
 const mdTheme = createTheme();
 
 ReactDOM.render(
@@ -17,7 +21,9 @@ ReactDOM.render(
     <ThemeProvider theme={mdTheme}>
       <BrowserRouter>
         <CssBaseline />
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </BrowserRouter>  
     </ThemeProvider>
   </React.StrictMode>,
