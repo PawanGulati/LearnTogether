@@ -91,7 +91,7 @@ export default function StudentHomeView() {
             </RoundedPaper>
           </Grid>
           {/* Scheduled Meetups */}
-          <Grid item xs={12}>
+          <Grid item xs={12} height={'100%'}>
             <RoundedPaper height={180}>
                   <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>Scheduled Meetups</Typography>
                 <Box style={{height:'100%', width:'100%', maxHeight:'100%', overflow:'auto'}}>
@@ -100,7 +100,7 @@ export default function StudentHomeView() {
             </RoundedPaper>
           </Grid>
           {/* Recent Meetups */}
-          <Grid item xs={12}>
+          <Grid item xs={12} height={'100%'}>
             <RoundedPaper height={180}>
                   <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>Recent Meetups</Typography>
                 <Box style={{height:'100%', width:'100%', maxHeight:'100%', overflow:'auto'}}>

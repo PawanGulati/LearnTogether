@@ -7,33 +7,35 @@ import EventIcon from '@mui/icons-material/Event';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
 
-export default function ListItems({showRoomsList}) {
+import {withRouter} from 'react-router-dom'
+
+export default withRouter(function ListItems(props) {
   return (
     <div>
       <ListItem button>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
-        <ListItemText primary="Home" />
+        <ListItemText onClick={()=>props.history.push('/')} primary="Home" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <EventIcon />
         </ListItemIcon>
-        <ListItemText primary="Event" />
+        <ListItemText onClick={()=>props.history.push('/events')} primary="Event" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
-        <ListItemText onClick={()=>{showRoomsList(true)}} primary="Rooms" />
+        <ListItemText onClick={()=>props.history.push('/rooms')} primary="Rooms" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Mentors" />
+        <ListItemText onClick={()=>props.history.push('/mentors')} primary="Mentors" />
       </ListItem>
     </div>
   )
-}
+})

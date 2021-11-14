@@ -1,8 +1,8 @@
+import { Container, Grid } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 
 export default function StudentEventView() {
-    console.log('pawan');
     return (
         <Box
           component="main"
@@ -16,6 +16,15 @@ export default function StudentEventView() {
             height: '100vh',
             overflow: 'auto',
           }}
-        >Events</Box>
+        >
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, pt: 8}}>
+            <Grid container spacing={3}>
+              {/* SEARCH BAR */}
+              <Grid item >
+                
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
     )
 }
