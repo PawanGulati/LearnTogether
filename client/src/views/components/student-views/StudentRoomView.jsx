@@ -97,30 +97,30 @@ export default function StudentRoomView() {
                   <ListItem key="1">
                       <Grid container>
                           <Grid item xs={12}>
-                              <ListItemText align="right" primary="Hey man, What's up ?"></ListItemText>
+                              <ListItemText align="right" primary="Hi students! any doubts??"></ListItemText>
                           </Grid>
-                          <Grid item xs={12}>
-                              <ListItemText align="right" secondary="09:30"></ListItemText>
+                          <Grid item xs={12} >
+                              <ListItemText align="right" secondary="mentor - 09:30"></ListItemText>
                           </Grid>
                       </Grid>
                   </ListItem>
                   <ListItem key="2">
                       <Grid container>
                           <Grid item xs={12}>
-                              <ListItemText align="left" primary="Hey, Iam Good! What about you ?"></ListItemText>
+                              <ListItemText align="left" primary="No sir"></ListItemText>
                           </Grid>
                           <Grid item xs={12}>
-                              <ListItemText align="left" secondary="09:31"></ListItemText>
+                              <ListItemText align="left" secondary="You - 09:31"></ListItemText>
                           </Grid>
                       </Grid>
                   </ListItem>
                   <ListItem key="3">
                       <Grid container>
                           <Grid item xs={12}>
-                              <ListItemText align="right" primary="Cool. i am good, let's catch up!"></ListItemText>
+                              <ListItemText align="right" primary="No sir, you taught us good"></ListItemText>
                           </Grid>
                           <Grid item xs={12}>
-                              <ListItemText align="right" secondary="10:30"></ListItemText>
+                              <ListItemText align="right" secondary="Aman - 10:30"></ListItemText>
                           </Grid>
                       </Grid>
                   </ListItem>
