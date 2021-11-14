@@ -71,8 +71,8 @@ export default function SignInSide() {
                 <div style={{display:'flex', justifyContent:"space-around"}}>
                     <HomeThemedButton text="mentor" handleOpen={()=>handleOpen("mentor")}/>
                     <HomeThemedButton text="student" handleOpen={()=>handleOpen("student")}/>
-                    <SignupModal open={open} handleClose={handleClose} text={text}/>
                 </div>
+                  <SignupModal open={open} handleClose={handleClose} text={text}/>
             </div>
         </Grid>
         <Grid item xs={12} md={5} component={Paper} elevation={6} square>

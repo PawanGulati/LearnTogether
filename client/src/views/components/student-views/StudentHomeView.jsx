@@ -5,7 +5,6 @@ import { ReactComponent as CreateEventSVG } from '../../../constants/images/crea
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import RoundedPaper from '../RoundedPaper';
 import { makeStyles } from '@mui/styles';
 import { Button, Typography } from '@mui/material';
@@ -47,7 +46,7 @@ export default function StudentHomeView() {
           <Grid item xs={12} height={'100%'}>
             <RoundedPaper height={300}>
               <Grid 
-                container xs={12} 
+                container
                 sx={{
                     flexDirection:{
                       xs:'column',
