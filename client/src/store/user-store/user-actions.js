@@ -3,6 +3,12 @@ import userTypes from './user-types'
 
 // import jwtDecode from 'jwt-decode'
 
+// paylaod ={
+//     data:{}
+//     onsuccess:()=>{},
+//     ofFailure:()=>{}
+//     }
+
 const {AUTH_START,AUTH_SUCCESS,AUTH_FAIL,REMOVE_ERROR,POP_UP} = userTypes
 
 export const auth_start = () =>({

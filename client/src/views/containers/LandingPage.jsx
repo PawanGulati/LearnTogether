@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Redirect} from 'react-router-dom'
 
 import BackGround from '../../constants/images/gradient_back.jpg'
 import Logo from '../components/Logo';
@@ -79,6 +80,7 @@ export default function SignInSide() {
             <LoginPage handleSubmit={handleSubmit}/>
         </Grid>
       </Grid>
+      <Redirect to='/' />
     </ThemeProvider>
   );
 }

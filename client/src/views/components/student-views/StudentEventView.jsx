@@ -5,7 +5,12 @@ import React from 'react'
 import EventList from '../event-views/EventList'
 import RoundedPaper from '../RoundedPaper'
 import SearchBar from '../SearchBar'
-
+/**
+ * 
+ * @returns 
+ * 
+ * 
+ */
 export default function StudentEventView() {
     return (
         <Box

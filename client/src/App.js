@@ -7,21 +7,25 @@ import Layout from './views/containers/Layout';
 import HomePage from './views/containers/HomePage';
 import LandingPage from './views/containers/LandingPage'
 
+import {connect} from 'react-redux'
+import {createStructuredSelector} from 'reselect'
+
+import {selectCurUser} from './store/user-store/user-selectors'
+
 function App(props) {
   let {pathname} = useLocation()
-
-  let user = true;
-
+  console.log(props);
+  
   return (
     <div className="App">
         <Switch>
           <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
           <Route path='/404' component={NotFound} />
           <Route path='' render={
-            (props)=>{
-              return user ? (
+            (innerProps)=>{
+              return props.current_user ? (
                 <Layout>
-                  <HomePage {...props}/>
+                  <HomePage {...innerProps}/>
                 </Layout>
               ): <LandingPage />
             }}
@@ -32,4 +36,8 @@ function App(props) {
   );
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  current_user: selectCurUser
+})
+
+export default connect(mapStateToProps)(App);
