@@ -4,7 +4,7 @@ const {AUTH_START,AUTH_SUCCESS,AUTH_FAIL,REMOVE_ERROR,POP_UP} = userTypes
 
 const initial_state = {
     loading:false,
-    cur_user:null,
+    cur_user:true,
     error:null,
     popUp:{
         text:'',
