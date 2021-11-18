@@ -11,10 +11,40 @@ import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 
 import {selectCurUser} from './store/user-store/user-selectors'
+import {store} from './store'
+import {setToken} from './utils/services/api'
+import { auth_fail, auth_success, logout, set_user_fromID } from './store/user-store/user-actions';
+
+
+
+// Checking if token is valid(not expired also comes init) and there in local storage, then set a user else logout or not set a user
+//TODO: BUGFIX: auto logout without a refresh
+const setUserFromToken = async () =>{
+  if(localStorage.jwtToken){
+    try {
+      const timer = JSON.parse(localStorage.getItem('timer'));
+      
+      if (timer && ((Date.now() / 1000) > timer)) {
+        store.dispatch(logout()) 
+        window.location.href = '/signin'
+
+      }else{
+        setToken(localStorage.jwtToken)
+        // const {_id} = jwtDecode(localStorage.jwtToken)
+        
+        await store.dispatch(set_user_fromID())
+      }
+    } catch (error) {
+      store.dispatch(auth_success(null))
+      store.dispatch(auth_fail(error))
+    }
+  }
+}
+
+setUserFromToken()
 
 function App(props) {
   let {pathname} = useLocation()
-  console.log(props);
   
   return (
     <div className="App">

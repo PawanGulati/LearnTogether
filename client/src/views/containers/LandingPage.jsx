@@ -4,33 +4,35 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Redirect} from 'react-router-dom'
+import { connect } from 'react-redux';
 
 import BackGround from '../../constants/images/gradient_back.jpg'
 import Logo from '../components/Logo';
 import LoginPage from './LoginPage';
 import HomeThemedButton from '../components/HomeThemedButton';
 import SignupModal from '../components/SignupModal';
+import { auth_fail, set_cur_user } from '../../store/user-store/user-actions';
+import { createStructuredSelector } from 'reselect';
+import { selectUserError } from '../../store/user-store/user-selectors';
 
 const theme = createTheme();
 
-export default function SignInSide() {
-    const [text, setText] = React.useState("student");
+const mapStateToProps = createStructuredSelector({
+  auth_error: selectUserError
+})
 
-    // modal state
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = (t) => {setOpen(true); setText(t)}
-    const handleClose = () => setOpen(false);
+const mapDispatchToProps = dispatch => ({
+  set_cur_user: user => dispatch(set_cur_user(user)),
+  auth_fail: error => dispatch(auth_fail(error)),
+})
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-        });
-    };
+export default connect(mapStateToProps, mapDispatchToProps)(function SignInSide(props) {
+  const [text, setText] = React.useState("student");
+
+  // modal state
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = (t) => {setOpen(true); setText(t)}
+  const handleClose = () => setOpen(false);
 
   return (
     <ThemeProvider theme={theme}>
@@ -77,10 +79,12 @@ export default function SignInSide() {
             </div>
         </Grid>
         <Grid item xs={12} md={5} component={Paper} elevation={6} square>
-            <LoginPage handleSubmit={handleSubmit}/>
+            <LoginPage 
+              {...props}
+            />
         </Grid>
       </Grid>
-      <Redirect to='/' />
+      {/* <Redirect to='/' /> */}
     </ThemeProvider>
   );
-}
+})

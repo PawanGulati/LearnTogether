@@ -24,8 +24,44 @@ function Copyright(props) {
   );
 }
 
-export default function LoginPage({handleSubmit}) {
-    return (
+export default function LoginPage(props) {
+    
+  // INPUT STATE
+  const [inputs, setInputs] = React.useState({email:'',password:''})
+
+  const handleInputChange = ({ target: { name, value } }) => {
+    setInputs({
+      ...inputs,
+      [name]: value
+    })
+  }
+
+  const handleSignIn = async e =>{
+    e.preventDefault()
+    
+    try {
+        // validation checking
+        // if(!validFormCheckInit(inputs)){
+        //     throw new Error('Invalid Form')
+        // }
+
+
+        // API call 
+        const check = await props.set_cur_user({...inputs, api_type: 'login'})
+
+        if(check){
+            //redirection
+            props.history.push('/')
+
+            // form initial state returned
+            setInputs({email:'',password:''})
+        }
+    } catch (error) {
+      props.auth_fail({ message:error.message })
+    }
+  }
+  
+  return (
         <Box
             sx={{
               my: 8,
@@ -42,7 +78,16 @@ export default function LoginPage({handleSubmit}) {
             <Typography fontFamily="Proxima Nova Alt" component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={handleSignIn} sx={{ mt: 1 }}>
+              {props.auth_error ? 
+                  <Typography 
+                    color={"red"}
+                    variant='subtitle2' 
+                    style={{width:'100%', textAlign:'center', fontWeight:'bold'}}
+                  >{props.auth_error}
+                  </Typography>
+                  : null
+              }
               <TextField
                 margin="normal"
                 required
@@ -50,6 +95,8 @@ export default function LoginPage({handleSubmit}) {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={inputs.email}
+                onChange={handleInputChange}
                 autoComplete="email"
                 autoFocus
               />
@@ -58,10 +105,12 @@ export default function LoginPage({handleSubmit}) {
                 required
                 fullWidth
                 name="password"
+                value={inputs.password}
+                onChange={handleInputChange}
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                autoComplete="password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

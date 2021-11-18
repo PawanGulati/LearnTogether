@@ -11,8 +11,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {red} from '@mui/material/colors'
 import Drawer from './Drawer';
-import { Box } from '@mui/system';
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
+import { connect } from 'react-redux';
+import { auth_message, logout } from '../../store/user-store/user-actions';
 
 const drawerWidth = 240;
 
@@ -34,9 +35,12 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+const mapDispatchToProps = dispatch =>({
+  logout: () => dispatch(logout()),
+  set_auth_message: (message,type,open) => dispatch(auth_message(message,type,open)),
+})
 
-
-export default function HeaderDrawer(props) {
+export default connect(null, mapDispatchToProps)(function HeaderDrawer(props) {
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -51,6 +55,12 @@ export default function HeaderDrawer(props) {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    // logout handler
+    const handleLogout = ()=>{
+      props.set_auth_message('You have successfully Logout out','success',true)
+      props.logout()
+    }
 
     return (
         <>
@@ -134,7 +144,7 @@ export default function HeaderDrawer(props) {
                           Settings
                         </MenuItem>
                         <MenuItem>
-                          <ListItemIcon>
+                          <ListItemIcon onClick={handleLogout}>
                             <LogoutIcon fontSize="small" />
                           </ListItemIcon>
                           Logout
@@ -146,4 +156,4 @@ export default function HeaderDrawer(props) {
             <Drawer toggleDrawer={toggleDrawer} open={open} drawerWidth={drawerWidth} isSecondary={false}/>
         </>
     )
-}
+})
