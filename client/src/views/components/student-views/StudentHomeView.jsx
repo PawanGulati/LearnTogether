@@ -9,6 +9,7 @@ import RoundedPaper from '../RoundedPaper';
 import { makeStyles } from '@mui/styles';
 import { Button, Typography } from '@mui/material';
 import EventList from '../event-views/EventList';
+import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
 
 const useStyles = makeStyles(theme=>({
   grid_flex:{
@@ -110,6 +111,7 @@ export default function StudentHomeView() {
           </Grid>
         </Grid>
       </Container>
+      <SnackBar />
     </Box>
   )
 }

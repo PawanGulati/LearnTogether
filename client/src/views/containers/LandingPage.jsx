@@ -11,6 +11,7 @@ import Logo from '../components/Logo';
 import LoginPage from './LoginPage';
 import HomeThemedButton from '../components/HomeThemedButton';
 import SignupModal from '../components/SignupModal';
+import SnackBar from '../../utils/NotificationPopUp/SnackBar'
 import { auth_fail, set_cur_user } from '../../store/user-store/user-actions';
 import { createStructuredSelector } from 'reselect';
 import { selectUserError } from '../../store/user-store/user-selectors';
@@ -83,6 +84,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function SignInSide(
               {...props}
             />
         </Grid>
+      <SnackBar />
       </Grid>
       {/* <Redirect to='/' /> */}
     </ThemeProvider>

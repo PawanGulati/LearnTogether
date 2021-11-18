@@ -1,15 +1,15 @@
 import React from 'react'
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectAuthMessage, selectAuthMessageType, selectAuthMessageState } from '../../store/user-store/user-selectors';
 import { auth_message } from '../../store/user-store/user-actions';
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const mapStateToProps = createStructuredSelector({
     auth_message: selectAuthMessage,

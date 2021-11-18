@@ -10,6 +10,7 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { withRouter } from 'react-router';
 
 function Copyright(props) {
   return (
@@ -24,11 +25,10 @@ function Copyright(props) {
   );
 }
 
-export default function LoginPage(props) {
+export default withRouter(function LoginPage(props) {
     
   // INPUT STATE
   const [inputs, setInputs] = React.useState({email:'',password:''})
-
   const handleInputChange = ({ target: { name, value } }) => {
     setInputs({
       ...inputs,
@@ -140,4 +140,4 @@ export default function LoginPage(props) {
             </Box>
           </Box>
     )
-}
+})
