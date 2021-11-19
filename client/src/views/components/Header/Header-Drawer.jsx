@@ -10,10 +10,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {red} from '@mui/material/colors'
-import Drawer from './Drawer';
 import { Avatar, Divider, ListItemIcon, Menu, MenuItem, Stack } from '@mui/material';
+
 import { connect } from 'react-redux';
-import { auth_message, logout } from '../../store/user-store/user-actions';
+import Drawer from './Drawer';
+import { auth_message, logout } from '../../../store/user-store/user-actions';
 
 const drawerWidth = 240;
 

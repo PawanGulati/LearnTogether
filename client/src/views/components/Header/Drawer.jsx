@@ -8,8 +8,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MuiDrawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 
-import ListItems from './ListItems';
-import RoomListItems from './RoomListItems'
+import ListItems from '../ListItems';
 import { Button, Typography } from '@mui/material';
 
 let drawerWidth
@@ -43,12 +42,6 @@ const NewDrawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'ope
 export default function Drawer({toggleDrawer, open, drawerWidth: dw}) {
     drawerWidth = dw;
 
-    const [roomView, setRoomView] = React.useState(false);
-
-    const showRoomsList = (show) =>{
-        setRoomView(show)
-    }
-
     return (
         <NewDrawer open={open} variant="permanent">
             <Toolbar
@@ -59,24 +52,14 @@ export default function Drawer({toggleDrawer, open, drawerWidth: dw}) {
                     px: [1],
                 }}
             >
-                {
-                    roomView ? (
-                        <Button>
-                            <Typography variant="h7"  onClick={()=>{showRoomsList(false)}}>Back</Typography>
-                        </Button>
-                    )
-                    :(
-                        <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    )
-                }
+              
+            <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+            </IconButton>
             </Toolbar>
             <Divider />
             <List>
-                {
-                    roomView ? <RoomListItems /> : <ListItems showRoomsList={showRoomsList} />
-                }
+              <ListItems />
             </List>
         </NewDrawer>
     )

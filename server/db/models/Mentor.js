@@ -12,11 +12,13 @@ const mentorSchema = new mongoose.Schema({
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student'
-    }],
-    scheduledEvents: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event'
     }]
+})
+
+mentorSchema.virtual('bookings',{
+    ref: 'Booking',
+    localField: '_id',
+    foreignField: 'mentor'
 })
 
 module.exports = mongoose.model('Mentor', mentorSchema);

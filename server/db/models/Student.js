@@ -7,13 +7,14 @@ const studentSchema = new mongoose.Schema({
     },
     institutionName:{
         type: String,
-        trim: true
+        trim: true,
+        lowercase: true
     },
     mentorsFollowing: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Mentor'
     }],
-    stdsFollowing: [{
+    studentsFollowing: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student'
     }],
@@ -21,14 +22,16 @@ const studentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student'
     }],
-    demands: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Demand'
-    }],
     registeredEvents: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
     }]
+})
+
+studentSchema.virtual('demands', {
+    ref: 'Demand',
+    localField: '_id',
+    foreignField: 'student'
 })
 
 module.exports = mongoose.model('Student', studentSchema);

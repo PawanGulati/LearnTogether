@@ -20,6 +20,8 @@ app.use(express.json())
 
 // routes
 app.use('/api/auth',routes.auth)
+app.use('/api/demand',routes.demands)
+app.use('/api/event', routes.event)
 
 app.delete('/', async (req, res, next)=>{
     try {

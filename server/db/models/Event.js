@@ -5,19 +5,16 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student'
     }],
-    demand: {
+    topics: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Demand'
-    },
-    scheduleOn:{
-        type: Date,
-        default: Date.now
-    },
-    mentor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Mentor',
-        default: null
-    }
+        ref: 'Topic'
+    }]
+})
+
+eventSchema.virtual('bookings', {
+    ref: 'Booking',
+    localField: '_id',
+    foreignField: 'event'
 })
 
 module.exports = new mongoose.model('Event', eventSchema)
