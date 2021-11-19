@@ -10,12 +10,14 @@ import LandingPage from './views/containers/LandingPage'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 
-import {selectCurUser} from './store/user-store/user-selectors'
+import {selectCurUser, selectUserLoading} from './store/user-store/user-selectors'
 import {store} from './store'
 import {setToken} from './utils/services/api'
 import { auth_fail, auth_success, logout, set_user_fromID } from './store/user-store/user-actions';
+import { set_cur_student_async } from './store/student-store/student-actions';
 
-
+// import withSpinner from './hoc/withSpinner/withSpinner'
+// const HomePageLoded = withSpinner(HomePage)
 
 // Checking if token is valid(not expired also comes init) and there in local storage, then set a user else logout or not set a user
 //TODO: BUGFIX: auto logout without a refresh
@@ -55,7 +57,7 @@ function App(props) {
             (innerProps)=>{
               return props.current_user ? (
                 <Layout>
-                  <HomePage {...innerProps}/>
+                  <HomePage isLoading={props.isLoading} set_cur_student={props.set_cur_student} {...innerProps}/>
                 </Layout>
               ): <LandingPage />
             }}
@@ -67,7 +69,12 @@ function App(props) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  current_user: selectCurUser
+  current_user: selectCurUser,
+  isLoading: selectUserLoading
 })
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch =>({
+  set_cur_student: () => dispatch(set_cur_student_async())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

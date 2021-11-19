@@ -3,6 +3,7 @@ module.exports = {
     ...require('./demands'),
     ...require('./events'),
     ...require('./mentor'),
+    ...require('./student'),
 }
 
 module.exports.notFound = (req,res,next)=>{

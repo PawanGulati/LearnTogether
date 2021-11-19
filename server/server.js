@@ -23,6 +23,7 @@ app.use('/api/auth',routes.auth)
 app.use('/api/demand',routes.demands)
 app.use('/api/event', routes.event)
 app.use('/api/mentor', routes.mentor)
+app.use('/api/student', routes.student)
 
 app.delete('/', async (req, res, next)=>{
     try {
