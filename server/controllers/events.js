@@ -9,8 +9,7 @@ exports.createEventFromDemand = async (req, res, next) =>{
         if(!demand) throw new Error('Demand not exists')
         
         const student = await db.Student.findOne({user: req.user._id})
-
-        if(demand['student'].toString() === student._id) throw new Error('Already a member, not authenticated')
+        if(demand['student'].toString() === student._id.toString()) throw new Error('Cannot create event of your own demand')
         
         const event = new db.Event()
         
@@ -120,15 +119,42 @@ exports.createEvent = async (req, res, next)=>{
     }
 }
 
+exports.joinEvent = async(req, res, next)=>{
+    try {
+        const student = await db.Student.findOne({'user':req.user._id})
+        if(!student) throw new Error('Student not exists')
+
+        const event = await db.Event.findById(req.params.eventID)
+        if(!event) throw new Event('Event not exists')
+
+        const check = await db.Student.findOne({'registeredEvents': event._id})
+
+        if(check) throw new Error('Already a member')
+
+        event['students'] = [...event['students'], student._id]
+        student['registeredEvents'] = [...student['registeredEvents'], event._id]
+
+        await event.save()
+        await student.save()
+
+        return res.send(event).status(201)
+    } catch (error) {
+        next({
+            status: 401,
+            message: error.message
+        })
+    }
+}
+
 exports.getMyBookings = async(req, res, next)=>{
     try {
         const mentor = await db.Mentor.findOne({'user': req.user._id})
 
         if(!mentor) throw new Error('Mentor not exists')
 
-        const bookings = await mentor.populate('bookings')
+        await mentor.populate('bookings')
 
-        return res.send(bookings).status(200)
+        return res.send(mentor.bookings).status(200)
 
     } catch (error) {
         next({
@@ -178,19 +204,32 @@ exports.getAllEvents = async (req, res, next)=>{
 
 exports.getMyEvents = async (req, res, next) =>{
     try {
-        const student = await db.Student.findOne({'user': req.user._id}).populate({
-            path: 'registeredEvents',
-            model: 'Event',
-            populate: {
-                path: 'topics',
-                model: 'Topic',
-                transform: topic => topic.name
-            }
-        })
-            
-        if(!student) throw new Error('Not Authenticated')
+        const student = await db.Student.findOne({'user': req.user._id})
+        
+        if(!student) throw new Error('Student not exists')
 
-        return res.send(student.registeredEvents).status(200)
+        const events = await db.Event.find({
+            student: {$in: student._id}
+        }).populate({
+            path: 'topics',
+            model: 'Topic',
+            transform: topic => topic.name
+        }).populate({
+            path: 'bookings',
+            populate: {
+                path: 'mentor',
+                populate: {
+                    path: 'user',
+                    select: 'name'
+                },
+                transform: mentor => mentor.user.name,
+            },
+            select: ['mentor', 'scheduleOn']
+        })
+
+        if(!events) throw new Error('Events not exists')
+
+        return res.send(events).status(200)
 
     } catch (error) {
         next({

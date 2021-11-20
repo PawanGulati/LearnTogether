@@ -34,8 +34,8 @@ export default function StudentMentorsView() {
         <Box sx={{height:'520px', overflow:'auto'}}>
           <Grid container spacing={2}>
             {
-              [...new Array(9)].map(_=>
-                <Grid item lg={3} md={4} sm={6} xs={12}>
+              [...new Array(9)].map((_, idx)=>
+                <Grid item key={idx} lg={3} md={4} sm={6} xs={12}>
                   <MentorListItem />
                 </Grid>
               )

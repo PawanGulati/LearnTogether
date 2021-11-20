@@ -9,7 +9,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 
 import ListItems from '../ListItems';
-import { Button, Typography } from '@mui/material';
 
 let drawerWidth
 

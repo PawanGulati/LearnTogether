@@ -91,7 +91,7 @@ exports.getMyDemands = async (req, res, next)=>{
             }
         })
             
-        if(!student) throw new Error('Not Authenticated')
+        if(!student) throw new Error('Student not exists')
 
         return res.send(student.demands).status(200)
     } catch (error) {

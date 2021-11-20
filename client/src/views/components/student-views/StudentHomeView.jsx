@@ -9,7 +9,14 @@ import RoundedPaper from '../RoundedPaper';
 import { makeStyles } from '@mui/styles';
 import { Button, Typography } from '@mui/material';
 import EventList from '../event-views/EventList';
+import DemandList from '../demand-views/DemandList';
 import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
+
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
+import { set_my_demands } from '../../../utils/services/demands';
+import { set_past_events } from '../../../utils/services/events';
+const DemandListLoaded = withSpinner(DemandList)
+const EventListLoaded = withSpinner(EventList)
 
 const useStyles = makeStyles(theme=>({
   grid_flex:{
@@ -27,6 +34,29 @@ const useStyles = makeStyles(theme=>({
 export default function StudentHomeView() {
   const classes = useStyles()
   
+  const [demands, setDeamnds] = React.useState(null)
+  const [events, setEvents] = React.useState(null)
+
+  React.useEffect(()=>{
+    let mounted = true
+
+    set_my_demands().then(demands => {
+      if(mounted) setDeamnds(demands)
+    })
+
+    return () => mounted = false
+  },[])
+
+  React.useEffect(()=>{
+    let mounted = true
+
+    set_past_events().then(events => {
+      if(mounted) setEvents(events)
+    })
+
+    return () => mounted = false
+  },[])
+
   return (
     <Box
       component="main"
@@ -77,7 +107,7 @@ export default function StudentHomeView() {
                     }}
                     fullWidth
                   >
-                    Create Meetup
+                    Create Demand
                   </Button>
                 </Grid>
                 <Grid className={`${classes.center}`} item height={'100%'} xs={12} md={5}>
@@ -93,20 +123,16 @@ export default function StudentHomeView() {
           </Grid>
           {/* Scheduled Meetups */}
           <Grid item xs={12} height={'100%'}>
-            <RoundedPaper height={180}>
-                  <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>Scheduled Meetups</Typography>
-                <Box style={{height:'100%', width:'100%', maxHeight:'100%', overflow:'auto'}}>
-                    <EventList />
-                </Box>
+            <RoundedPaper height={230}>
+              <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>My Demands</Typography>
+              <DemandListLoaded isLoading={demands === null} demands={demands} />
             </RoundedPaper>
           </Grid>
           {/* Recent Meetups */}
           <Grid item xs={12} height={'100%'}>
-            <RoundedPaper height={180}>
-                  <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>Recent Meetups</Typography>
-                <Box style={{height:'100%', width:'100%', maxHeight:'100%', overflow:'auto'}}>
-                    <EventList />
-                </Box>
+            <RoundedPaper height={230}>
+              <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>My Events</Typography>
+              <EventListLoaded isLoading={events === null} events={events} />
             </RoundedPaper>
           </Grid>
         </Grid>

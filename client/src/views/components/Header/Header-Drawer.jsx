@@ -42,7 +42,7 @@ const mapDispatchToProps = dispatch =>({
 })
 
 export default connect(null, mapDispatchToProps)(function HeaderDrawer(props) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };

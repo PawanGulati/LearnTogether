@@ -9,7 +9,7 @@ const demandSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Topic'
     }]
-})
+},{timestamps: true})
 
 // demandSchema.virtual('topics', {
 //     ref: 'Topic',

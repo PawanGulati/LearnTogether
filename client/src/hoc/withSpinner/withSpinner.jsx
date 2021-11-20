@@ -9,7 +9,6 @@ const wrapper = WrapperComponent => ({isLoading, ...props}) =>{
         position:absolute;
         top:50%;
         left:45%;
-        width:100%;
         display:flex;
     `
 
@@ -24,11 +23,10 @@ const wrapper = WrapperComponent => ({isLoading, ...props}) =>{
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100%',
-            overflow: 'auto',
             position: 'relative'
         }}
         >
-            <GridLoader size={15} color={'green'} css={override} /> 
+            <GridLoader size={35} color={'var(--primary-blue)'} css={override} /> 
         </Box> :
         <WrapperComponent {...props} />
 }

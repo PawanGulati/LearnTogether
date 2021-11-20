@@ -18,6 +18,8 @@ router.post('/demand/:demandID', auth, control.createEventFromDemand)
 
 router.post('/book/:eventID', auth, control.createEventBooking)
 
+router.post('/join/:eventID', auth, control.joinEvent)
+
 router.get('/book', auth, control.getMyBookings)
 
 module.exports = router
