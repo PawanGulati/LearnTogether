@@ -15,7 +15,10 @@ exports.getMentors = async (req, res, next) =>{
 
 exports.getMentor = async (req, res, next)=>{
     try {
-        const mentor = await db.Mentor.findById(req.params.mentorID).populate('user')
+        const mentor = await db.Mentor
+            .findOne({'user': req.user._id})
+
+        if(!mentor) throw new Error('mentor not exists')
 
         return res.send(mentor).status(200)
     } catch (error) {

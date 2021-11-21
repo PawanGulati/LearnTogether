@@ -9,6 +9,9 @@ import MuiDrawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 
 import ListItems from '../ListItems';
+import { selectCurUser } from '../../../store/user-store/user-selectors';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 let drawerWidth
 
@@ -38,7 +41,11 @@ const NewDrawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'ope
   }),
 );
 
-export default function Drawer({toggleDrawer, open, drawerWidth: dw}) {
+const mapStateToProps = createStructuredSelector({
+  cur_user: selectCurUser
+})
+
+export default connect(mapStateToProps)(function Drawer({toggleDrawer, open, drawerWidth: dw, cur_user}) {
     drawerWidth = dw;
 
     return (
@@ -58,8 +65,8 @@ export default function Drawer({toggleDrawer, open, drawerWidth: dw}) {
             </Toolbar>
             <Divider />
             <List>
-              <ListItems />
+              <ListItems userType={cur_user['userType']}/>
             </List>
         </NewDrawer>
     )
-}
+})

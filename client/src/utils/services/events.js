@@ -12,29 +12,25 @@ export const set_past_events = async()=>{
         if(err.response){
             const {error} = err.response?.data
             store.dispatch(auth_message(error.message,'error',true))
-
         }
         else{
             store.dispatch(auth_message(err.message,'error',true))
-
         }
     }
 }
 
-export const set_all_events = async()=>{
+export const set_all_events = async(inProgress=true)=>{
     try {
-        const events = await api.call('get', 'event?inprogress=true')
+        const events = await api.call('get', `event?inprogress=${inProgress}`)
 
         return events
     } catch (err) {
         if(err.response){
             const {error} = err.response?.data
             store.dispatch(auth_message(error.message,'error',true))
-
         }
         else{
             store.dispatch(auth_message(err.message,'error',true))
-
         }
     }
 }
@@ -48,11 +44,9 @@ export const set_all_sessions = async()=>{
         if(err.response){
             const {error} = err.response?.data
             store.dispatch(auth_message(error.message,'error',true))
-
         }
         else{
             store.dispatch(auth_message(err.message,'error',true))
-
         }
     }
 }
@@ -61,6 +55,23 @@ export const join_event = async (eventID) =>{
     try {
         const event = await api.call('post', `event/join/${eventID}`)
         store.dispatch(auth_message('You have joined the Event','success',true))
+        return event
+    } catch (err) {
+        if(err.response){
+            const {error} = err.response?.data
+            store.dispatch(auth_message(error.message,'error',true))
+        }
+        else{
+            store.dispatch(auth_message(err.message,'error',true))
+        }
+    }
+}
+
+export const book_event = async ({eventID, data}) =>{
+    try {
+        const event = await api.call('post', `event/book/${eventID}`, data)
+        store.dispatch(auth_message('You have booked the Event', 'success', true))
+        
         return event
     } catch (err) {
         if(err.response){

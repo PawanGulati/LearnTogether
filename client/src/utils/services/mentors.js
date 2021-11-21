@@ -1,7 +1,7 @@
 import api from './api'
 
-import {store} from '../../store'
-import { auth_fail } from '../../store/user-store/user-actions'
+import { store } from '../../store'
+import { auth_message } from '../../store/user-store/user-actions'
 
 export const set_mentors = async()=>{
     try {
@@ -11,10 +11,10 @@ export const set_mentors = async()=>{
     } catch (err) {
         if(err.response){
             const {error} = err.response?.data
-            store.dispatch(auth_fail(error))
+            store.dispatch(auth_message(error.message,'error',true))
         }
         else{
-            store.dispatch(auth_fail({message:err.message}))
+            store.dispatch(auth_message(err.message,'error',true))
         }        
     }
 }

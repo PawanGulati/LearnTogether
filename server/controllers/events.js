@@ -152,7 +152,19 @@ exports.getMyBookings = async(req, res, next)=>{
 
         if(!mentor) throw new Error('Mentor not exists')
 
-        await mentor.populate('bookings')
+        await mentor.populate({
+            path: 'bookings',
+            populate: {
+                path: 'event',
+                populate: {
+                    path: 'topics',
+                    select: 'name',
+                    transform: topics => topics.name
+                },
+                select: ['students', 'topics']
+            },
+            select: ['scheduleOn', 'event']
+        })
 
         return res.send(mentor.bookings).status(200)
 

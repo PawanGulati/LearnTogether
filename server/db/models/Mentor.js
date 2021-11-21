@@ -21,4 +21,7 @@ mentorSchema.virtual('bookings',{
     foreignField: 'mentor'
 })
 
+mentorSchema.set('toObject', { virtuals: true });
+mentorSchema.set('toJSON', { virtuals: true });
+
 module.exports = mongoose.model('Mentor', mentorSchema);

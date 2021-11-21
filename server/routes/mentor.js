@@ -6,7 +6,7 @@ const auth = require('../middlewares/auth')
 router.route('/')
     .get(control.getMentors)
 
-router.route('/:mentorID')
+router.route('/me')
     .get(auth, control.getMentor)
 
 module.exports = router
