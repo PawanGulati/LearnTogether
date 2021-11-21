@@ -22,4 +22,6 @@ router.post('/join/:eventID', auth, control.joinEvent)
 
 router.get('/book', auth, control.getMyBookings)
 
+router.get('/inprogress', control.getEventsInProgress)
+
 module.exports = router

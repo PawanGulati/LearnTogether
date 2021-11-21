@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Container, Grid, Switch, Tab, Typography, Box, Button } from '@mui/material'
+import { Container, Grid, Tab, Typography, Box, Button } from '@mui/material'
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
@@ -18,8 +18,8 @@ import SnackBar from '../../../utils/NotificationPopUp/SnackBar'
 
 import withSpinner from '../../../hoc/withSpinner/withSpinner'
 import DemandList from '../demand-views/DemandList'
-import { demand_to_event, set_all_demands, set_my_demands } from '../../../utils/services/demands'
-import { join_event, set_all_events, set_all_sessions, set_past_events } from '../../../utils/services/events'
+import { demand_to_event, set_all_demands } from '../../../utils/services/demands'
+import { join_event, set_all_events, set_all_sessions } from '../../../utils/services/events'
 const DemandListLoaded = withSpinner(DemandList)
 const EventListLoaded = withSpinner(EventList)
 
@@ -29,12 +29,25 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function StudentEventView(props) {
+  
+  // Search Bar State
+  const [topic, setTopic] = React.useState('')
 
-  const reload=()=>window.location.reload();
+  const handleInputChange = ({target: {value}}) =>{
+    setTopic(value)
+  }
+
+  const handleInputSubmit = (event)=>{
+    event.preventDefault()
+    setTopic('')
+  }
+
+  // const reload=()=>window.location.reload();
 
   const [demands, setDemands] = React.useState(null)
   const [events, setEvents] = React.useState(null)
 
+  // LifeCycle Methods
   React.useEffect(()=>{
     let mounted = true
 
@@ -56,6 +69,7 @@ export default function StudentEventView(props) {
   },[])
 
 
+  // Tabs States
   const [valueEvent, setValueEvent] = React.useState('1');
   const [valueDemand, setValueDemand] = React.useState('1');
 
@@ -91,6 +105,7 @@ export default function StudentEventView(props) {
     return () => mounted = false
   };
 
+  // Dialog States
   const [openPropmt, setOpenPropmt] = React.useState(false);
   const [isEvent, setAsEvent] = React.useState(true)
   const [cur_event, set_cur_event] = React.useState(null)
@@ -121,6 +136,7 @@ export default function StudentEventView(props) {
     // reload()
   }
 
+
   return (
       <Box
         component="main"
@@ -136,10 +152,16 @@ export default function StudentEventView(props) {
         }}
       >
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, pt: 8}}>
+          {/* main content */}
           <Grid container spacing={3} sx={{display:'flex', flexDirection:'column'}}>
             {/* SEARCH BAR */}
             <Grid item >
-              <SearchBar placeholder='Search Events'/>
+              <SearchBar
+                placeholder='Search Events'
+                value={topic}
+                handleInputChange={handleInputChange}
+                handleInputSubmit={handleInputSubmit}
+              />
             </Grid>
             {/* ALL DEMANDS */}
             <Grid item >
@@ -202,6 +224,7 @@ export default function StudentEventView(props) {
               </RoundedPaper>
             </Grid>
           </Grid>
+          {/* Dialog modal for prompting */}
           {cur_event &&
             <Dialog
               open={openPropmt}

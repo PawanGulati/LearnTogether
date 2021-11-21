@@ -166,32 +166,48 @@ exports.getMyBookings = async(req, res, next)=>{
 
 exports.getAllEvents = async (req, res, next)=>{
     try {
-        const {topic} = req.query
-        let topics = []
+        const {topic, inprogress, registered} = req.query
+        let queryTopics = []
 
         if(typeof topic === "string")
-            topics.push(topic)
+            queryTopics.push(topic)
         else if(topic === undefined)
-            topics = []
+            queryTopics = []
         else
-            topics = [...topic]
+            queryTopics = [...topic]
 
         let events
 
-        if(topics.length === 0)
-            events = await db.Event.find({}).populate({path: 'topics', select: 'name'})
-        else
-            events = await db.Event
-            .find({})
-            .populate({
-                path: "topics", 
-                match: {name: {$in : topics}}, 
-                select: 'name',
-            })
+        events = await db.Event.find({})
+        .populate({path: 'topics', select: 'name', transform: topic => topic.name})
+        .populate({
+            path: 'bookings',
+            populate: {
+                path: 'mentor',
+                populate: {
+                    path: 'user',
+                    select: 'name'
+                },
+                transform: mentor => mentor.user.name,
+            },
+            select: ['mentor', 'scheduleOn']
+        })
         
         if(!events) throw new Error('Something went wrong')
+        
+        if(queryTopics.length > 0)
+            events = events.filter(e => {
+                if((e['topics'].length > 0) && (queryTopics.some(topic => e['topics'].includes(topic.toLowerCase()))))
+                    return e
+            })
 
-        events = events.filter(d => d.topics.length > 0)
+        if(inprogress === 'true'){
+            events = events.filter(e => {if(e.bookings.length==0) return e})
+            return res.send(events).status(200)
+        }
+
+        else if(registered === 'true')
+            events = events.filter(e => {if(e.bookings.length > 0) return e})
 
         return res.send(events).status(200)
     } catch (error) {
@@ -231,6 +247,39 @@ exports.getMyEvents = async (req, res, next) =>{
 
         return res.send(events).status(200)
 
+    } catch (error) {
+        next({
+            status: 401,
+            message: error.message
+        })
+    }
+}
+
+exports.getEventsInProgress = async(req, res, next)=>{
+    try {
+        let events = await db.Event
+            .find()
+            .populate({
+                path: 'topics',
+                model: 'Topic',
+                transform: topic => topic.name,
+            })
+            .populate({
+                path: 'bookings',
+                populate: {
+                    path: 'mentor',
+                    populate: {
+                        path: 'user',
+                        select: 'name'
+                    },
+                    transform: mentor => mentor.user.name,
+                },
+                select: ['mentor', 'scheduleOn']
+            })
+
+        events = events.filter(e => {if(e.bookings.length==0) return e})
+
+        return res.send(events).status(200)
     } catch (error) {
         next({
             status: 401,

@@ -2,7 +2,9 @@ const db = require('../db/models')
 
 exports.getStudent = async (req, res, next)=>{
     try {
-        const student = await db.Student.findOne({'user': req.user._id})
+        const student = await db.Student
+            .findOne({'user': req.user._id})
+            .select('-registeredEvents')
 
         if(!student) throw new Error('student not exists')
 

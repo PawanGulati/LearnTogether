@@ -44,31 +44,27 @@ exports.createDemand = async (req, res, next) =>{
 exports.getAllDemands = async (req, res, next)=>{
     try {
         const {topic} = req.query
-        let topics = []
+        let queryTopics = []
 
         if(typeof topic === "string")
-            topics.push(topic)
+            queryTopics.push(topic)
         else if(topic === undefined)
-            topics = []
+            queryTopics = []
         else
-            topics = [...topic]
+            queryTopics = [...topic]
 
         let demands
 
-        if(topics.length === 0)
-            demands = await db.Demand.find({}).populate({path: 'topics', select: 'name'})
-        else
-            demands = await db.Demand
-                .find({})
-                .populate({
-                    path: "topics", 
-                    match: {name: {$in : topics}}, //TODO: OTHER TOPICS NOT SHOWING
-                    select: 'name'
-                })
+        demands = await db.Demand.find({})
+            .populate({path: 'topics', select: 'name', transform: topic => topic.name})
         
         if(!demands) throw new Error('Something went wrong')
         
-        demands = demands.filter(d => d.topics.length > 0)
+        if(queryTopics.length > 0)
+            demands = demands.filter(d => {
+                if((d['topics'].length > 0) && (queryTopics.some(topic => d['topics'].includes(topic.toLowerCase()))))
+                    return d
+            })
 
         return res.send(demands).status(200)
     } catch (error) {
