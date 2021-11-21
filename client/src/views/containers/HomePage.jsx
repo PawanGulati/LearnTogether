@@ -18,6 +18,7 @@ export default function HomePage(props) {
     const pathname = props.match.path;
 
     React.useEffect(() => {
+        
         props.set_cur_student()
     }, [])
 

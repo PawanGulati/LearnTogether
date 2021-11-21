@@ -16,8 +16,7 @@ import {setToken} from './utils/services/api'
 import { auth_fail, auth_success, logout, set_user_fromID } from './store/user-store/user-actions';
 import { set_cur_student_async } from './store/student-store/student-actions';
 
-// import withSpinner from './hoc/withSpinner/withSpinner'
-// const HomePageLoded = withSpinner(HomePage)
+import withSpinner from './hoc/withSpinner/withSpinner'
 
 // Checking if token is valid(not expired also comes init) and there in local storage, then set a user else logout or not set a user
 //TODO: BUGFIX: auto logout without a refresh
@@ -45,6 +44,22 @@ const setUserFromToken = async () =>{
 
 setUserFromToken()
 
+function HomeRoute(props){
+  return (
+    <Route path='' render={
+      (innerProps)=>{
+        return props.current_user ? (
+          <Layout>
+            <HomePage isLoading={props.isLoading} set_cur_student={props.set_cur_student} {...innerProps}/>
+          </Layout>
+        ): <LandingPage />
+      }}
+    />
+  )
+}
+
+const HomeRouteLoaded = withSpinner(HomeRoute)
+
 function App(props) {
   let {pathname} = useLocation()
   
@@ -53,15 +68,7 @@ function App(props) {
         <Switch>
           <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
           <Route path='/404' component={NotFound} />
-          <Route path='' render={
-            (innerProps)=>{
-              return props.current_user ? (
-                <Layout>
-                  <HomePage isLoading={props.isLoading} set_cur_student={props.set_cur_student} {...innerProps}/>
-                </Layout>
-              ): <LandingPage />
-            }}
-          />
+          <HomeRouteLoaded {...props} isLoading={props.isLoading} />
           <Redirect to='/404' />
         </Switch>
     </div>
