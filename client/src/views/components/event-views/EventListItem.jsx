@@ -1,23 +1,28 @@
-import { Typography } from '@mui/material'
 import React from 'react'
+import moment from 'moment'
+
+import { IconButton, Tooltip, Typography } from '@mui/material'
+import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
+
 import RoundedPaper from '../RoundedPaper'
 
 const listPaperItemStyles = {
-  backgroundColor: 'primary.main',
-  color: '#fff',
+//   backgroundColor: 'primary.main',
+//   color: '#fff',
   borderRadius:2,
   flexDirection:'row',
   justifyContent:'space-evenly',
   alignItems:'center',
-  padding:3
+  padding:3,
+  border: '2px solid var(--primary-blue)'
 }
 
-export default function EventListItem(props) {
+export default function EventListItem({data, ...xtra}) {
     const {
         students,
         topics,
         bookings
-    } = props.data;
+    } = data;
 
     return (
         <RoundedPaper height={50} extraStyles={listPaperItemStyles}>
@@ -36,14 +41,32 @@ export default function EventListItem(props) {
                                 textTransform: 'capitalize',
                             }}
                         >
-                            {topic}, 
+                            {topic + (id === topics.length-1 ? '':',')} 
                         </Typography>
                     )
                 }
             </div>
-            <div style={{width:'100%'}}>
-                <Typography variant='subtitle2'>{bookings.length} Bookings</Typography>
-            </div>
+            {
+                bookings.length > 0 && (
+                    <>
+                        <div style={{width:'100%'}}>
+                            <Typography variant='subtitle2'>{xtra.mentor}</Typography>
+                        </div>
+                        <div style={{width:'100%'}}>
+                            <Typography variant='subtitle2'>{moment(xtra.date).format('DD/MM/YYYY')}</Typography>
+                        </div>
+                    </>
+                )
+            }
+            {
+                xtra.options && (
+                    <Tooltip title='Join Event' >
+                        <IconButton onClick={()=>xtra.handleOpenJoinPropmt(data, true)} >
+                            <GroupAddOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                )
+            }
         </RoundedPaper>
     )
 }

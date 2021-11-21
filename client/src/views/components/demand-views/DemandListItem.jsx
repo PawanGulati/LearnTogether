@@ -1,24 +1,27 @@
-import { Typography } from '@mui/material'
+import { IconButton, Tooltip, Typography } from '@mui/material'
 import React from 'react'
 import RoundedPaper from '../RoundedPaper'
+
+import CachedOutlinedIcon from '@mui/icons-material/CachedOutlined';
 
 import moment from 'moment'
 
 const listPaperItemStyles = {
-  backgroundColor: 'primary.main',
-  color: '#fff',
+//   backgroundColor: 'primary.main',
+//   color: '#fff',
   borderRadius:2,
   flexDirection:'row',
   justifyContent:'space-evenly',
   alignItems:'center',
-  padding:3
+  padding:3,
+  border: '2px solid var(--primary-blue)'
 }
 
-export default function DemandListItem(props) {
+export default function DemandListItem({data, ...xtra}) {
     const {
         topics,
         createdOn
-    } = props.data;
+    } = data;
 
     return (
         <RoundedPaper height={50} extraStyles={listPaperItemStyles}>
@@ -34,7 +37,7 @@ export default function DemandListItem(props) {
                                 textTransform: 'capitalize',
                             }}
                         >
-                            {topic}, 
+                            {topic + (id === topics.length-1 ? '':',')}
                         </Typography>
                     )
                 }
@@ -42,6 +45,15 @@ export default function DemandListItem(props) {
             <div style={{width:'100%'}}>
                 <Typography variant='subtitle2'>{moment(createdOn).format('DD/MM/YYYY')}</Typography>
             </div>
+            {
+                xtra.options && (
+                    <Tooltip title='Convert Event' >
+                        <IconButton onClick={()=>xtra.handleOpenJoinPropmt(data, false)}>
+                            <CachedOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                )
+            }
         </RoundedPaper>
     )
 }

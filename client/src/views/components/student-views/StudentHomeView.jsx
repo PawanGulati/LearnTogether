@@ -7,7 +7,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import RoundedPaper from '../RoundedPaper';
 import { makeStyles } from '@mui/styles';
-import { Button, Typography } from '@mui/material';
+import { Button, Switch, Typography } from '@mui/material';
+
 import EventList from '../event-views/EventList';
 import DemandList from '../demand-views/DemandList';
 import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
@@ -15,6 +16,7 @@ import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
 import withSpinner from '../../../hoc/withSpinner/withSpinner'
 import { set_my_demands } from '../../../utils/services/demands';
 import { set_past_events } from '../../../utils/services/events';
+import CreateDemandModal from '../demand-views/CreateDemandModal';
 const DemandListLoaded = withSpinner(DemandList)
 const EventListLoaded = withSpinner(EventList)
 
@@ -34,28 +36,45 @@ const useStyles = makeStyles(theme=>({
 export default function StudentHomeView() {
   const classes = useStyles()
   
+  const reload=()=>window.location.reload();
+
   const [demands, setDeamnds] = React.useState(null)
   const [events, setEvents] = React.useState(null)
 
   React.useEffect(()=>{
     let mounted = true
-
+    
     set_my_demands().then(demands => {
       if(mounted) setDeamnds(demands)
     })
-
+    
     return () => mounted = false
   },[])
-
+  
   React.useEffect(()=>{
     let mounted = true
-
+    
     set_past_events().then(events => {
       if(mounted) setEvents(events)
     })
-
+    
     return () => mounted = false
   },[])
+
+  // modal state
+  const [text, setText] = React.useState("student");
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = (t) => {setOpen(true); setText(t)}
+  const handleClose = () => {setOpen(false); reload();}
+
+  // event toggle
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
 
   return (
     <Box
@@ -105,6 +124,7 @@ export default function StudentHomeView() {
                       fontWeight:600,
                       letterSpacing:1,
                     }}
+                    onClick={()=>handleOpen('Demands')}
                     fullWidth
                   >
                     Create Demand
@@ -131,12 +151,26 @@ export default function StudentHomeView() {
           {/* Recent Meetups */}
           <Grid item xs={12} height={'100%'}>
             <RoundedPaper height={230}>
-              <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>My Events</Typography>
-              <EventListLoaded isLoading={events === null} events={events} />
+              <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}} mb={1}>
+                <Typography align='left' fontWeight={600}  letterSpacing={1}>My Events</Typography>
+                <Box sx={{display:'flex', alignItems:'center'}}>
+                  <Switch
+                    checked={checked}
+                    onChange={handleChange}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                  />
+                  <Typography
+                    fontWeight={550}
+                    variant='subtitle1'
+                  >Scheduled</Typography>
+                </Box>
+              </Box>
+              <EventListLoaded isLoading={events === null} events={events} checked={checked} />
             </RoundedPaper>
           </Grid>
         </Grid>
       </Container>
+      <CreateDemandModal open={open} handleClose={handleClose} text={text} />
       <SnackBar />
     </Box>
   )
