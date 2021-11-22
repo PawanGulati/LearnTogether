@@ -124,18 +124,20 @@ exports.joinEvent = async(req, res, next)=>{
         const student = await db.Student.findOne({'user':req.user._id})
         if(!student) throw new Error('Student not exists')
 
-        const event = await db.Event.findById(req.params.eventID)
+        let event = await db.Event.findById(req.params.eventID)
         if(!event) throw new Event('Event not exists')
 
         const check = await db.Student.findOne({'registeredEvents': event._id})
 
         if(check) throw new Error('Already a member')
 
-        event['students'] = [...event['students'], student._id]
-        student['registeredEvents'] = [...student['registeredEvents'], event._id]
+        event = await db.Event.findByIdAndUpdate(event._id, {
+            '$push': {'students': student._id}
+        })
 
-        await event.save()
-        await student.save()
+        await db.Student.findByIdAndUpdate(student._id, {
+            '$push': {'registeredEvents': event._id}
+        })
 
         return res.send(event).status(201)
     } catch (error) {

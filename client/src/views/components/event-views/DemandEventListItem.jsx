@@ -14,10 +14,10 @@ export default function DemandEventListItem(props) {
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardContent>
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={1} sx={{flexWrap: 'wrap', height:'5em', overflow:'auto'}}>
                     {
                         topics.map((topic, idx) => 
-                            <Chip label={topic} sx={{textTransform: 'capitalize'}} />
+                            <Chip label={topic} sx={{textTransform: 'capitalize', margin:'3px 0px'}}/>
                         )
                     }
                 </Stack>

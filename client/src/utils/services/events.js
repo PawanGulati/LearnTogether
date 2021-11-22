@@ -83,3 +83,20 @@ export const book_event = async ({eventID, data}) =>{
         }
     }
 }
+
+export const create_event = async(data)=>{
+    try {
+        const event = await api.call('post', 'event', data)
+        store.dispatch(auth_message('You have created a Event!! Refresh the page', 'success', true))
+
+        return event
+    } catch (err) {
+        if(err.response){
+            const {error} = err.response?.data
+            store.dispatch(auth_message(error.message,'error',true))
+        }
+        else{
+            store.dispatch(auth_message(err.message,'error',true))
+        }        
+    }
+}

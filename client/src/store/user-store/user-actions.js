@@ -50,7 +50,7 @@ export const set_cur_user = ({api_type, ...data}) =>{
                 'timer',JSON.stringify(time_to_login)
             )
 
-            dispatch(auth_success(user))
+            dispatch(auth_success(user.user))
             dispatch(auth_message('You have successfully logged in','success',true))
             dispatch(remove_error())
             return true

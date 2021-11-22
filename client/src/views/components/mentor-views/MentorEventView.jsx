@@ -50,7 +50,7 @@ export default function MentorEventView() {
 
     const handleSubmit = () =>{
         if(cur_event)
-            book_event({eventID: cur_event._id, data: {date: moment(date).format('DD/MM/YYYY')}})
+            book_event({eventID: cur_event._id, data: {date: moment(date).format('MM/DD/YYYY')}})
 
         setOpenPropmt(false);
         // reload()
@@ -82,7 +82,7 @@ export default function MentorEventView() {
                 >
                     Events
                 </Typography>
-                <Box sx={{height:'520px', overflow:'auto'}}>
+                <Box>
                     <EventListLoaded isLoading={events === null} events={events} handleOpenPrompt={handleOpenPrompt} />
                 </Box>
             </Container>

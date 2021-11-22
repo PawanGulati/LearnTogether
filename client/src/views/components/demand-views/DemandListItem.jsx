@@ -5,6 +5,7 @@ import RoundedPaper from '../RoundedPaper'
 import CachedOutlinedIcon from '@mui/icons-material/CachedOutlined';
 
 import moment from 'moment'
+import { Box } from '@mui/system';
 
 const listPaperItemStyles = {
 //   backgroundColor: 'primary.main',
@@ -13,8 +14,8 @@ const listPaperItemStyles = {
   flexDirection:'row',
   justifyContent:'space-evenly',
   alignItems:'center',
-  padding:3,
-  border: '2px solid var(--primary-blue)'
+  padding:1,
+  border: '2px solid var(--primary-blue)',
 }
 
 export default function DemandListItem({data, ...xtra}) {
@@ -25,7 +26,16 @@ export default function DemandListItem({data, ...xtra}) {
 
     return (
         <RoundedPaper height={50} extraStyles={listPaperItemStyles}>
-            <div style={{width:'100%', overflow:'hidden', display:'inline-block', textOverflow:'ellipsis'}}>
+            <Box 
+                sx={{
+                    width:'100%', 
+                    height:'100%',
+                    overflow:'hidden', 
+                    display:'inline-block', 
+                    textOverflow:'ellipsis',
+                    whiteSpace: 'nowrap'
+                }}
+            >
                 {
                     topics.map((topic, id) => 
                         <Typography 
@@ -41,9 +51,9 @@ export default function DemandListItem({data, ...xtra}) {
                         </Typography>
                     )
                 }
-            </div>
+            </Box>
             <div style={{width:'100%'}}>
-                <Typography variant='subtitle2'>{moment(createdOn).format('DD/MM/YYYY')}</Typography>
+                <Typography variant='subtitle2'>{moment(createdOn).format('MM/DD/YYYY')}</Typography>
             </div>
             {
                 xtra.options && (

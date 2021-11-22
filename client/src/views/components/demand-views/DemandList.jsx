@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import DemandListItem from './DemandListItem'
@@ -23,21 +24,19 @@ import DemandListItem from './DemandListItem'
 
 export default function DemandList(props) {
     return (
-        <>
-            <Box style={{height:'100%', width:'100%', maxHeight:'100%', overflow:'auto'}} >
-                {
-                    props.demands.map((demand, idx)=>
-                        <div key={idx}>
-                            <DemandListItem 
-                                data={demand} 
-                                options={props.options} 
-                                handleOpenJoinPropmt={props.handleOpenJoinPropmt}
-                            />
-                            {(idx !== props.demands.length-1) && <Box my={2}/>}
-                        </div>
-                    )
-                }
-            </Box>
-        </>
+        <Stack sx={{overflow: 'auto', height: '100%'}} >
+            {
+                props.demands.map((demand, idx)=>
+                    <div key={idx} style={{marginRight: '12px'}}>
+                        <DemandListItem 
+                            data={demand} 
+                            options={props.options} 
+                            handleOpenJoinPropmt={props.handleOpenJoinPropmt}
+                        />
+                        {(idx !== props.demands.length-1) && <Box my={2}/>}
+                    </div>
+                )
+            }
+        </Stack>
     )
 }

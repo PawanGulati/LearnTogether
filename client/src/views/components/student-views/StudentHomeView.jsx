@@ -14,9 +14,9 @@ import DemandList from '../demand-views/DemandList';
 import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
 
 import withSpinner from '../../../hoc/withSpinner/withSpinner'
-import { set_my_demands } from '../../../utils/services/demands';
+import { create_demand, set_my_demands } from '../../../utils/services/demands';
 import { set_past_events } from '../../../utils/services/events';
-import CreateDemandModal from '../demand-views/CreateDemandModal';
+import CreateDemandModal from '../demand-views/CreateChipModal';
 const DemandListLoaded = withSpinner(DemandList)
 const EventListLoaded = withSpinner(EventList)
 
@@ -93,7 +93,7 @@ export default function StudentHomeView() {
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4, pt: 8}}>
         <Grid container spacing={3}>
           {/* Create MEETUP */}
-          <Grid item xs={12} height={'100%'}>
+          <Grid item xs={12} height={'100%'} width={'100%'}>
             <RoundedPaper height={300}>
               <Grid 
                 container
@@ -142,14 +142,14 @@ export default function StudentHomeView() {
             </RoundedPaper>
           </Grid>
           {/* Scheduled Meetups */}
-          <Grid item xs={12} height={'100%'}>
+          <Grid item xs={12} height={'100%'} width={'100%'}>
             <RoundedPaper height={230}>
               <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>My Demands</Typography>
               <DemandListLoaded isLoading={demands === null} demands={demands} />
             </RoundedPaper>
           </Grid>
           {/* Recent Meetups */}
-          <Grid item xs={12} height={'100%'}>
+          <Grid item xs={12} height={'100%'} width={'100%'}>
             <RoundedPaper height={230}>
               <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}} mb={1}>
                 <Typography align='left' fontWeight={600}  letterSpacing={1}>My Events</Typography>
@@ -170,7 +170,7 @@ export default function StudentHomeView() {
           </Grid>
         </Grid>
       </Container>
-      <CreateDemandModal open={open} handleClose={handleClose} text={text} />
+      <CreateDemandModal open={open} handleClose={handleClose} text={text} create_async={create_demand} />
       <SnackBar />
     </Box>
   )

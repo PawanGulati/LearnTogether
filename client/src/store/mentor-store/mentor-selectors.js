@@ -9,12 +9,12 @@ export const selectCurMentor = createSelector(
     mentor => mentor.cur_mentor
 )
 
-export const selectStudentError = createSelector(
+export const selectMentorError = createSelector(
     [selectMentor],
     mentor => mentor.error
 )
 
-export const selectStudentLoading = createSelector(
+export const selectMentorLoading = createSelector(
     [selectMentor],
     mentor => mentor.loading
 )

@@ -164,9 +164,9 @@ export default function StudentEventView(props) {
               />
             </Grid>
             {/* ALL DEMANDS */}
-            <Grid item >
-              <RoundedPaper height={300}>
-                  <Box sx={{width:'100%', typography: 'body1'}}>
+            <Grid item height={'100%'} width={'100%'} >
+              <RoundedPaper height={350}>
+                  <Box sx={{width:'100%', height:'100%', typography: 'body1', overflow: 'hidden'}} pb={4}>
                     <TabContext value={valueDemand}>
                       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChangeDemand} aria-label="lab API tabs example">
@@ -174,7 +174,7 @@ export default function StudentEventView(props) {
                           <Tab label="Suggested Demands" value="2" />
                         </TabList>
                       </Box>
-                      <TabPanel value="1"sx={{height:'100%'}}>
+                      <TabPanel value="1" sx={{height:'100%'}}>
                         <DemandListLoaded 
                           isLoading={demands === null} 
                           demands={demands} 
@@ -189,8 +189,8 @@ export default function StudentEventView(props) {
               </RoundedPaper>
             </Grid>
             {/* ALL EVENTS */}
-            <Grid item >
-              <RoundedPaper height={300}>
+            <Grid item height={'100%'} width={'100%'} >
+              <RoundedPaper height={'100%'}>
                 <Box sx={{width:'100%', typography: 'body1'}}>
                   <TabContext value={valueEvent}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

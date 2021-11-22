@@ -13,8 +13,9 @@ import BookingList from '../booking-views/BookingsList';
 import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
 
 import withSpinner from '../../../hoc/withSpinner/withSpinner'
-import CreateDemandModal from '../demand-views/CreateDemandModal';
+import CreateChipModal from '../demand-views/CreateChipModal';
 import { set_my_bookings } from '../../../utils/services/bookings';
+import { create_event } from '../../../utils/services/events';
 
 const BookingListLoaded = withSpinner(BookingList)
 
@@ -49,11 +50,9 @@ export default function MentorHomeView() {
   },[])
 
   // modal state
-  const [text, setText] = React.useState("student");
-
   const [open, setOpen] = React.useState(false);
 
-  const handleOpen = (t) => {setOpen(true); setText(t)}
+  const handleOpen = (t) => {setOpen(true); }
   const handleClose = () => {setOpen(false); }
 
   return (
@@ -104,7 +103,7 @@ export default function MentorHomeView() {
                       fontWeight:600,
                       letterSpacing:1,
                     }}
-                    onClick={()=>handleOpen('Demands')}
+                    onClick={()=>handleOpen()}
                     fullWidth
                   >
                     Create Event
@@ -132,7 +131,7 @@ export default function MentorHomeView() {
           </Grid>
         </Grid>
       </Container>
-      <CreateDemandModal open={open} handleClose={handleClose} text={text} />
+      <CreateChipModal open={open} handleClose={handleClose} text='Event' create_async={create_event} />
       <SnackBar />
     </Box>
   )

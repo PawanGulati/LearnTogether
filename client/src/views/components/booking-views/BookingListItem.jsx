@@ -5,6 +5,7 @@ import { IconButton, Tooltip, Typography } from '@mui/material'
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 
 import RoundedPaper from '../RoundedPaper'
+import { Box } from '@mui/system';
 
 const listPaperItemStyles = {
 //   backgroundColor: 'primary.main',
@@ -13,7 +14,7 @@ const listPaperItemStyles = {
   flexDirection:'row',
   justifyContent:'space-evenly',
   alignItems:'center',
-  padding:3,
+  padding:1,
   border: '2px solid var(--primary-blue)'
 }
 
@@ -31,7 +32,16 @@ export default function BookingListItem({data, ...xtra}) {
             <div style={{width:'100%'}}>
                 <Typography variant='subtitle2'>{students.length} Students</Typography>
             </div>
-            <div style={{width:'100%', overflow:'hidden', display:'inline-block', textOverflow:'ellipsis'}}>
+            <Box 
+                sx={{
+                    width:'100%', 
+                    height:'100%',
+                    overflow:'hidden', 
+                    display:'inline-block', 
+                    textOverflow:'ellipsis',
+                    whiteSpace: 'nowrap'
+                }}
+            >
                 {
                    topics.map((topic, id) => 
                         <Typography 
@@ -47,7 +57,7 @@ export default function BookingListItem({data, ...xtra}) {
                         </Typography>
                     )
                 }
-            </div>
+            </Box>
             <div style={{width:'100%'}}>
                 <Typography variant='subtitle2'>{moment(scheduleOn).format('DD/MM/YYYY')}</Typography>
             </div>
