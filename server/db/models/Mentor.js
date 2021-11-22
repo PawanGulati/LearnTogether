@@ -9,6 +9,15 @@ const mentorSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    social_links:{
+        linkedin: String,
+        facebook: String,
+        codechef: String,
+        codeforces: String,
+        leetcode: String,
+        github: String,
+        twitter: String
+    },
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Student'

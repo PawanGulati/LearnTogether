@@ -117,6 +117,7 @@ export default withRouter(connect(null, mapDispatchToProps)(function SignInSide(
           xs={false}
           md={7}
           sx={{
+            width:'100%',
             backgroundImage: `url(${BackGround})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>

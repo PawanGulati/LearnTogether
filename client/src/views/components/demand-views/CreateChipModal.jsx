@@ -9,15 +9,12 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 
 import PaperInput from '../PaperInput';
 
-export default function CreateDemandModal({open, handleClose, text, create_async}) {
+export default function CreateChipModal({open, handleClose, text, create_async}) {
     const style = {
         position: 'relative',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
         ...(text === "mentor" ? {width:"56rem"} : {width:"36rem"}),
         height: '25rem',
         borderRadius:'25px',
@@ -25,7 +22,7 @@ export default function CreateDemandModal({open, handleClose, text, create_async
         boxShadow: 24,
         p: 4,
         fontFamily:"Proxima Nova Alt",
-        overflow:'auto'
+        overflow:'auto',
     };
     
     const [date, setDate] = React.useState(new Date());
@@ -84,7 +81,7 @@ export default function CreateDemandModal({open, handleClose, text, create_async
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Stack spacing={2}>
+                    <Stack spacing={2} width={'100%'} height={'100%'} display='flex'>
                         <PaperInput placeholder='Type topic name to add' topic={topic} handleInputChange={handleInputChange} />
                         <Button
                                 variant='contained'
@@ -106,15 +103,22 @@ export default function CreateDemandModal({open, handleClose, text, create_async
                                 />
                             </LocalizationProvider>
                         }
-                        <Button
-                            variant='contained'
-                            color='secondary'
-                            size='large'
+                        <Box 
                             sx={{
-                                my:4
+                                my:4,
+                                flexGrow: 1,
+                                alignItems: 'flex-end',
+                                display: 'flex'
                             }}
-                            onClick={handleCreate}
-                        >Create {text} </Button>
+                        >
+                            <Button
+                                variant='contained'
+                                color='secondary'
+                                size='large'
+                                fullWidth   
+                                onClick={handleCreate}
+                            >Create {text} </Button>
+                        </Box>
                     </Stack>
                 </Box>
             </Modal>

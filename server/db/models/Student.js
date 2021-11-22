@@ -10,6 +10,15 @@ const studentSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
+    social_links:{
+        linkedin: String,
+        facebook: String,
+        codechef: String,
+        codeforces: String,
+        leetcode: String,
+        github: String,
+        twitter: String
+    },
     mentorsFollowing: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Mentor'

@@ -12,6 +12,7 @@ export default function PaperInput(props) {
                 onChange={e => props.handleInputChange(e)}
                 placeholder={props.placeholder}
                 inputProps={{ 'aria-label': 'search events' }}
+                autoFocus
             />
         </Paper>
     )
