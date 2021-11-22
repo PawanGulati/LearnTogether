@@ -57,9 +57,11 @@ export const set_cur_user = ({api_type, ...data}) =>{
         } catch (err) {
             if(err.response){
                 const {error} = err.response?.data
+                dispatch(auth_message(error.message,'error', true))
                 dispatch(auth_fail(error))
             }
             else{
+                dispatch(auth_message(err.message,'error', true))
                 dispatch(auth_fail({message:err.message}))
             }
         }

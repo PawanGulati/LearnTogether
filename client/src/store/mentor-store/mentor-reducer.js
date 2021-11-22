@@ -30,7 +30,7 @@ const reducer = (state = initialState, action)=>{
         case SET_CUR_MENTOR:
             return {
                 ...state,
-                cur_student: action.mentor
+                cur_mentor: action.mentor
             }
         case POP_UP_MENTOR:
             return {

@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import StudentSignup from './StudentSignup';
 import MentorSignup from './MentorSignup';
 
-export default function SignupModal({open, handleClose, text}) {
+export default function SignupModal({open, handleClose, text, ...otherProps}) {
     const style = {
         position: 'relative',
         top: '50%',
@@ -44,7 +44,7 @@ export default function SignupModal({open, handleClose, text}) {
                         </Typography>
                     </Box>
                     {
-                        text === "mentor" ? <StudentSignup /> : <MentorSignup />
+                        text === "student" ? <StudentSignup {...otherProps} /> : <MentorSignup {...otherProps} />
                     }
                 </Box>
             </Modal>

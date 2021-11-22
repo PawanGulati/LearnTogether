@@ -10,7 +10,7 @@ import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { withRouter } from 'react-router';
+import { validFormCheckInit } from '../../utils/FormValidators/formValidator';
 
 function Copyright(props) {
   return (
@@ -25,8 +25,8 @@ function Copyright(props) {
   );
 }
 
-export default withRouter(function LoginPage(props) {
-    
+export default function LoginPage(props) {
+
   // INPUT STATE
   const [inputs, setInputs] = React.useState({email:'',password:''})
   const handleInputChange = ({ target: { name, value } }) => {
@@ -41,10 +41,9 @@ export default withRouter(function LoginPage(props) {
     
     try {
         // validation checking
-        // if(!validFormCheckInit(inputs)){
-        //     throw new Error('Invalid Form')
-        // }
-
+        if(!validFormCheckInit(inputs)){
+            throw new Error('Invalid Form')
+        }
 
         // API call 
         const check = await props.set_cur_user({...inputs, api_type: 'login'})
@@ -57,7 +56,7 @@ export default withRouter(function LoginPage(props) {
             setInputs({email:'',password:''})
         }
     } catch (error) {
-      props.auth_fail({ message:error.message })
+      props.setLoginErr(error.message)
     }
   }
   
@@ -78,16 +77,16 @@ export default withRouter(function LoginPage(props) {
             <Typography fontFamily="Proxima Nova Alt" component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSignIn} sx={{ mt: 1 }}>
-              {props.auth_error ? 
-                  <Typography 
-                    color={"red"}
-                    variant='subtitle2' 
-                    style={{width:'100%', textAlign:'center', fontWeight:'bold'}}
-                  >{props.auth_error}
-                  </Typography>
-                  : null
-              }
+            {props.error ? 
+                <Typography
+                color={"red"}
+                variant='subtitle2' 
+                style={{width:'100%', textAlign:'center', fontWeight:'bold'}}
+                >{props.error}
+                </Typography>
+                : null
+            }
+            <Box component="form" onSubmit={e => handleSignIn(e)} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -140,4 +139,4 @@ export default withRouter(function LoginPage(props) {
             </Box>
           </Box>
     )
-})
+}
