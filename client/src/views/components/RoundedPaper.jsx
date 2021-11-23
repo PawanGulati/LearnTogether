@@ -8,7 +8,7 @@ export default function RoundedPaper(props) {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: {lg: props.height, xs: '100%'},
+                height: {md: props.height, xs: '100%'},
                 borderRadius: 5,
                 // height:'100%',
                 width:'100%',

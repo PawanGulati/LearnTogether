@@ -5,13 +5,19 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { red } from '@mui/material/colors';
 
-export default function MentorListItem() {
+export default function MentorListItem(props) {
+    const {
+        user:{
+            name = 'Mentor'
+        }
+    } = props.data
+
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
                 avatar={
                 <Avatar sx={{ bgcolor: red[300] }} aria-label="mentor">
-                    E
+                    {name[0].toUpperCase()}
                 </Avatar>
                 }
                 action={
@@ -21,7 +27,15 @@ export default function MentorListItem() {
                 }
             />
             <CardActions disableSpacing sx={{justifyContent:'space-between',display:'flex'}}>
-                <Typography>Eddie Hoppe</Typography>
+                <Typography
+                    sx={{
+                        overflow:'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                    }}
+                >
+                    {name}
+                </Typography>
                 <IconButton aria-label="share">
                     <PersonAddAlt1Icon />
                 </IconButton>

@@ -7,8 +7,18 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import RoundedPaper from '../RoundedPaper';
 import { makeStyles } from '@mui/styles';
-import { Button, Typography } from '@mui/material';
+import { Button, Switch, Typography } from '@mui/material';
+
 import EventList from '../event-views/EventList';
+import DemandList from '../demand-views/DemandList';
+import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
+
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
+import { create_demand, set_my_demands } from '../../../utils/services/demands';
+import { set_past_events } from '../../../utils/services/events';
+import CreateDemandModal from '../demand-views/CreateChipModal';
+const DemandListLoaded = withSpinner(DemandList)
+const EventListLoaded = withSpinner(EventList)
 
 const useStyles = makeStyles(theme=>({
   grid_flex:{
@@ -26,6 +36,46 @@ const useStyles = makeStyles(theme=>({
 export default function StudentHomeView() {
   const classes = useStyles()
   
+  const reload=()=>window.location.reload();
+
+  const [demands, setDeamnds] = React.useState(null)
+  const [events, setEvents] = React.useState(null)
+
+  React.useEffect(()=>{
+    let mounted = true
+    
+    set_my_demands().then(demands => {
+      if(mounted) setDeamnds(demands)
+    })
+    
+    return () => mounted = false
+  },[])
+  
+  React.useEffect(()=>{
+    let mounted = true
+    
+    set_past_events().then(events => {
+      if(mounted) setEvents(events)
+    })
+    
+    return () => mounted = false
+  },[])
+
+  // modal state
+  const [text, setText] = React.useState("student");
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = (t) => {setOpen(true); setText(t)}
+  const handleClose = () => {setOpen(false); reload();}
+
+  // event toggle
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <Box
       component="main"
@@ -43,7 +93,7 @@ export default function StudentHomeView() {
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4, pt: 8}}>
         <Grid container spacing={3}>
           {/* Create MEETUP */}
-          <Grid item xs={12} height={'100%'}>
+          <Grid item xs={12} height={'100%'} width={'100%'}>
             <RoundedPaper height={300}>
               <Grid 
                 container
@@ -73,10 +123,12 @@ export default function StudentHomeView() {
                     sx={{
                       fontWeight:600,
                       letterSpacing:1,
+                      wordSpacing:3
                     }}
+                    onClick={()=>handleOpen('Request')}
                     fullWidth
                   >
-                    Create Meetup
+                    Create Request
                   </Button>
                 </Grid>
                 <Grid className={`${classes.center}`} item height={'100%'} xs={12} md={5}>
@@ -91,25 +143,36 @@ export default function StudentHomeView() {
             </RoundedPaper>
           </Grid>
           {/* Scheduled Meetups */}
-          <Grid item xs={12} height={'100%'}>
-            <RoundedPaper height={180}>
-                  <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>Scheduled Meetups</Typography>
-                <Box style={{height:'100%', width:'100%', maxHeight:'100%', overflow:'auto'}}>
-                    <EventList />
-                </Box>
+          <Grid item xs={12} height={'100%'} width={'100%'}>
+            <RoundedPaper height={230}>
+              <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>My Demands</Typography>
+              <DemandListLoaded isLoading={demands === null} demands={demands} />
             </RoundedPaper>
           </Grid>
           {/* Recent Meetups */}
-          <Grid item xs={12} height={'100%'}>
-            <RoundedPaper height={180}>
-                  <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>Recent Meetups</Typography>
-                <Box style={{height:'100%', width:'100%', maxHeight:'100%', overflow:'auto'}}>
-                    <EventList />
+          <Grid item xs={12} height={'100%'} width={'100%'}>
+            <RoundedPaper height={230}>
+              <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}} mb={1}>
+                <Typography align='left' fontWeight={600}  letterSpacing={1}>My Events</Typography>
+                <Box sx={{display:'flex', alignItems:'center'}}>
+                  <Switch
+                    checked={checked}
+                    onChange={handleChange}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                  />
+                  <Typography
+                    fontWeight={550}
+                    variant='subtitle1'
+                  >Scheduled</Typography>
                 </Box>
+              </Box>
+              <EventListLoaded isLoading={events === null} events={events} checked={checked} />
             </RoundedPaper>
           </Grid>
         </Grid>
       </Container>
+      <CreateDemandModal open={open} handleClose={handleClose} text={text} create_async={create_demand} />
+      <SnackBar />
     </Box>
   )
 }

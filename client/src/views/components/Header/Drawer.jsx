@@ -8,9 +8,10 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MuiDrawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 
-import ListItems from './ListItems';
-import RoomListItems from './RoomListItems'
-import { Button, Typography } from '@mui/material';
+import ListItems from '../ListItems';
+import { selectCurUser } from '../../../store/user-store/user-selectors';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 let drawerWidth
 
@@ -40,14 +41,12 @@ const NewDrawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'ope
   }),
 );
 
-export default function Drawer({toggleDrawer, open, drawerWidth: dw}) {
+const mapStateToProps = createStructuredSelector({
+  cur_user: selectCurUser
+})
+
+export default connect(mapStateToProps)(function Drawer({toggleDrawer, open, drawerWidth: dw, cur_user}) {
     drawerWidth = dw;
-
-    const [roomView, setRoomView] = React.useState(false);
-
-    const showRoomsList = (show) =>{
-        setRoomView(show)
-    }
 
     return (
         <NewDrawer open={open} variant="permanent">
@@ -59,25 +58,15 @@ export default function Drawer({toggleDrawer, open, drawerWidth: dw}) {
                     px: [1],
                 }}
             >
-                {
-                    roomView ? (
-                        <Button>
-                            <Typography variant="h7"  onClick={()=>{showRoomsList(false)}}>Back</Typography>
-                        </Button>
-                    )
-                    :(
-                        <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
-                        </IconButton>
-                    )
-                }
+              
+            <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+            </IconButton>
             </Toolbar>
             <Divider />
             <List>
-                {
-                    roomView ? <RoomListItems /> : <ListItems showRoomsList={showRoomsList} />
-                }
+              <ListItems userType={cur_user['userType']}/>
             </List>
         </NewDrawer>
     )
-}
+})

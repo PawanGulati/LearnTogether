@@ -1,0 +1,41 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^6.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.15"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "start": "node index.js",
+    "client-install": "npm intall --prefix client",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+  },
+  "jest":{
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/PawanGulati/LearnTogether.git"
+  },
+  "author": "pawan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PawanGulati/LearnTogether/issues"
+  },
+  "homepage": "https://github.com/PawanGulati/LearnTogether#readme",
+  "description": "",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}

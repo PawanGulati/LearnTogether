@@ -30,12 +30,12 @@ export default withRouter(function ListItems(props) {
         </ListItemIcon>
         <ListItemText onClick={()=>props.history.push('/rooms')} primary="Rooms" />
       </ListItem>
-      <ListItem button>
+      {props.userType === 'student' && <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <ListItemText onClick={()=>props.history.push('/mentors')} primary="Mentors" />
-      </ListItem>
+      </ListItem>}
     </div>
   )
 })

@@ -4,32 +4,115 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { connect } from 'react-redux';
 
 import BackGround from '../../constants/images/gradient_back.jpg'
 import Logo from '../components/Logo';
 import LoginPage from './LoginPage';
 import HomeThemedButton from '../components/HomeThemedButton';
 import SignupModal from '../components/SignupModal';
+import SnackBar from '../../utils/NotificationPopUp/SnackBar'
+import { auth_message, set_cur_user } from '../../store/user-store/user-actions';
+
+import {FormCheckBasicFields, validateForm, validEmailRegex, validFormCheckInit, validPasswordRegex} from '../../utils/FormValidators/formValidator'
+import { withRouter } from 'react-router';
 
 const theme = createTheme();
 
-export default function SignInSide() {
-    const [text, setText] = React.useState("student");
+const mapDispatchToProps = dispatch => ({
+  set_cur_user: user => dispatch(set_cur_user(user)),
+  auth_message: (text,popUpType,open) => dispatch(auth_message(text,popUpType,open))
+})
 
-    // modal state
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = (t) => {setOpen(true); setText(t)}
-    const handleClose = () => setOpen(false);
+export default withRouter(connect(null, mapDispatchToProps)(function SignInSide(props) {
+  const [text, setText] = React.useState("student");
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-        });
-    };
+  const INPUT_INIT_STATE = {
+    email:'',
+    password:'',
+    conform_password:'',
+    name:'', 
+    institute: '',
+    linkedin: '',
+    facebook: '',
+    github: '',
+    twitter: ''
+  }
+
+  // modal state
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = (t) => {setOpen(true); setText(t)}
+  const handleClose = () => {
+    setOpen(false);
+
+    setRegErr('')
+
+    setInputs(INPUT_INIT_STATE)
+    
+    setErrors(INPUT_INIT_STATE)
+  }
+
+  // REGISTER INPUT STATE
+  const [inputs, setInputs] = React.useState(INPUT_INIT_STATE)
+  
+  const [errors, setErrors] = React.useState(INPUT_INIT_STATE)
+
+  const [loginErr, setLoginErr] = React.useState('')
+  const [regErr, setRegErr] = React.useState('')
+  
+  const handleInputChange = ({ target: { name, value } }) => {
+    const inputErrors = FormCheckBasicFields(errors, value, name, inputs)
+
+    setErrors({
+        ...errors,
+        ...inputErrors
+    })
+
+    setInputs({
+      ...inputs,
+      [name]: value
+    })
+  }
+
+  const handleSignUp = async (e, user_type) =>{
+    e.preventDefault()
+    
+    try {
+        const {
+          linkedin,
+          facebook,
+          github,
+          twitter,
+          ...compolsuryInputs
+        } = inputs
+
+        // validation checking
+        if(!validFormCheckInit(compolsuryInputs) || !validateForm(errors)){
+            throw new Error('Invalid Form')
+        }
+
+        const {
+          conform_password,
+          ...api_inputs
+        } = inputs
+
+        // API call
+        const check = await props.set_cur_user({
+          ...api_inputs, 
+          api_type: `register-${user_type}`
+        })
+
+        if(check){
+          // form initial state returned
+          setInputs(INPUT_INIT_STATE)
+
+          //redirection
+          props.history.push('/')
+        }
+    } catch (error) {
+      setRegErr(error.message)
+    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -42,6 +125,7 @@ export default function SignInSide() {
           xs={false}
           md={7}
           sx={{
+            width:'100%',
             backgroundImage: `url(${BackGround})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
@@ -72,13 +156,28 @@ export default function SignInSide() {
                     <HomeThemedButton text="mentor" handleOpen={()=>handleOpen("mentor")}/>
                     <HomeThemedButton text="student" handleOpen={()=>handleOpen("student")}/>
                 </div>
-                  <SignupModal open={open} handleClose={handleClose} text={text}/>
+                  <SignupModal 
+                    open={open} 
+                    handleClose={handleClose} 
+                    text={text}
+                    handleInputChange={handleInputChange}
+                    inputs={inputs}
+                    handleSignUp={handleSignUp}
+                    error={regErr}
+                  />
             </div>
         </Grid>
         <Grid item xs={12} md={5} component={Paper} elevation={6} square>
-            <LoginPage handleSubmit={handleSubmit}/>
+            <LoginPage 
+              set_cur_user={props.set_cur_user}
+              auth_message={props.auth_message}
+              error={loginErr}
+              setLoginErr={setLoginErr}
+            />
         </Grid>
       </Grid>
+      <SnackBar />
+      {/* <Redirect to='/' /> */}
     </ThemeProvider>
   );
-}
+}))
