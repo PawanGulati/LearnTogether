@@ -145,7 +145,7 @@ export default function StudentHomeView() {
           {/* Scheduled Meetups */}
           <Grid item xs={12} height={'100%'} width={'100%'}>
             <RoundedPaper height={230}>
-              <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>My Demands</Typography>
+              <Typography align='left' fontWeight={600} mb={1} letterSpacing={1}>My Requests</Typography>
               <DemandListLoaded isLoading={demands === null} demands={demands} />
             </RoundedPaper>
           </Grid>

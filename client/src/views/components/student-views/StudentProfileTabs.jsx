@@ -75,7 +75,7 @@ export default function StudentProfileTabs() {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                 <Tab label="My Events" {...a11yProps(0)} />
-                <Tab label="My Demands" {...a11yProps(1)} />
+                <Tab label="My Requests" {...a11yProps(1)} />
                 <Tab label="Following" {...a11yProps(2)} />
             </Tabs>
             </Box>

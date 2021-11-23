@@ -127,7 +127,7 @@ exports.joinEvent = async(req, res, next)=>{
         let event = await db.Event.findById(req.params.eventID)
         if(!event) throw new Event('Event not exists')
 
-        const check = await db.Student.findOne({'registeredEvents': event._id})
+        const check = await db.Student.findOne({_id:student._id, 'registeredEvents': event._id})
 
         if(check) throw new Error('Already a member')
 

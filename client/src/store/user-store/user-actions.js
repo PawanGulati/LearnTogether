@@ -40,6 +40,8 @@ export const set_cur_user = ({api_type, ...data}) =>{
     return async dispatch =>{
         try {
             dispatch(auth_start())
+            dispatch(mentor_start())
+            dispatch(student_start())
             const {token, ...user} = await api.call('post',`auth/${api_type}`,data)
 
             set_token(token)
