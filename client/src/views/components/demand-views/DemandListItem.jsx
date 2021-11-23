@@ -53,7 +53,7 @@ export default function DemandListItem({data, ...xtra}) {
                 }
             </Box>
             <div style={{width:'100%'}}>
-                <Typography variant='subtitle2'>{moment(createdOn).format('MM/DD/YYYY')}</Typography>
+                <Typography variant='subtitle2'>{moment(createdOn).format('DD/MM/YYYY')}</Typography>
             </div>
             {
                 xtra.options && (

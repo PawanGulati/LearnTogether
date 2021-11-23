@@ -83,16 +83,24 @@ export default withRouter(connect(null, mapDispatchToProps)(function SignInSide(
           facebook,
           github,
           twitter,
-          ...studentInputs
+          ...compolsuryInputs
         } = inputs
 
         // validation checking
-        if(!validFormCheckInit(user_type === 'student' ? studentInputs : inputs) || !validateForm(errors)){
+        if(!validFormCheckInit(compolsuryInputs) || !validateForm(errors)){
             throw new Error('Invalid Form')
         }
 
+        const {
+          conform_password,
+          ...api_inputs
+        } = inputs
+
         // API call
-        const check = await props.set_cur_user({...inputs, api_type: `register-${user_type}`})
+        const check = await props.set_cur_user({
+          ...api_inputs, 
+          api_type: `register-${user_type}`
+        })
 
         if(check){
           // form initial state returned

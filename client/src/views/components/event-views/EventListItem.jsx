@@ -36,7 +36,8 @@ export default function EventListItem({data, ...xtra}) {
                     height: '100%',
                     overflow:'hidden', 
                     display:'inline-block', 
-                    textOverflow:'ellipsis'
+                    textOverflow:'ellipsis',
+                    whiteSpace: 'nowrap'
                 }}
             >
                 {

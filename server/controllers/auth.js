@@ -5,13 +5,13 @@ const {SECRET_JWT} = require('../config')
 
 exports.register = async (data, userType, res, next) =>{
     try {
-        const {name, email, password} = data
+        const {name, email, password, institute, ...social_links} = data
 
         const user = new db.User({
             name,
             email,
             password,
-            userType: UserTypes[userType]
+            userType: UserTypes[userType],
         });
         const token = user.generateToken(SECRET_JWT);
 
@@ -19,13 +19,17 @@ exports.register = async (data, userType, res, next) =>{
 
         if(UserTypes[userType] === 'student'){
             const student = new db.Student({
-                user: user._id
+                user: user._id,
+                institute,
+                social_links
             })
     
             await student.save()
         }else{
             const mentor = new db.Mentor({
-                user: user._id
+                user: user._id,
+                institute,
+                social_links
             })
     
             await mentor.save()

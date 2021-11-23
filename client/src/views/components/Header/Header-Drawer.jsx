@@ -15,6 +15,7 @@ import { Avatar, Divider, ListItemIcon, Menu, MenuItem, Stack } from '@mui/mater
 import { connect } from 'react-redux';
 import Drawer from './Drawer';
 import { auth_message, logout } from '../../../store/user-store/user-actions';
+import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -131,9 +132,14 @@ export default connect(null, mapDispatchToProps)(function HeaderDrawer(props) {
                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                       >
-                        <MenuItem>
-                          <Avatar /> Profile
-                        </MenuItem>
+                        <NavLink
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            to="/profile"
+                        >
+                          <MenuItem>
+                            <Avatar /> Profile
+                          </MenuItem>
+                        </NavLink>
                         <MenuItem>
                           <Avatar /> My account
                         </MenuItem>

@@ -170,8 +170,8 @@ export default function StudentEventView(props) {
                     <TabContext value={valueDemand}>
                       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChangeDemand} aria-label="lab API tabs example">
-                          <Tab label="All Demands" value="1" />
-                          <Tab label="Suggested Demands" value="2" />
+                          <Tab label="All Requests" value="1" />
+                          <Tab label="Suggested Requests" value="2" />
                         </TabList>
                       </Box>
                       <TabPanel value="1" sx={{height:'100%'}}>
@@ -195,8 +195,8 @@ export default function StudentEventView(props) {
                   <TabContext value={valueEvent}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                       <TabList onChange={handleChangeEvent} aria-label="lab API tabs example">
-                        <Tab label="All Events" value="1" />
-                        <Tab label="All Sessions" value="2" />
+                        <Tab label="All Requested Events" value="1" />
+                        <Tab label="All Scheduled Events" value="2" />
                         <Tab label="Suggested Events" value="3" />
                       </TabList>
                     </Box>

@@ -123,11 +123,12 @@ export default function StudentHomeView() {
                     sx={{
                       fontWeight:600,
                       letterSpacing:1,
+                      wordSpacing:3
                     }}
-                    onClick={()=>handleOpen('Demands')}
+                    onClick={()=>handleOpen('Request')}
                     fullWidth
                   >
-                    Create Demand
+                    Create Request
                   </Button>
                 </Grid>
                 <Grid className={`${classes.center}`} item height={'100%'} xs={12} md={5}>

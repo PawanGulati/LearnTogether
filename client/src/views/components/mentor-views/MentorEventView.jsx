@@ -80,7 +80,7 @@ export default function MentorEventView() {
                     align='left'
                     my={3}     
                 >
-                    Events
+                    Requested Events
                 </Typography>
                 <Box>
                     <EventListLoaded isLoading={events === null} events={events} handleOpenPrompt={handleOpenPrompt} />

@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme=>({
 export default function MentorHomeView() {
   const classes = useStyles()
   
-//   const reload=()=>window.location.reload();
+  const reload=()=>window.location.reload();
 
   const [events, setEvents] = React.useState(null)
 
@@ -53,7 +53,7 @@ export default function MentorHomeView() {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (t) => {setOpen(true); }
-  const handleClose = () => {setOpen(false); }
+  const handleClose = () => {setOpen(false); reload();}
 
   return (
     <Box

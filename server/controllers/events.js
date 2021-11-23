@@ -238,28 +238,24 @@ exports.getMyEvents = async (req, res, next) =>{
         
         if(!student) throw new Error('Student not exists')
 
-        const events = await db.Event.find({
-            student: {$in: student._id}
-        }).populate({
-            path: 'topics',
-            model: 'Topic',
-            transform: topic => topic.name
-        }).populate({
-            path: 'bookings',
-            populate: {
-                path: 'mentor',
+        await student.populate({
+            path: 'registeredEvents',
+            populate: [{path: 'topics', select: 'name', transform: topic => topic.name},
+            {
+                path: 'bookings',
                 populate: {
-                    path: 'user',
-                    select: 'name'
+                    path: 'mentor',
+                    populate: {
+                        path: 'user',
+                        select: 'name'
+                    },
+                    transform: mentor => mentor.user.name,
                 },
-                transform: mentor => mentor.user.name,
-            },
-            select: ['mentor', 'scheduleOn']
+                select: ['mentor', 'scheduleOn']
+            }]
         })
 
-        if(!events) throw new Error('Events not exists')
-
-        return res.send(events).status(200)
+        return res.send(student['registeredEvents']).status(200)
 
     } catch (error) {
         next({

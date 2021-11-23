@@ -18,7 +18,7 @@ export const mentor_fail = error =>({
     error
 })
 
-export const remove_error = () =>({
+export const remove_error_mentor = () =>({
     type: REMOVE_ERROR_MENTOR
 })
 
@@ -38,7 +38,7 @@ export const set_cur_mentor_async = ()=> {
 
             dispatch(set_cur_mentor(mentor))
 
-            dispatch(remove_error())
+            dispatch(remove_error_mentor())
         } catch (err) {
             if(err.response){
                 const {error} = err.response.data

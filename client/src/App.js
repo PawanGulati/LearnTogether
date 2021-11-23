@@ -18,8 +18,6 @@ import { set_cur_student_async } from './store/student-store/student-actions';
 
 import withSpinner from './hoc/withSpinner/withSpinner'
 import { set_cur_mentor_async } from './store/mentor-store/mentor-actions';
-import { selectStudentLoading } from './store/student-store/student-selectors';
-import { selectMentorLoading } from './store/mentor-store/mentor-selectors';
 
 // Checking if token is valid(not expired also comes init) and there in local storage, then set a user else logout or not set a user
 //TODO: BUGFIX: auto logout without a refresh
@@ -77,7 +75,7 @@ function App(props) {
     <div className="App">
         <Switch>
           <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
-          <Route path='/404' component={NotFound} />
+          <Route exact path='/404' component={NotFound} />
           <HomeRouteLoaded {...props} loading={props.isLoading} isLoading={props.isLoading} />
           <Redirect to='/404' />
         </Switch>

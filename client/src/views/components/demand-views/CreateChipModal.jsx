@@ -95,7 +95,7 @@ export default function CreateChipModal({open, handleClose, text, create_async})
                             text.toLowerCase() === 'event' && 
                             <LocalizationProvider dateAdapter={DateAdapter}>
                                 <DesktopDatePicker
-                                    label="Date desktop"
+                                    label="Schedule Date"
                                     inputFormat="DD/MM/YYYY"
                                     value={date}
                                     onChange={handleChangeDate}
