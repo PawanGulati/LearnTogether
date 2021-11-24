@@ -39,7 +39,7 @@ export default connect(mapStateToProps,mapDispatchToProps)(function SnackbarComp
     };
 
     return (
-        <Snackbar open={pop_state} autoHideDuration={5000} onClose={handleClose}>
+        <Snackbar open={pop_state} autoHideDuration={2000} onClose={handleClose}>
             <Alert onClose={handleClose} severity={auth_message_type}>
                 {auth_message}
             </Alert>

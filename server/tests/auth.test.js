@@ -105,4 +105,45 @@ describe('Auth routes', ()=>{
         expect(checkMentFollowings).not.toBeNull()
 
     })
+
+    test('cannot follow a valid user, if already following the user', async()=>{
+        await request(app)
+            .post(`/api/auth/user/follow/${userThree._id}`)
+            .set('authorization', `Bearer ${userOne.token}`)
+            .send()
+        
+        await request(app)
+            .post(`/api/auth/user/follow/${userThree._id}`)
+            .set('authorization', `Bearer ${userOne.token}`)
+            .send()
+            .expect(400)
+    })
+
+    test('cannot unfollow a valid user, if not following the user', async()=>{
+        const response = await request(app)
+            .post(`/api/auth/user/unfollow/${userThree._id}`)
+            .set('authorization', `Bearer ${userOne.token}`)
+            .send()
+            .expect(400)
+    })
+
+    test('valid student able to unfollow a valid mentor/ student', async()=>{
+        await request(app)
+            .post(`/api/auth/user/follow/${userThree._id}`)
+            .set('authorization', `Bearer ${userOne.token}`)
+            .send()
+        
+        const response = await request(app)
+            .post(`/api/auth/user/unfollow/${userThree._id}`)
+            .set('authorization', `Bearer ${userOne.token}`)
+            .send()
+            .expect(201)
+
+        const checkStdFollowers = await db.User.findOne({_id: userThree._id, followers: {$in : [response.body._id]}})
+        expect(checkStdFollowers).toBeFalsy()
+
+        const checkMentFollowings = await db.User.findOne({_id: response.body._id, following: {$in: [userThree._id]}})
+        expect(checkMentFollowings).toBeFalsy()
+
+    })
 })

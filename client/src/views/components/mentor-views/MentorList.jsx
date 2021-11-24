@@ -8,7 +8,10 @@ export default function MentorList(props) {
             {
               props.mentors.map((mentor, idx)=>
                 <Grid item key={idx} lg={3} md={4} sm={6} xs={12}>
-                  <MentorListItem data={mentor} />
+                  <MentorListItem 
+                    data={mentor} 
+                    handleClickOpen={props.handleClickOpen}
+                  />
                 </Grid>
               )
             }

@@ -30,6 +30,7 @@ export default function MentorSignup({handleSignUp, handleInputChange, inputs, e
                         name="name"
                         label="Full Name"
                         id="name"
+                        helperText='(at least 5 letters long)'
                         value={inputs.name}
                         onChange={handleInputChange}
                         autoFocus
@@ -64,6 +65,7 @@ export default function MentorSignup({handleSignUp, handleInputChange, inputs, e
                         label="Password"
                         type="password"
                         id="password"
+                        helperText='(one uppercase, one lowercase, one special char, one digit) Ex: Pass@121'
                         autoComplete="current-password"
                     />
                     <TextField

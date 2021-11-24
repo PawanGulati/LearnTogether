@@ -38,5 +38,6 @@ router.post(
 router.get('/user/me', auth, control.getProfile)
 
 router.post('/user/follow/:followeeID', auth, control.followUser)
+router.post('/user/unfollow/:followeeID', auth, control.unfollowUser)
 
 module.exports = router

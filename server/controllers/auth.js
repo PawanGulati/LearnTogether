@@ -100,6 +100,9 @@ exports.followUser = async(req, res, next)=>{
         const followee = await db.User.findById(req.params.followeeID)
         if(!followee) throw new Error('Followee not exists')
 
+        const checkAlreadyFollowing = await db.User.findOne({_id: req.user._id, following: {$in : [followee._id]}})
+        if(checkAlreadyFollowing) throw new Error('Already following the user')
+        
         const user = await db.User.findByIdAndUpdate(req.user._id, {
             $push :{following: followee._id}
         },{new: true, upsert: true})
@@ -109,6 +112,38 @@ exports.followUser = async(req, res, next)=>{
         })
 
         return res.status(201).send(user)
+    } catch (error) {
+        next({
+            status: 400,
+            message: error.message
+        })
+    }
+}
+
+exports.unfollowUser = async(req, res, next) =>{
+    try {
+        if(!req.params.followeeID || ( (req.params.followeeID).toString() === (req.user._id).toString() )) 
+            throw new Error('Not a valid request')
+
+        const follower = await db.User.findById(req.user._id)
+        if(!follower) throw new Error('User not exists')
+
+        const followee = await db.User.findById(req.params.followeeID)
+        if(!followee) throw new Error('Followee not exists')
+
+        const checkAlreadyFollowing = await db.User.findOne({_id: req.user._id, following: {$in : [followee._id]}})
+        if(!checkAlreadyFollowing) throw new Error('Cannot unfollow a user, if not following one')
+
+        const user = await db.User.findByIdAndUpdate(req.user._id, {
+            $pull :{following: followee._id}
+        },{new: true, upsert: true})
+
+        await db.User.findByIdAndUpdate(followee._id, {
+            $pull :{followers: follower._id}
+        })
+
+        return res.status(201).send(user)
+
     } catch (error) {
         next({
             status: 400,

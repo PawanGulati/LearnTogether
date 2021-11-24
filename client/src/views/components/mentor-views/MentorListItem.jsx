@@ -1,14 +1,24 @@
-import { Avatar, Card, CardActions, CardHeader, IconButton, Typography } from '@mui/material'
+import { Avatar, Card, CardActions, CardHeader, IconButton, Tooltip, Typography } from '@mui/material'
 import React from 'react'
 
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
 import { red } from '@mui/material/colors';
 
-export default function MentorListItem(props) {
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurUser } from '../../../store/user-store/user-selectors'
+
+const mapStateToProps = createStructuredSelector({
+    cur_user: selectCurUser
+})
+
+export default connect(mapStateToProps)(function MentorListItem(props) {
     const {
         user:{
-            name = 'Mentor'
+            name = 'Mentor',
+            followers
         }
     } = props.data
 
@@ -26,20 +36,37 @@ export default function MentorListItem(props) {
                 </IconButton>
                 }
             />
-            <CardActions disableSpacing sx={{justifyContent:'space-between',display:'flex'}}>
+            <CardActions disableSpacing p={2} sx={{justifyContent:'space-between',display:'flex'}}>
                 <Typography
                     sx={{
                         overflow:'hidden',
                         textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap'
+                        whiteSpace: 'nowrap',
+                        textTransform: 'capitalize',
+                        color: 'text.secondary'
                     }}
                 >
                     {name}
                 </Typography>
-                <IconButton aria-label="share">
-                    <PersonAddAlt1Icon />
-                </IconButton>
+                {
+                    followers.includes(props.cur_user._id) ?
+                    (
+                        <Tooltip title='UnFollow me'>
+                            <IconButton aria-label="share" onClick={ () => props.handleClickOpen(props.data, false) }>
+                                <PersonRemoveAlt1Icon />
+                            </IconButton>
+                        </Tooltip>
+                    ) :
+                    (
+                        <Tooltip title='Follow me'>
+                            <IconButton aria-label="share" onClick={ () => props.handleClickOpen(props.data, true) }>
+                                <PersonAddAlt1Icon />
+                            </IconButton>
+                        </Tooltip>
+                    )
+                }
+                
             </CardActions>
         </Card>
     )
-}
+})

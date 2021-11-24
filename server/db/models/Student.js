@@ -19,18 +19,6 @@ const studentSchema = new mongoose.Schema({
         github: String,
         twitter: String
     },
-    mentorsFollowing: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Mentor'
-    }],
-    studentsFollowing: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
-    }],
-    follwers:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
-    }],
     registeredEvents: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'

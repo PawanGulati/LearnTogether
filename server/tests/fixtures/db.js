@@ -28,7 +28,9 @@ const userOne = {
     name: 'student1',
     email: 'std1@gmail.com',
     password: 'Pass@1234',
-    userType: 'student'
+    userType: 'student',
+    followers:[],
+    following:[]
 }
 
 const stdOne = {
@@ -44,7 +46,9 @@ const userTwo = {
     name: 'student2',
     email: 'std2@gmail.com',
     password: 'Pass@1234',
-    userType: 'student'
+    userType: 'student',
+    followers:[],
+    following:[]
 }
 const stdTwo = {
     _id: stdTwoID,
@@ -59,7 +63,9 @@ const userThree = {
     name: 'mentor1',
     email: 'men1@gmail.com',
     password: 'Pass@1234',
-    userType: 'mentor'
+    userType: 'mentor',
+    followers:[],
+    following:[]
 }
 
 const mentorOne = {
@@ -74,7 +80,9 @@ const userFour = {
     name: 'student3',
     email: 'std3@gmail.com',
     password: 'Pass@1234',
-    userType: 'student'
+    userType: 'student',
+    followers:[],
+    following:[]
 }
 
 const stdThree = {

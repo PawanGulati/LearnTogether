@@ -24,7 +24,7 @@ export default connect(mapStateToProps)(function Room(props) {
     }
 
     React.useEffect(()=>{
-        setMessage(props.room.messages)
+        // setMessage(props.room.messages)
     },[props.room])
 
     return (

@@ -17,11 +17,7 @@ const mentorSchema = new mongoose.Schema({
         leetcode: String,
         github: String,
         twitter: String
-    },
-    followers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Student'
-    }]
+    }
 })
 
 mentorSchema.virtual('bookings',{
