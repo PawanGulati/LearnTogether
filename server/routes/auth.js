@@ -37,4 +37,6 @@ router.post(
 // profile route
 router.get('/user/me', auth, control.getProfile)
 
+router.post('/user/follow/:followeeID', auth, control.followUser)
+
 module.exports = router

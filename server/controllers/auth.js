@@ -88,3 +88,31 @@ exports.getProfile = async (req, res, next) =>{
         })
     }
 }
+
+exports.followUser = async(req, res, next)=>{
+    try {
+        if(!req.params.followeeID || ( (req.params.followeeID).toString() === (req.user._id).toString() )) 
+            throw new Error('Not a valid request')
+
+        const follower = await db.User.findById(req.user._id)
+        if(!follower) throw new Error('User not exists')
+
+        const followee = await db.User.findById(req.params.followeeID)
+        if(!followee) throw new Error('Followee not exists')
+
+        const user = await db.User.findByIdAndUpdate(req.user._id, {
+            $push :{following: followee._id}
+        },{new: true, upsert: true})
+
+        await db.User.findByIdAndUpdate(followee._id, {
+            $push :{followers: follower._id}
+        })
+
+        return res.status(201).send(user)
+    } catch (error) {
+        next({
+            status: 400,
+            message: error.message
+        })
+    }
+}

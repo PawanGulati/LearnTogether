@@ -2,7 +2,19 @@ const request = require('supertest')
 
 const app = require('../server')
 const db = require('../db/models')
-const { setupDataBase, userOne, stdOne, eventOne, eventTwo, userThree, demand, stdTwo, userTwo, mentorOne, userFour, stdThree} = require('./fixtures/db')
+const { 
+    setupDataBase, 
+    userOne, 
+    eventOne, 
+    eventTwo, 
+    userThree, 
+    demand, 
+    stdTwo, 
+    userTwo, 
+    mentorOne, 
+    userFour, 
+    stdThree
+} = require('./fixtures/db')
 const { expect } = require('@jest/globals')
 
 

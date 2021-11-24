@@ -2,7 +2,7 @@ const request = require('supertest')
 
 const app = require('../server')
 const db = require('../db/models')
-const { setupDataBase, userOne} = require('./fixtures/db')
+const { setupDataBase, userOne, userThree} = require('./fixtures/db')
 const { expect } = require('@jest/globals')
 const auth = require('../middlewares/auth')
 
@@ -89,5 +89,20 @@ describe('Auth routes', ()=>{
                 password: 'Pass@1234'
             })
             .expect(400)
+    })
+
+    test('valid student able to follow a valid mentor/ student', async()=>{
+        const response = await request(app)
+            .post(`/api/auth/user/follow/${userThree._id}`)
+            .set('authorization', `Bearer ${userOne.token}`)
+            .send()
+            .expect(201)
+
+        const checkStdFollowers = await db.User.findOne({_id: userThree._id, followers: {$in : [response.body._id]}})
+        expect(checkStdFollowers).not.toBeNull()
+
+        const checkMentFollowings = await db.User.findOne({_id: response.body._id, following: {$in: [userThree._id]}})
+        expect(checkMentFollowings).not.toBeNull()
+
     })
 })
