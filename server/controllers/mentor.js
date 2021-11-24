@@ -20,7 +20,7 @@ exports.getMentor = async (req, res, next)=>{
 
         if(!mentor) throw new Error('mentor not exists')
 
-        return res.send(mentor).status(200)
+        return res.status(200).send(mentor)
     } catch (error) {
         next({
             status: 401,

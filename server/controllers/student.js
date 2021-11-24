@@ -8,7 +8,7 @@ exports.getStudent = async (req, res, next)=>{
 
         if(!student) throw new Error('student not exists')
 
-        return res.send(student).status(200)
+        return res.status(200).send(student)
     } catch (error) {
         next({
             status: 401,
