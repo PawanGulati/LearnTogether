@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy":"https://learn-together-client.herokuapp.com",
   "dependencies": {
     "@date-io/moment": "^2.11.0",
     "@emotion/react": "^11.5.0",
