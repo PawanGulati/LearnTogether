@@ -1,5 +1,8 @@
-import { Button, Typography } from '@mui/material'
 import React from 'react'
+
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+
 import {makeStyles} from '@mui/styles'
 
 import {ReactComponent as NotFoundIMG} from '../../constants/images/404.svg'

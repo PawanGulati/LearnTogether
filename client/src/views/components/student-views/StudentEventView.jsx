@@ -1,25 +1,31 @@
 import React from 'react'
 
-import { Container, Grid, Tab, Typography, Box, Button } from '@mui/material'
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
 import EventList from '../event-views/EventList'
 import RoundedPaper from '../RoundedPaper'
 import SearchBar from '../SearchBar'
 import SnackBar from '../../../utils/NotificationPopUp/SnackBar'
 
-import withSpinner from '../../../hoc/withSpinner/withSpinner'
 import DemandList from '../demand-views/DemandList'
 import { demand_to_event, set_all_demands } from '../../../utils/services/demands'
-import { join_event, set_all_events, set_all_sessions } from '../../../utils/services/events'
+import { join_event, set_all_events, set_all_sessions, set_suggestion_bookings } from '../../../utils/services/events'
+
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
 const DemandListLoaded = withSpinner(DemandList)
 const EventListLoaded = withSpinner(EventList)
 
@@ -86,6 +92,11 @@ export default function StudentEventView(props) {
         if(mounted) setEvents(events)
       })
     }
+    else if(newValue === '3'){
+      set_suggestion_bookings().then(events => {
+        if(mounted) setEvents(events)
+      })
+    }
     
     setValueEvent(newValue);
     return () => mounted = false
@@ -113,6 +124,7 @@ export default function StudentEventView(props) {
   const handleOpenPrompt = (event, isEvent) => {
     setOpenPropmt(true);
     set_cur_event(event);
+
     if(isEvent)
       setAsEvent(true)
     else
@@ -189,9 +201,9 @@ export default function StudentEventView(props) {
               </RoundedPaper>
             </Grid>
             {/* ALL EVENTS */}
-            <Grid item height={'100%'} width={'100%'} >
+            <Grid item height={350} width={'100%'} >
               <RoundedPaper height={'100%'}>
-                <Box sx={{width:'100%', typography: 'body1'}}>
+                <Box sx={{width:'100%', typography: 'body1', overflow:'hidden'}} pb={4}>
                   <TabContext value={valueEvent}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                       <TabList onChange={handleChangeEvent} aria-label="lab API tabs example">
@@ -218,7 +230,15 @@ export default function StudentEventView(props) {
                         handleOpenJoinPropmt={handleOpenPrompt}
                       />
                     </TabPanel>
-                    <TabPanel value="3">Coming Soon...</TabPanel>
+                    <TabPanel value="3">
+                      <EventListLoaded 
+                        isLoading={events === null} 
+                        events={events}
+                        options={true}
+                        checked={true}
+                        handleOpenJoinPropmt={handleOpenPrompt} 
+                      />
+                    </TabPanel>
                   </TabContext>
                 </Box>
               </RoundedPaper>
@@ -236,19 +256,20 @@ export default function StudentEventView(props) {
               <DialogTitle>{ 
                 isEvent ? "Do you like to join this EVENT ?" : "Do you like to convert this DEMAND ?"
               }</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                    <Box sx={{display: 'flex'}}>
-                      {
-                        cur_event['topics'].map((topic, id)=>
-                          <Typography key={id} sx={{textTransform: 'capitalize'}}>
-                            {topic + (id === cur_event['topics'].length-1 ? '': ', ')}
-                          </Typography>
-                        )
-                      }
-                    </Box>
-                </DialogContentText>
-              </DialogContent>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description" sx={{overflowY:'auto', maxHeight:'100px'}}>
+                      {/* <Tooltip title={cur_event['topics'].reduce((acc, t)=>{acc += t; return acc;}, "")}> */}
+                          {
+                            
+                            cur_event['topics'].map((topic, id)=>
+                              <Typography key={id} sx={{textTransform: 'capitalize'}}>
+                                {topic}
+                              </Typography>
+                            )
+                          }
+                        {/* </Tooltip> */}
+                    </DialogContentText>
+                </DialogContent>
               <DialogActions>
                 <Button onClick={handleClosePrompt}>Disagree</Button>
                 <Button onClick={ () => handleSubmit(isEvent) }>Agree</Button>

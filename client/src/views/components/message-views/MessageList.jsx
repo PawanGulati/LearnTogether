@@ -2,6 +2,7 @@ import React from 'react'
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+
 import MessageListItem from './MessageListItem';
 
 export default function MessageList() {

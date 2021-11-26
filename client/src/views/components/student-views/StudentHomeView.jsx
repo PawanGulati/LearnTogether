@@ -5,18 +5,20 @@ import { ReactComponent as CreateEventSVG } from '../../../constants/images/crea
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import RoundedPaper from '../RoundedPaper';
-import { makeStyles } from '@mui/styles';
-import { Button, Switch, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Switch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography';
+import makeStyles from '@mui/styles/makeStyles';
 
+import RoundedPaper from '../RoundedPaper';
 import EventList from '../event-views/EventList';
 import DemandList from '../demand-views/DemandList';
 import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
-
-import withSpinner from '../../../hoc/withSpinner/withSpinner'
 import { create_demand, set_my_demands } from '../../../utils/services/demands';
 import { set_past_events } from '../../../utils/services/events';
-import CreateDemandModal from '../demand-views/CreateChipModal';
+import CreateDemandModal from '../create-chip-dialog/CreateChipModal';
+
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
 const DemandListLoaded = withSpinner(DemandList)
 const EventListLoaded = withSpinner(EventList)
 
@@ -112,7 +114,7 @@ export default function StudentHomeView() {
                   p={3}
                   xs={12} md={7}
                 >
-                  <Typography variant='h5' fontWeight={600}>
+                  <Typography variant='h4' fontWeight={600}>
                     Student Meetup
                   </Typography>
                   <Typography letterSpacing={1} style={{lineHeight:2, flex:1}} align='left'>
@@ -123,8 +125,10 @@ export default function StudentHomeView() {
                     sx={{
                       fontWeight:600,
                       letterSpacing:1,
-                      wordSpacing:3
+                      wordSpacing:3,
+                      my:3
                     }}
+                    size='large'
                     onClick={()=>handleOpen('Request')}
                     fullWidth
                   >

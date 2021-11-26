@@ -20,7 +20,16 @@ exports.getMentor = async (req, res, next)=>{
 
         if(!mentor) throw new Error('mentor not exists')
 
-        return res.status(200).send(mentor)
+        await mentor.populate({
+            path: 'user',
+            select:['following', 'followers']
+        })
+
+        return res.status(200).send({
+            ...mentor._doc, 
+            followers: mentor.user.followers.length,
+            following: mentor.user.following.length
+        })
     } catch (error) {
         next({
             status: 401,

@@ -8,16 +8,38 @@ const studentSchema = new mongoose.Schema({
     institute:{
         type: String,
         trim: true,
-        lowercase: true
+        lowercase: true,
+        default: ''
     },
     social_links:{
-        linkedin: String,
-        facebook: String,
-        codechef: String,
-        codeforces: String,
-        leetcode: String,
-        github: String,
-        twitter: String
+        linkedin: {
+            type:String, 
+            default: ''
+        },
+        facebook: {
+            type:String, 
+            default: ''
+        },
+        codechef: {
+            type:String, 
+            default: ''
+        },
+        codeforces: {
+            type:String, 
+            default: ''
+        },
+        leetcode: {
+            type:String, 
+            default: ''
+        },
+        github: {
+            type:String, 
+            default: ''
+        },
+        twitter: {
+            type:String, 
+            default: ''
+        }
     },
     registeredEvents: [{
         type: mongoose.Schema.Types.ObjectId,

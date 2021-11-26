@@ -1,15 +1,15 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router'
 
-import StudentHomeView from '../components/student-views/StudentHomeView'
-import StudentEventView from '../components/student-views/StudentEventView'
-import StudentRoomView from '../components/student-views/StudentRoomView'
-import StudentMentorsView from '../components/student-views/StudentMentorsView'
-import withSpinner from '../../hoc/withSpinner/withSpinner'
-import StudentProfile from './student-views/StudentProfile'
+import StudentHomeView from './StudentHomeView'
+import StudentEventView from './StudentEventView'
+import StudentRoomView from './StudentRoomView'
+import StudentMentorsView from './StudentMentorsView'
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
+import StudentProfile from './StudentProfile'
 import { createStructuredSelector } from 'reselect'
-import { selectCurUser } from '../../store/user-store/user-selectors'
-import { selectCurStudent, selectStudentLoading } from '../../store/student-store/student-selectors'
+import { selectCurUser } from '../../../store/user-store/user-selectors'
+import { selectCurStudent, selectStudentLoading } from '../../../store/student-store/student-selectors'
 import { connect } from 'react-redux'
 
 const StudentHomeViewLoaded = withSpinner(StudentHomeView)

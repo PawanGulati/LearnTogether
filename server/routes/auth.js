@@ -40,4 +40,7 @@ router.get('/user/me', auth, control.getProfile)
 router.post('/user/follow/:followeeID', auth, control.followUser)
 router.post('/user/unfollow/:followeeID', auth, control.unfollowUser)
 
+router.get('/user/followers/:userID', auth, control.getMentorFollowers)
+router.get('/user/following/:userID', auth, control.getStudentFollowing)
+
 module.exports = router

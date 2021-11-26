@@ -20,7 +20,14 @@ export default function HomeThemedButton(props) {
             onClick={props.handleOpen}
         >
             <i>Join as </i>
-            <span style={{letterSpacing:'1px', fontWeight:900, fontSize:'22px', color:"rgba(255,99,59,.5)", margin:"9px"}}>
+            <span 
+                style={{
+                    letterSpacing:'1px', 
+                    fontWeight:900, 
+                    fontSize:'22px', 
+                    color:"rgba(255,99,59,.6)", 
+                    margin:"9px",
+                }}>
                 {props.text}
             </span>
         </Button>

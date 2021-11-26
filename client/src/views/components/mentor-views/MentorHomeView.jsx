@@ -5,15 +5,16 @@ import { ReactComponent as CreateEventSVG } from '../../../constants/images/crea
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import RoundedPaper from '../RoundedPaper';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
-import { Button, Typography } from '@mui/material';
 
 import BookingList from '../booking-views/BookingsList';
 import SnackBar from '../../../utils/NotificationPopUp/SnackBar';
 
+import RoundedPaper from '../RoundedPaper';
 import withSpinner from '../../../hoc/withSpinner/withSpinner'
-import CreateChipModal from '../demand-views/CreateChipModal';
+import CreateChipModal from '../create-chip-dialog/CreateChipModal';
 import { set_my_bookings } from '../../../utils/services/bookings';
 import { create_event } from '../../../utils/services/events';
 
@@ -91,7 +92,7 @@ export default function MentorHomeView() {
                   p={3}
                   xs={12} md={7}
                 >
-                  <Typography variant='h5' fontWeight={600}>
+                  <Typography variant='h4' fontWeight={600}>
                     Schedule an Event
                   </Typography>
                   <Typography letterSpacing={1} style={{lineHeight:2, flex:1}} align='left'>
@@ -102,7 +103,10 @@ export default function MentorHomeView() {
                     sx={{
                       fontWeight:600,
                       letterSpacing:1,
+                      wordSpacing:3,
+                      my:3
                     }}
+                    size='large'
                     onClick={()=>handleOpen()}
                     fullWidth
                   >

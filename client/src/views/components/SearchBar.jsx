@@ -1,5 +1,9 @@
 import React from 'react'
-import { IconButton, InputBase, Paper } from '@mui/material'
+
+import IconButton from '@mui/material/IconButton'
+import InputBase from '@mui/material/InputBase'
+import Paper from '@mui/material/Paper'
+
 import SearchIcon from '@mui/icons-material/Search'
 
 export default function SearchBar(props) {

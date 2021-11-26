@@ -65,7 +65,7 @@ export const set_room_async = (id) =>{
             }
             else{
                 dispatch(room_fail({message:err.message}))
-            }            
+            }
         }
     }
 }

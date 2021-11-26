@@ -269,34 +269,53 @@ exports.getMyRegisteredEvents = async (req, res, next) =>{
     }
 }
 
-exports.getEventsInProgress = async(req, res, next)=>{
+exports.getSuggestedBookings = async(req, res, next)=>{
     try {
-        let events = await db.Event
-            .find()
-            .populate({
-                path: 'topics',
-                model: 'Topic',
-                transform: topic => topic.name,
-            })
-            .populate({
-                path: 'bookings',
-                populate: {
-                    path: 'mentor',
+        const user = await db.User.findById(req.user._id)
+        if(!user) throw new Error('User not exists')
+
+        await user.populate({
+            path: 'following',
+            populate: {
+                path: 'mentor',
+                populate:{
+                    path: 'bookings',
                     populate: {
-                        path: 'user',
-                        select: 'name'
+                        path: 'event',
+                        populate: [{
+                            path: 'topics',
+                            select: 'name',
+                            transform: topics => topics.name
+                        },
+                        {
+                            path: 'bookings',
+                            populate: {
+                                path: 'mentor',
+                                populate: {
+                                    path: 'user',
+                                    select: 'name'
+                                },
+                                transform: mentor => mentor.user.name,
+                            },
+                            select: ['mentor', 'scheduleOn']
+                        }]
                     },
-                    transform: mentor => mentor.user.name,
+                    select: ['event'],
+                    transform: booking => booking.event
                 },
-                select: ['mentor', 'scheduleOn']
-            })
+                select: ['bookings'],
+                transform: mentor => mentor.bookings
+            },
+            select: ['mentor'],
+            transform: following => following.mentor
+        })
 
-        events = events.filter(e => {if(e.bookings.length==0) return e})
+        const resultant = user.following.reduce((acc, val)=>{acc = [...acc, ...val]; return acc;}, [])
 
-        return res.status(200).send(events)
+        return res.status(200).send(resultant)
     } catch (error) {
         next({
-            status: 401,
+            status: 400,
             message: error.message
         })
     }

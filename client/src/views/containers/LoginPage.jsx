@@ -9,15 +9,17 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import { validFormCheckInit } from '../../utils/FormValidators/formValidator';
 
 function Copyright(props) {
   return (
     <Typography fontFamily="Proxima Nova Alt" variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="#" >
+        Learn Together
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -97,7 +99,6 @@ export default function LoginPage(props) {
                 value={inputs.email}
                 onChange={handleInputChange}
                 autoComplete="email"
-                autoFocus
               />
               <TextField
                 margin="normal"

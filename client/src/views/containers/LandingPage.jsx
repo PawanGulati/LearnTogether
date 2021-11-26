@@ -1,21 +1,23 @@
 import * as React from 'react';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { connect } from 'react-redux';
 
-import BackGround from '../../constants/images/gradient_back.jpg'
+import BackGround from '../../constants/images/gradient_back.webp'
 import Logo from '../components/Logo';
 import LoginPage from './LoginPage';
 import HomeThemedButton from '../components/HomeThemedButton';
-import SignupModal from '../components/SignupModal';
+import SignupModal from '../components/signup-views/SignupModal';
 import SnackBar from '../../utils/NotificationPopUp/SnackBar'
+
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import { auth_message, set_cur_user } from '../../store/user-store/user-actions';
 
-import {FormCheckBasicFields, validateForm, validEmailRegex, validFormCheckInit, validPasswordRegex} from '../../utils/FormValidators/formValidator'
-import { withRouter } from 'react-router';
+import {FormCheckBasicFields, validateForm, validFormCheckInit } from '../../utils/FormValidators/formValidator'
 
 const theme = createTheme();
 
@@ -125,6 +127,7 @@ export default withRouter(connect(null, mapDispatchToProps)(function SignInSide(
           xs={false}
           md={7}
           sx={{
+            height:'100%',
             width:'100%',
             backgroundImage: `url(${BackGround})`,
             backgroundRepeat: 'no-repeat',
@@ -134,12 +137,11 @@ export default withRouter(connect(null, mapDispatchToProps)(function SignInSide(
             backgroundPosition: 'center',
           }}
         >
-            <Logo color="#fff"/>
+            <Logo color="#fff" />
             <div 
                 style={{
                     position:'relative', 
                     zIndex:10, 
-                    paddingTop:"200px",
                     width:'100%',
                 }}>
                 <Typography fontFamily="Proxima Nova Alt"
@@ -148,7 +150,13 @@ export default withRouter(connect(null, mapDispatchToProps)(function SignInSide(
                     lineHeight="72px"
                     fontWeight="900"
                 >You’ll never study alone again</Typography>
-                <Typography fontFamily="Proxima Nova Alt" color="#fff" mt={3} mb={7} fontSize={18}>
+                <Typography 
+                  fontFamily="Proxima Nova Alt" 
+                  color="#fff" 
+                  mt={3} 
+                  mb={7} 
+                  fontSize={18}
+                >
                     Join the <strong>largest global student community</strong> online and say goodbye to lack of motivation
                 </Typography>
 

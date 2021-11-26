@@ -6,12 +6,13 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MuiDrawer from '@mui/material/Drawer';
-import { styled } from '@mui/material/styles';
+import styled from '@mui/material/styles/styled';
 
-import ListItems from '../ListItems';
 import { selectCurUser } from '../../../store/user-store/user-selectors';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+
+import DrawerListItems from './DrawerListItems';
 
 let drawerWidth
 
@@ -45,7 +46,14 @@ const mapStateToProps = createStructuredSelector({
   cur_user: selectCurUser
 })
 
-export default connect(mapStateToProps)(function Drawer({toggleDrawer, open, drawerWidth: dw, cur_user}) {
+export default connect(mapStateToProps)(function Drawer(props) {
+    const {
+      toggleDrawer, 
+      open, 
+      drawerWidth: dw, 
+      cur_user
+    } = props
+
     drawerWidth = dw;
 
     return (
@@ -65,7 +73,7 @@ export default connect(mapStateToProps)(function Drawer({toggleDrawer, open, dra
             </Toolbar>
             <Divider />
             <List>
-              <ListItems userType={cur_user['userType']}/>
+              <DrawerListItems userType={cur_user['userType']}/>
             </List>
         </NewDrawer>
     )

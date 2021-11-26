@@ -14,16 +14,15 @@ exports.register = async (data, userType, res, next) =>{
             userType: UserTypes[userType],
         });
         const token = user.generateToken(SECRET_JWT);
-
-        await user.save()
-
+        
         if(UserTypes[userType] === 'student'){
             const student = new db.Student({
                 user: user._id,
                 institute,
                 social_links
             })
-    
+
+            user['student'] = student._id           
             await student.save()
         }else{
             const mentor = new db.Mentor({
@@ -31,9 +30,12 @@ exports.register = async (data, userType, res, next) =>{
                 institute,
                 social_links
             })
-    
+            
+            user['mentor'] = mentor._id
             await mentor.save()
         }
+
+        await user.save()
 
         return res.status(201).send({
             token,
@@ -144,6 +146,64 @@ exports.unfollowUser = async(req, res, next) =>{
 
         return res.status(201).send(user)
 
+    } catch (error) {
+        next({
+            status: 400,
+            message: error.message
+        })
+    }
+}
+
+exports.getMentorFollowers = async(req, res, next)=>{
+    try {
+        const user = await db.User.findById(req.params.userID)
+        if(!user) throw new Error('user not exists')
+
+        if(user.userType !== 'mentor') throw new Error('Only mentor have followers')
+
+        await user.populate({
+            path: 'followers',
+            populate:{
+                path: 'student',
+                select: ['social_links'],
+            },
+            transform: follower => {return {
+                name: follower.name,
+                userType: follower.userType,
+                links: follower.student.social_links
+            }}
+        })
+
+        return res.status(200).send(user.followers)
+    } catch (error) {
+        next({
+            status: 400,
+            message: error.message
+        })
+    }
+}
+
+exports.getStudentFollowing = async(req, res, next)=>{
+    try {
+        const user = await db.User.findById(req.params.userID)
+        if(!user) throw new Error('user not exists')
+
+        if(user.userType !== 'student') throw new Error('Only student can follow')
+
+        await user.populate({
+            path: 'following',
+            populate:{
+                path: 'mentor',
+                select: ['social_links'],
+            },
+            transform: follower => {return {
+                name: follower.name,
+                userType: follower.userType,
+                links: follower.mentor.social_links
+            }}
+        })
+
+        return res.status(200).send(user.following)
     } catch (error) {
         next({
             status: 400,

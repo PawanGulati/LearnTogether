@@ -1,25 +1,28 @@
 import React from 'react'
-import { Container, Stack, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import SearchBar from '../SearchBar'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 
-import withSpinner from '../../../hoc/withSpinner/withSpinner'
+import SearchBar from '../SearchBar'
 import MentorList from '../mentor-views/MentorList'
+import SnackBar from '../../../utils/NotificationPopUp/SnackBar'
+
 import { set_mentors } from '../../../utils/services/mentors'
 import { createStructuredSelector } from 'reselect';
 import { selectCurUser } from '../../../store/user-store/user-selectors';
 import { connect } from 'react-redux';
 import { follow_user_async, unfollow_user_async } from '../../../store/user-store/user-actions';
-import SnackBar from '../../../utils/NotificationPopUp/SnackBar'
 
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
 const MentorListLoaded = withSpinner(MentorList)
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;

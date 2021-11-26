@@ -1,8 +1,7 @@
 import React from 'react'
 
-import StudentHomeRoutes from '../components/StudentHomeRoutes'
-import MentorHomeRoutes from '../components/MentorHomeRoutes'
-import { Redirect } from 'react-router'
+import MentorHomeRoutes from '../components/mentor-views/MentorHomeRoutes'
+import StudentHomeRoutes from '../components/student-views/StudentHomeRoutes'
 
 export default function HomePage(props) {
     React.useEffect(() => {

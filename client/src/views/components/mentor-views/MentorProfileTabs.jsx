@@ -3,11 +3,15 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { set_my_bookings } from '../../utils/services/bookings';
-import BookingList from './booking-views/BookingsList';
+import { set_my_bookings } from '../../../utils/services/bookings';
+import BookingList from '../booking-views/BookingsList';
 
-import withSpinner from '../../hoc/withSpinner/withSpinner'
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
+import FollowList from '../following-views/FollowList';
+import { set_mentor_followers } from '../../../utils/services/follow';
+
 const BookingListLoaded = withSpinner(BookingList)
+const FollowListLoaded = withSpinner(FollowList)
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,6 +48,7 @@ export default function ProfileTabs(props) {
     };
 
     const [events, setEvents] = React.useState(null)
+    const [followers, setFollowers] = React.useState(null)
 
     React.useEffect(()=>{
       let mounted = true
@@ -55,8 +60,18 @@ export default function ProfileTabs(props) {
       return () => mounted = false
     },[])
 
+    React.useEffect(()=>{
+      let mounted = true
+      
+      set_mentor_followers(props.user._id).then(followers => {
+        if(mounted) setFollowers(followers)
+      })
+      
+      return () => mounted = false
+    },[])
+
     return (
-        <Box sx={{ width: '100%', height: '100%', overflow:'hidden' }}>
+        <Box sx={{ width: '100%', height: '100%', overflow:'hidden'}} pb={4}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                 <Tab label="My Bookings" {...a11yProps(0)} />
@@ -64,11 +79,14 @@ export default function ProfileTabs(props) {
                 <Tab label="Following" {...a11yProps(2)} />
             </Tabs>
             </Box>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0} style={{height:'100%', overflowY: 'auto'}}>
               <BookingListLoaded isLoading={events === null} bookings={events} />
             </TabPanel>
-            <TabPanel value={value} index={1}>
-            Coming Soon...
+            <TabPanel value={value} index={1} style={{height:'100%', overflowY: 'auto'}}>
+              <FollowListLoaded 
+                isLoading = {followers === null}
+                follow = {followers}
+              />
             </TabPanel>
             <TabPanel value={value} index={2}>
             Coming Soon...

@@ -26,6 +26,14 @@ const userSchema = new mongoose.Schema({
             message: 'Not valid user type'
         }
     },
+    mentor:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Mentor'
+    },
+    student:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student'
+    },
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

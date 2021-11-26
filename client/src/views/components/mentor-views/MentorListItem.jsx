@@ -1,13 +1,21 @@
-import { Avatar, Card, CardActions, CardHeader, IconButton, Tooltip, Typography } from '@mui/material'
 import React from 'react'
+
+import Avatar from '@mui/material/Avatar'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardHeader from '@mui/material/CardHeader'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonRemoveAlt1Icon from '@mui/icons-material/PersonRemoveAlt1';
-import { red } from '@mui/material/colors';
+import red from '@mui/material/colors/red';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+
 import { selectCurUser } from '../../../store/user-store/user-selectors'
 
 const mapStateToProps = createStructuredSelector({
