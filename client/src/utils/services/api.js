@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-Axios.defaults.baseURL = 'http://localhost:5000' // TODO: change at time of deploy
+Axios.defaults.baseURL = 'https://learn-together-client.herokuapp.com' // TODO: change at time of deploy
 
 export const call = async (method, path, data, option) => {
     const response =  await Axios[method](`/api/${path}`, data, option)
