@@ -40,6 +40,8 @@ export const set_cur_user = ({api_type, ...data}) =>{
     return async dispatch =>{
         try {
             dispatch(auth_start())
+            dispatch(mentor_start())
+            dispatch(student_start())
             const {token, ...user} = await api.call('post',`auth/${api_type}`,data)
 
             set_token(token)
@@ -104,5 +106,47 @@ export const logout = ()=>{
         dispatch(auth_success(null))
         dispatch(set_cur_mentor(null))
         dispatch(set_cur_student(null))
+    }
+}
+
+export const follow_user_async = (userID, name) =>{
+    return async dispatch =>{
+        try {
+            dispatch(auth_start())
+            const user = await api.call('post', `auth/user/follow/${userID}`)
+
+            dispatch(auth_success(user))
+            dispatch(auth_message(`You are now following ${name}`, 'success', true))
+            dispatch(remove_error())
+        } catch (err) {
+            if(err.response){
+                const {error} = err.response?.data
+                dispatch(auth_fail(error))
+            }
+            else{
+                dispatch(auth_fail({message:err.message}))
+            }
+        }
+    }
+}
+
+export const unfollow_user_async = (userID, name) =>{
+    return async dispatch =>{
+        try {
+            dispatch(auth_start())
+            const user = await api.call('post', `auth/user/unfollow/${userID}`)
+
+            dispatch(auth_success(user))
+            dispatch(auth_message(`You have unfollowed ${name}`, 'success', true))
+            dispatch(remove_error())
+        } catch (err) {
+            if(err.response){
+                const {error} = err.response?.data
+                dispatch(auth_fail(error))
+            }
+            else{
+                dispatch(auth_fail({message:err.message}))
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
-import { Box } from '@mui/system'
 import React from 'react'
+
+import Box from '@mui/material/Box'
+
 import EventListItem from './EventListItem'
 
 export default function EventList(props) {

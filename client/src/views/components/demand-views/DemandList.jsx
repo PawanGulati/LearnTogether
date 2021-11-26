@@ -1,6 +1,8 @@
-import { Stack } from '@mui/material'
-import { Box } from '@mui/system'
 import React from 'react'
+
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
+
 import DemandListItem from './DemandListItem'
 
 // const demands = [
@@ -27,7 +29,7 @@ export default function DemandList(props) {
         <Stack sx={{overflow: 'auto', height: '100%'}} >
             {
                 props.demands.map((demand, idx)=>
-                    <div key={idx} style={{marginRight: '12px'}}>
+                    <div key={idx} style={{marginRight: ''}}>
                         <DemandListItem 
                             data={demand} 
                             options={props.options} 

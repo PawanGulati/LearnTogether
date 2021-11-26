@@ -1,9 +1,17 @@
 import React from 'react'
-import { Avatar, AvatarGroup, Card, CardActions, CardContent, CardHeader, Chip, IconButton, Stack, Tooltip, Typography } from '@mui/material'
+
+import Avatar from '@mui/material/Avatar'
+import AvatarGroup from '@mui/material/AvatarGroup'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import Chip from '@mui/material/Chip'
+import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 
 import EventAvailableOutlinedIcon from '@mui/icons-material/EventAvailableOutlined';
-import { red } from '@mui/material/colors';
-import { Box } from '@mui/system';
 
 export default function DemandEventListItem(props) {
     const {

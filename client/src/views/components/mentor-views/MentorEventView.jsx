@@ -100,7 +100,13 @@ export default function MentorEventView() {
                 <DialogContent>
                     <Stack spacing={3}>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <Box sx={{display: 'flex'}}>
+                            <Box sx={{
+                                display: 'flex',
+                                width:'100%', 
+                                height: '100%',
+                                overflow:'hidden', 
+                                whiteSpace: 'nowrap',
+                            }}>
                             {
                                 cur_event['topics'].map((topic, id)=>
                                 <Typography key={id} sx={{textTransform: 'capitalize'}}>

@@ -1,12 +1,18 @@
 import React from 'react'
-import { Button, Modal, Stack, TextField } from '@mui/material';
-import { Box } from '@mui/system';
-
-import ChipsArray from '../ChipArray';
 import moment from 'moment'
+
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Modal from '@mui/material/Modal'
+import Stack from '@mui/material/Stack'
+import TextField from '@mui/material/TextField'
+import IconButton from '@mui/material/IconButton'
+
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterMoment';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
+import ChipsArray from './ChipArray';
 import PaperInput from '../PaperInput';
 
 export default function CreateChipModal({open, handleClose, text, create_async}) {
@@ -38,6 +44,7 @@ export default function CreateChipModal({open, handleClose, text, create_async})
         setTopic(value)
     }
 
+    // add topic chips
     const handleAddTopic = () => {
         let len = chipData.length
         
@@ -53,10 +60,12 @@ export default function CreateChipModal({open, handleClose, text, create_async})
         }
     }
 
+    // delete topic chip
     const handleDeleteChip = (chipToDelete) => () => {
         setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
     };
 
+    // submit handler
     const handleCreate = () =>{
         if(chipData.length > 0){
             const topics = chipData.reduce((acc, chip)=>{
@@ -71,7 +80,6 @@ export default function CreateChipModal({open, handleClose, text, create_async})
         handleClose()
     }
 
-
     return (
         <div>
             <Modal
@@ -82,14 +90,12 @@ export default function CreateChipModal({open, handleClose, text, create_async})
             >
                 <Box sx={style}>
                     <Stack spacing={2} width={'100%'} height={'100%'} display='flex'>
-                        <PaperInput placeholder='Type topic name to add' topic={topic} handleInputChange={handleInputChange} />
-                        <Button
-                                variant='contained'
-                                sx={{
-                                    my:2
-                                }}
-                                onClick={handleAddTopic}
-                            >Add Topic</Button>
+                        <Stack direction='row' spacing={1}>
+                            <PaperInput placeholder='Type topic name to add' topic={topic} handleInputChange={handleInputChange} />
+                            <IconButton onClick={handleAddTopic}>
+                                <AddBoxIcon color='primary' fontSize='large' sx={{transform: 'scale(2)'}}/>
+                            </IconButton>
+                        </Stack>
                         <ChipsArray chipData={chipData} handleDelete={handleDeleteChip} />
                         {
                             text.toLowerCase() === 'event' && 

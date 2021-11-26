@@ -8,7 +8,16 @@ exports.getStudent = async (req, res, next)=>{
 
         if(!student) throw new Error('student not exists')
 
-        return res.send(student).status(200)
+        await student.populate({
+            path: 'user',
+            select:['following', 'followers']
+        })
+
+        return res.status(200).send({
+            ...student._doc, 
+            followers: student.user.followers.length, 
+            following: student.user.following.length
+        })
     } catch (error) {
         next({
             status: 401,

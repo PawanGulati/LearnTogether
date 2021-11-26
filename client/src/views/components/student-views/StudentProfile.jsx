@@ -1,9 +1,11 @@
-import { Container, Stack } from '@mui/material'
-import { Box } from '@mui/system'
 import React from 'react'
+
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+
 import ProfileHead from '../ProfileHead'
 import ProfileNavBar from '../ProfileNavBar'
-
 import RoundedPaper from '../RoundedPaper'
 import StudentProfileTabs from './StudentProfileTabs'
 
@@ -27,11 +29,11 @@ export default function StudentProfile(props) {
                     <RoundedPaper height={60}>
                         <ProfileNavBar />
                     </RoundedPaper>
-                    <RoundedPaper height={320} extraStyles={{padding:3}}>
+                    <RoundedPaper height={320} extraStyles={{padding:3, justifyContent:'space-between'}}>
                         <ProfileHead  user={props.cur_student} name={props.cur_user.name}/>
                     </RoundedPaper>
                     <RoundedPaper height={320}>
-                        <StudentProfileTabs />
+                        <StudentProfileTabs user={props.cur_user}/>
                     </RoundedPaper>               
                 </Stack>
             </Container>

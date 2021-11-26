@@ -35,7 +35,7 @@ exports.createEventFromDemand = async (req, res, next) =>{
 
         await demand.remove()
 
-        return res.send(event).status(201)
+        return res.status(201).send(event)
     } catch (error) {
         next({
             status: 401,
@@ -46,6 +46,8 @@ exports.createEventFromDemand = async (req, res, next) =>{
 
 exports.createEventBooking = async (req, res, next)=>{
     try {
+        if(new Date(req.body.date) < new Date()) throw new Error('Not a valid Event')
+
         const mentor = await db.Mentor.findOne({'user': req.user._id})
 
         if(!mentor) throw new Error('Mentor not exists')
@@ -61,7 +63,7 @@ exports.createEventBooking = async (req, res, next)=>{
 
         await booking.save()
 
-        return res.send(booking).status(201)
+        return res.status(201).send(booking)
     } catch (error) {
         next({
             status: 401,
@@ -72,6 +74,8 @@ exports.createEventBooking = async (req, res, next)=>{
 
 exports.createEvent = async (req, res, next)=>{
     try {
+        if(new Date(req.body.date) < new Date()) throw new Error('Not a valid Event')
+
         const mentor = await db.Mentor.findOne({'user': req.user._id})
 
         if(!mentor) throw new Error('Mentor not exists')
@@ -110,7 +114,7 @@ exports.createEvent = async (req, res, next)=>{
 
         await booking.save()
 
-        return res.send(booking).status(201)
+        return res.status(201).send(event)
     } catch (error) {
         next({
             status: 401,
@@ -127,19 +131,19 @@ exports.joinEvent = async(req, res, next)=>{
         let event = await db.Event.findById(req.params.eventID)
         if(!event) throw new Event('Event not exists')
 
-        const check = await db.Student.findOne({'registeredEvents': event._id})
+        const check = await db.Student.findOne({_id:student._id, 'registeredEvents': event._id})
 
         if(check) throw new Error('Already a member')
 
         event = await db.Event.findByIdAndUpdate(event._id, {
-            '$push': {'students': student._id}
-        })
+            $push: {'students': student._id}
+        },{upsert: true, new: true})
 
         await db.Student.findByIdAndUpdate(student._id, {
             '$push': {'registeredEvents': event._id}
         })
 
-        return res.send(event).status(201)
+        return res.status(201).send(event)
     } catch (error) {
         next({
             status: 401,
@@ -168,7 +172,7 @@ exports.getMyBookings = async(req, res, next)=>{
             select: ['scheduleOn', 'event']
         })
 
-        return res.send(mentor.bookings).status(200)
+        return res.status(200).send(mentor.bookings)
 
     } catch (error) {
         next({
@@ -223,7 +227,7 @@ exports.getAllEvents = async (req, res, next)=>{
         else if(registered === 'true')
             events = events.filter(e => {if(e.bookings.length > 0) return e})
 
-        return res.send(events).status(200)
+        return res.status(200).send(events)
     } catch (error) {
         next({
             status: 401,
@@ -232,7 +236,7 @@ exports.getAllEvents = async (req, res, next)=>{
     }
 }
 
-exports.getMyEvents = async (req, res, next) =>{
+exports.getMyRegisteredEvents = async (req, res, next) =>{
     try {
         const student = await db.Student.findOne({'user': req.user._id})
         
@@ -255,7 +259,7 @@ exports.getMyEvents = async (req, res, next) =>{
             }]
         })
 
-        return res.send(student['registeredEvents']).status(200)
+        return res.status(200).send(student['registeredEvents'])
 
     } catch (error) {
         next({
@@ -265,34 +269,53 @@ exports.getMyEvents = async (req, res, next) =>{
     }
 }
 
-exports.getEventsInProgress = async(req, res, next)=>{
+exports.getSuggestedBookings = async(req, res, next)=>{
     try {
-        let events = await db.Event
-            .find()
-            .populate({
-                path: 'topics',
-                model: 'Topic',
-                transform: topic => topic.name,
-            })
-            .populate({
-                path: 'bookings',
-                populate: {
-                    path: 'mentor',
+        const user = await db.User.findById(req.user._id)
+        if(!user) throw new Error('User not exists')
+
+        await user.populate({
+            path: 'following',
+            populate: {
+                path: 'mentor',
+                populate:{
+                    path: 'bookings',
                     populate: {
-                        path: 'user',
-                        select: 'name'
+                        path: 'event',
+                        populate: [{
+                            path: 'topics',
+                            select: 'name',
+                            transform: topics => topics.name
+                        },
+                        {
+                            path: 'bookings',
+                            populate: {
+                                path: 'mentor',
+                                populate: {
+                                    path: 'user',
+                                    select: 'name'
+                                },
+                                transform: mentor => mentor.user.name,
+                            },
+                            select: ['mentor', 'scheduleOn']
+                        }]
                     },
-                    transform: mentor => mentor.user.name,
+                    select: ['event'],
+                    transform: booking => booking.event
                 },
-                select: ['mentor', 'scheduleOn']
-            })
+                select: ['bookings'],
+                transform: mentor => mentor.bookings
+            },
+            select: ['mentor'],
+            transform: following => following.mentor
+        })
 
-        events = events.filter(e => {if(e.bookings.length==0) return e})
+        const resultant = user.following.reduce((acc, val)=>{acc = [...acc, ...val]; return acc;}, [])
 
-        return res.send(events).status(200)
+        return res.status(200).send(resultant)
     } catch (error) {
         next({
-            status: 401,
+            status: 400,
             message: error.message
         })
     }

@@ -4,6 +4,7 @@ module.exports = {
     ...require('./events'),
     ...require('./mentor'),
     ...require('./student'),
+    ...require('./room'),
 }
 
 module.exports.notFound = (req,res,next)=>{

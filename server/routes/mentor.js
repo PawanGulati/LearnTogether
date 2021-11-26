@@ -4,7 +4,7 @@ const control = require('../controllers')
 const auth = require('../middlewares/auth')
 
 router.route('/')
-    .get(control.getMentors)
+    .get(auth, control.getMentors)
 
 router.route('/me')
     .get(auth, control.getMentor)

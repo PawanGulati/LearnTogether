@@ -1,5 +1,7 @@
-import { Grid } from '@mui/material'
 import React from 'react'
+
+import Grid from '@mui/material/Grid'
+
 import DemandEventListItem from './DemandEventListItem'
 
 export default function DemandedEventList(props) {

@@ -1,5 +1,7 @@
-import { Breadcrumbs } from '@mui/material'
 import React from 'react'
+
+import Breadcrumbs from '@mui/material/Breadcrumbs'
+
 import HomeIcon from '@mui/icons-material/Home';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { NavLink } from 'react-router-dom';

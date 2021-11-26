@@ -21,7 +21,12 @@ export default function MentorSignup({handleSignUp, handleInputChange, inputs, e
                 </Typography>
                 : null
             }
-            <Box style={{display:'flex', width:'100%', justifyContent:"space-between"}}>
+            <Box sx={{
+                display:'flex', 
+                width:'100%', 
+                justifyContent:"space-between", 
+                flexDirection:{xs:'column', md: 'row'}
+            }} >
                 <Box style={{display:'flex', flexDirection:"column", flex:1}}>
                     <TextField
                         margin="normal"
@@ -30,6 +35,7 @@ export default function MentorSignup({handleSignUp, handleInputChange, inputs, e
                         name="name"
                         label="Full Name"
                         id="name"
+                        helperText='(at least 5 letters long)'
                         value={inputs.name}
                         onChange={handleInputChange}
                         autoFocus
@@ -64,6 +70,7 @@ export default function MentorSignup({handleSignUp, handleInputChange, inputs, e
                         label="Password"
                         type="password"
                         id="password"
+                        helperText='(one uppercase, one lowercase, one special char, one digit) Ex: Pass@121'
                         autoComplete="current-password"
                     />
                     <TextField
@@ -81,7 +88,14 @@ export default function MentorSignup({handleSignUp, handleInputChange, inputs, e
                 </Box>
                 <Divider orientation="vertical" variant="middle" flexItem style={{margin:'0px 14px'}}/>
                 <Box style={{flex:1}}>
-                    <Typography align='center'><i>Let's Socializeee!!</i></Typography>
+                    <Typography 
+                        align='center'
+                        fontStyle='italic'
+                        color='text.secondary'
+                        mb={2}
+                    >
+                        Let's Socializeee!!
+                    </Typography>
                     <TextField
                         value={inputs.linkedin}
                         onChange={handleInputChange}

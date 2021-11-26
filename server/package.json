@@ -8,20 +8,21 @@
     "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "supertest": "^6.1.6"
   },
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watch --runInBand",
     "start": "node index.js",
     "client-install": "npm intall --prefix client",
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
-  "jest":{
+  "jest": {
     "testEnvironment": "node"
   },
   "repository": {

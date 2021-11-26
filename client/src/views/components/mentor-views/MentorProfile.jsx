@@ -1,15 +1,13 @@
-import { Container, Stack } from '@mui/material'
-import { Box } from '@mui/system'
 import React from 'react'
-import ProfileHead from '../ProfileHead'
-import ProfileNavBar from '../ProfileNavBar'
-import MentorProfileTabs from '../MentorProfileTabs'
+
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
 
 import RoundedPaper from '../RoundedPaper'
-import { createStructuredSelector } from 'reselect'
-import { selectCurMentor } from '../../../store/mentor-store/mentor-selectors'
-import { selectCurUser } from '../../../store/user-store/user-selectors'
-import { connect } from 'react-redux'
+import ProfileHead from '../ProfileHead'
+import ProfileNavBar from '../ProfileNavBar'
+import MentorProfileTabs from './MentorProfileTabs'
 
 export default function MentorProfile(props) {
     return (
@@ -35,7 +33,7 @@ export default function MentorProfile(props) {
                         <ProfileHead user={props.cur_mentor} name={props.cur_user.name}/>
                     </RoundedPaper>
                     <RoundedPaper height={320}>
-                        <MentorProfileTabs />
+                        <MentorProfileTabs user={props.cur_user}/>
                     </RoundedPaper>               
                 </Stack>
             </Container>

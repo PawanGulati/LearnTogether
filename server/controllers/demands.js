@@ -32,7 +32,7 @@ exports.createDemand = async (req, res, next) =>{
             }
         })
 
-        return res.send(demand).status(201)
+        return res.status(201).send(demand)
     } catch (error) {
         next({
             status: 401,
@@ -58,7 +58,7 @@ exports.getAllDemands = async (req, res, next)=>{
         demands = await db.Demand.find({})
             .populate({path: 'topics', select: 'name', transform: topic => topic.name})
         
-        if(!demands) throw new Error('Something went wrong')
+        if(!demands) throw new Error('Demand not exists')
         
         if(queryTopics.length > 0)
             demands = demands.filter(d => {
@@ -66,7 +66,7 @@ exports.getAllDemands = async (req, res, next)=>{
                     return d
             })
 
-        return res.send(demands).status(200)
+        return res.status(200).send(demands)
     } catch (error) {
         next({
             status: 401,
@@ -89,7 +89,7 @@ exports.getMyDemands = async (req, res, next)=>{
             
         if(!student) throw new Error('Student not exists')
 
-        return res.send(student.demands).status(200)
+        return res.status(200).send(student.demands)
     } catch (error) {
         next({
             status: 401,
@@ -110,7 +110,7 @@ exports.getDemand = async (req, res, next)=>{
 
         if(!demand) throw new Error('Demand not found')
 
-        return res.send(demand).status(200)
+        return res.status(200).send(demand)
     } catch (error) {
         next({
             status: 401,
@@ -141,7 +141,7 @@ exports.deleteDemand = async (req, res, next)=>{
             }
         })
 
-        return res.send(demand).status(200)
+        return res.status(200).send(demand)
     } catch (error) {
         next({
             status: 401,

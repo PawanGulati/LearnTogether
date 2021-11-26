@@ -25,7 +25,23 @@ const userSchema = new mongoose.Schema({
             values: Object.values(UserTypes),
             message: 'Not valid user type'
         }
-    }
+    },
+    mentor:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Mentor'
+    },
+    student:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Student'
+    },
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 },{timestamps: true})
 
 // data abstraction

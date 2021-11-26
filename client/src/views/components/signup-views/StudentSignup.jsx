@@ -3,6 +3,14 @@ import React from 'react'
 import { Button, Container, TextField, Typography } from '@mui/material';
 
 export default function StudentSignup({handleSignUp, handleInputChange, inputs, error}) {
+
+    const [touchedID, setTouchedID] = React.useState('fullname')
+
+    const handleTouch = (e, id) => {
+        console.log(id);
+        setTouchedID(id)
+    }
+
     return (
         <Container component="form" noValidate onSubmit={null} sx={{ mt: 1 }}>
             {error ? 
@@ -16,18 +24,19 @@ export default function StudentSignup({handleSignUp, handleInputChange, inputs, 
             }
             <TextField
                 value={inputs.name}
-                onChange={handleInputChange}
+                onChange={ handleInputChange }
                 margin="normal"
                 required
                 fullWidth
                 name="name"
                 label="Full Name"
                 id="fullname"
+                helperText='(at least 5 letters long)'
                 autoFocus
             />
             <TextField
                 value={inputs.institute}
-                onChange={handleInputChange}
+                onChange={ handleInputChange }
                 margin="normal"
                 required
                 fullWidth
@@ -37,7 +46,7 @@ export default function StudentSignup({handleSignUp, handleInputChange, inputs, 
             />
             <TextField
                 value={inputs.email}
-                onChange={handleInputChange}
+                onChange={ handleInputChange }
                 margin="normal"
                 required
                 fullWidth
@@ -48,7 +57,7 @@ export default function StudentSignup({handleSignUp, handleInputChange, inputs, 
             />
             <TextField
                 value={inputs.password}
-                onChange={handleInputChange}
+                onChange={ handleInputChange }
                 margin="normal"
                 required
                 fullWidth
@@ -56,11 +65,12 @@ export default function StudentSignup({handleSignUp, handleInputChange, inputs, 
                 label="Password"
                 type="password"
                 id="password"
+                helperText='(one uppercase, one lowercase, one special char, one digit) Ex: Pass@121'
                 autoComplete="current-password"
             />
             <TextField
                 value={inputs.conform_password}
-                onChange={handleInputChange}
+                onChange={ handleInputChange }
                 margin="normal"
                 required
                 fullWidth

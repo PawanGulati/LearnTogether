@@ -51,6 +51,22 @@ export const set_all_sessions = async()=>{
     }
 }
 
+export const set_suggestion_bookings = async(inProgress=true)=>{
+    try {
+        const events = await api.call('get', `event/suggestions`)
+
+        return events
+    } catch (err) {
+        if(err.response){
+            const {error} = err.response?.data
+            store.dispatch(auth_message(error.message,'error',true))
+        }
+        else{
+            store.dispatch(auth_message(err.message,'error',true))
+        }
+    }
+}
+
 export const join_event = async (eventID) =>{
     try {
         const event = await api.call('post', `event/join/${eventID}`)

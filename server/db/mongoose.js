@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const {DB} = require('../config')
 
-mongoose.set('debug',true)
+mongoose.set('debug', false)
 mongoose.Promise = global.Promise;
 
 const options = {
@@ -10,12 +10,14 @@ const options = {
 }
 
 // create the database connection
-mongoose
-    .connect(DB, options)
-    .then(()=>{
-        console.log('Mongoose connecion done');
-    })
-    .catch(err =>{
+
+const connectDB = async()=>{
+    try {
+        await mongoose.connect(DB, options)
+    } catch (err) {
         console.log('Mongoose connection error');
         console.log(err);
-    })
+    }
+}
+
+connectDB().then(console.log('Mongoose connecion done')).catch(err=>console.log(err))

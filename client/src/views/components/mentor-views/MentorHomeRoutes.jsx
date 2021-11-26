@@ -1,15 +1,15 @@
 import React from 'react'
 
-import withSpinner from '../../hoc/withSpinner/withSpinner'
-import MentorHomeView from '../components/mentor-views/MentorHomeView'
-import MentorEventView from '../components/mentor-views/MentorEventView'
-import MentorRoomsView from '../components/mentor-views/MentorRoomsView'
+import withSpinner from '../../../hoc/withSpinner/withSpinner'
+import MentorHomeView from './MentorHomeView'
+import MentorEventView from './MentorEventView'
+import MentorRoomsView from './MentorRoomsView'
 import { Redirect, Route, Switch } from 'react-router'
-import MentorProfile from './mentor-views/MentorProfile'
+import MentorProfile from './MentorProfile'
 import { createStructuredSelector } from 'reselect'
-import { selectCurMentor, selectMentorLoading } from '../../store/mentor-store/mentor-selectors'
+import { selectCurMentor, selectMentorLoading } from '../../../store/mentor-store/mentor-selectors'
 import { connect } from 'react-redux'
-import { selectCurUser } from '../../store/user-store/user-selectors'
+import { selectCurUser } from '../../../store/user-store/user-selectors'
 
 const MentorHomeViewLoaded = withSpinner(MentorHomeView)
 const MentorEventViewLoaded = withSpinner(MentorEventView)
