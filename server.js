@@ -15,16 +15,16 @@ app.use(cors())
 
 // parsers
 app.use(express.urlencoded({
-    extended: true
+    extended: false
 }))
 app.use(express.json())
 
 // production static files
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname,"client/build")))
+    app.use(express.static('client/build'))
 
-    app.get('/*',(req,res)=>{
-        res.sendFile(path.join(__dirname,"client/build","index.html"))
+    app.get('*',(req,res) =>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
 
@@ -36,22 +36,22 @@ app.use('/api/mentor', routes.mentor)
 app.use('/api/student', routes.student)
 app.use('/api/room', routes.room)
 
-app.delete('/', async (req, res, next)=>{
-    try {
-        const db = mongoose.connection.db
-        const collections = await db.listCollections().toArray()
+// app.delete('/', async (req, res, next)=>{
+//     try {
+//         const db = mongoose.connection.db
+//         const collections = await db.listCollections().toArray()
 
-        collections.map(coll => coll.name).forEach(async c => await db.dropCollection(c))
+//         collections.map(coll => coll.name).forEach(async c => await db.dropCollection(c))
 
-        res.status(200)
-        return next()
-    } catch (error) {
-        next({
-            status: 400,
-            error: error.message
-        })
-    }
-})
+//         res.status(200)
+//         return next()
+//     } catch (error) {
+//         next({
+//             status: 400,
+//             error: error.message
+//         })
+//     }
+// })
 
 // error handlers
 app.use(errorControl.notFound)
