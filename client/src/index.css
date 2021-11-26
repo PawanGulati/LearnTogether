@@ -1,13 +1,60 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* color palatte */
+:root{
+  --theme-red-blur: #C44261;
+  --theme-purple: #854985;
+  --twitter: #1DA1F2;
+  --linkedin: #0077B5;
+  --primary-blue: rgba(21, 101, 192, 1);
+  --primary-blue-blur: rgba(21, 101, 192, .3);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: "Proxima Nova Alt";
+  /*a name to be used later*/
+  src: url('./constants/fonts/Proxima\ Nova\ Alt\ Regular.otf');
+  /*URL to font*/
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: proxima-nova, sans-serif;
+  color: #313e49;
+}
+
+#root{
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img{
+  display: block;
+  max-width: 100%;
+}
+
+/* classes */
+.blur-up{
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  transition: 'filter 400ms, -webkit-filter 400ms';
+}
+
+.blur-up.lazyloaded{
+  -webkit-filter: blur(0);
+  filter: blur(0);
 }

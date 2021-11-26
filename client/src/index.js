@@ -4,9 +4,34 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import Font from './constants/fonts/Proxima Nova Alt Regular.otf'
+
+import CssBaseline from '@mui/material/CssBaseline';
+import {ThemeProvider, createTheme} from '@mui/material'
+
+// integrating react-router
+import {BrowserRouter} from 'react-router-dom'
+
+// integrating REDUX 
+import {Provider} from 'react-redux'
+import {store} from './store'
+
+const mdTheme = createTheme({
+  typography: {
+    fontFamily: {Font},
+  }
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={mdTheme}>
+      <BrowserRouter>
+        <CssBaseline />
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>  
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
