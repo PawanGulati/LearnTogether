@@ -44,7 +44,7 @@ describe('Event routes', ()=>{
             .set('authorization', `Bearer ${userThree.token}`)
             .send({
                 topics: ['topic1'],
-                date: '11/27/2021'
+                date: '11/22/2022'
             })
             .expect(201)
         
