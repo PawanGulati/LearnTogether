@@ -19,6 +19,14 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
+// routes
+app.use('/api/auth',routes.auth)
+app.use('/api/demand',routes.demands)
+app.use('/api/event', routes.event)
+app.use('/api/mentor', routes.mentor)
+app.use('/api/student', routes.student)
+app.use('/api/room', routes.room)
+
 // production static files
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
@@ -27,14 +35,6 @@ if(process.env.NODE_ENV === 'production'){
         res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
-
-// routes
-app.use('/api/auth',routes.auth)
-app.use('/api/demand',routes.demands)
-app.use('/api/event', routes.event)
-app.use('/api/mentor', routes.mentor)
-app.use('/api/student', routes.student)
-app.use('/api/room', routes.room)
 
 // app.delete('/', async (req, res, next)=>{
 //     try {
