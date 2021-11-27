@@ -1,4 +1,6 @@
 const request = require('supertest')
+const mongoose = require('mongoose')
+
 
 const app = require('../server')
 const db = require('../db/models')
@@ -9,6 +11,10 @@ const auth = require('../middlewares/auth')
 
 describe('Auth routes', ()=>{
     beforeEach(setupDataBase)
+
+    afterAll(async ()=>{
+        await mongoose.disconnect()
+    })
 
     test('Should signup a new student', async()=>{
         const response = await request(app)

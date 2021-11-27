@@ -1,4 +1,6 @@
 const request = require('supertest')
+const mongoose = require('mongoose')
+
 
 const app = require('../server')
 const { setupDataBase, userOne} = require('./fixtures/db')
@@ -7,6 +9,10 @@ const { expect } = require('@jest/globals')
 
 describe('Students routes', ()=>{
     beforeEach(setupDataBase)
+
+    afterAll(async ()=>{
+        await mongoose.disconnect()
+    })
 
     test('Should get profile for student', async()=>{
         await request(app)

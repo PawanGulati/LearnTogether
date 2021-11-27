@@ -1,4 +1,6 @@
 const request = require('supertest')
+const mongoose = require('mongoose')
+
 
 const app = require('../server')
 const db = require('../db/models')
@@ -8,6 +10,10 @@ const { expect } = require('@jest/globals')
 
 describe('Demand routes', ()=>{
     beforeEach(setupDataBase)
+
+    afterAll(async ()=>{
+        await mongoose.disconnect()
+    })
 
     test('Should get list of demands for authorized user', async()=>{
         const response = await request(app)

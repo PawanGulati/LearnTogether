@@ -18,16 +18,16 @@
     "node": "16.13.0"
   },
   "scripts": {
-    "test": "jest --watch --runInBand ./tests",
+    "manifest": "node_modules/make-manifest/bin/make-manifest",
+    "test": "concurrently \"npm run manifest\" \"npm run test:clearCache\" \"jest --runInBand\" ",
+    "test:watch": "npm run manifest; npm run test:clearCache; jest --runInBand --watch",
+    "test:clearCache": "jest --clearCache",
     "start": "node index.js",
     "client-install": "npm intall --prefix client",
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
     "heroku-postbuild": "cd client && npm install && npm install --only-dev --no-shrinkwrap && npm run build"
-  },
-  "jest": {
-    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
