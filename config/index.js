@@ -1,11 +1,11 @@
 const path = require('path')
 
-if(process.env.NODE_ENV !== 'production')
+if(process.env.NODE_ENV === 'developement')
     require('dotenv').config({
         path: path.join(__dirname, '..', '.env')
     })
 
-if(process.env.NODE_ENV !== 'test')
+if(process.env.NODE_ENV === 'test')
     require('dotenv').config({
         path: path.join(__dirname, '..', '.env.test')
     })
