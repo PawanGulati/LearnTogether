@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import Avatar from '@mui/material/Avatar'
 import Badge from '@mui/material/Badge'
@@ -7,13 +7,14 @@ import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
-import GroupsTabView from './GroupsTabView'
-import ChatTabView from './ChatTabView'
-import AttachmentsTabView from './AttachmentsTabView'
-import NotesTabView from './NotesTabView'
-import MeetTabView from './MeetTabView'
-
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import { Spinner } from '../../../hoc/withSpinner/withSpinner'
+
+const GroupsTabView = React.lazy(() => import('./GroupsTabView') )
+const ChatTabView = React.lazy(() => import('./ChatTabView') )
+const AttachmentsTabView = React.lazy(() => import('./AttachmentsTabView') )
+const NotesTabView = React.lazy(() => import('./NotesTabView') )
+const MeetTabView = React.lazy(() => import('./MeetTabView') )
 
 export default withRouter(function RoomTab(props) {
     const pathname = props.match.path
@@ -32,15 +33,17 @@ export default withRouter(function RoomTab(props) {
                 item xs={10}
                 sx={{borderRight:'1px solid #e0e0e0'}}
             >
+                <Suspense fallback={<Spinner />}>
                 <Switch>
                     <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
-                    <Route exact path={`${pathname}`} component={GroupsTabView} />
-                    <Route exact path={`${pathname}/chat`} component={ChatTabView} />
-                    <Route exact path={`${pathname}/notes`} component={NotesTabView} />
-                    <Route exact path={`${pathname}/attachments`} component={AttachmentsTabView} />
-                    <Route exact path={`${pathname}/meet`} component={MeetTabView}/>
+                        <Route exact path={`${pathname}`} component={GroupsTabView} />
+                        <Route exact path={`${pathname}/chat`} component={ChatTabView} />
+                        <Route exact path={`${pathname}/notes`} component={NotesTabView} />
+                        <Route exact path={`${pathname}/attachments`} component={AttachmentsTabView} />
+                        <Route exact path={`${pathname}/meet`} component={MeetTabView}/>
                     <Redirect to='/404' />
                 </Switch>
+                </Suspense>
             </Grid>
             <Grid item xs={1.5}>
                 <Typography

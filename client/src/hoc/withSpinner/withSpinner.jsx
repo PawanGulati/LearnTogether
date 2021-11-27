@@ -4,7 +4,7 @@ import GridLoader from 'react-spinners/GridLoader'
 import {css} from '@emotion/react'
 import { Box } from '@mui/system'
 
-const wrapper = WrapperComponent => ({isLoading, ...props}) =>{
+export const Spinner = ()=>{
     const override = css`
         position:absolute;
         top:50%;
@@ -12,7 +12,7 @@ const wrapper = WrapperComponent => ({isLoading, ...props}) =>{
         display:flex;
     `
 
-    return isLoading ?
+    return (
         <Box
             component="main"
             display="flex"
@@ -27,8 +27,13 @@ const wrapper = WrapperComponent => ({isLoading, ...props}) =>{
         }}
         >
             <GridLoader size={35} color={'var(--primary-blue)'} css={override} /> 
-        </Box> :
-        <WrapperComponent {...props} />
+        </Box>
+    )
+}
+
+const wrapper = WrapperComponent => ({isLoading, ...props}) =>{
+
+    return isLoading ? <Spinner /> : <WrapperComponent {...props} />
 }
 
 export default wrapper

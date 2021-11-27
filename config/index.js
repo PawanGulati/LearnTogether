@@ -1,14 +1,16 @@
 const path = require('path')
 
-if(process.env.NODE_ENV === 'developement')
-    require('dotenv').config({
-        path: path.join(__dirname, '..', '.env')
-    })
+console.log(process.env.NODE_ENV);
 
 if(process.env.NODE_ENV === 'test')
     require('dotenv').config({
         path: path.join(__dirname, '..', '.env.test')
     })
+else if(process.env.NODE_ENV !== 'production')
+    require('dotenv').config({
+        path: path.join(__dirname, '..', '.env')
+    })
+
 
 module.exports = {
     PORT:process.env.PORT,
