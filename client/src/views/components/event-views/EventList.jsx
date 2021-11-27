@@ -12,7 +12,7 @@ export default function EventList(props) {
                     props.events.map((event, idx)=>{
                         if(event.bookings.length === 0 && !props.checked)
                             return(
-                                <div key={idx}>
+                                <div key={idx} style={{marginRight:10}}>
                                     <EventListItem 
                                         data={event} 
                                         options={props.options}
@@ -23,7 +23,7 @@ export default function EventList(props) {
                             )
                         else if(event.bookings.length > 0 && props.checked){
                             return event.bookings.map((b, id) => 
-                                <div key={id+idx+1}>
+                                <div key={id+idx+1} style={{marginRight:10}}>
                                     <EventListItem 
                                         data={event} 
                                         mentor={b['mentor']} 

@@ -18,8 +18,6 @@ import { set_cur_mentor_async } from './store/mentor-store/mentor-actions';
 import {setToken} from './utils/services/api'
 import withSpinner from './hoc/withSpinner/withSpinner'
 
-import ErrorBoundary from './utils/ErrorBoundary/ErrorBoundary';
-
 // Checking if token is valid(not expired also comes init) and there in local storage, then set a user else logout or not set a user
 //TODO: BUGFIX: auto logout without a refresh
 const setUserFromToken = async () =>{

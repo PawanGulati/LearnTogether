@@ -10,7 +10,7 @@ export default function BookingList(props) {
             {
                 props.bookings.map((booking, idx)=>{
                     return(
-                        <Box key={idx}>
+                        <Box key={idx} sx={{marginRight:2}}>
                             <BookingListItem 
                                 data={booking} 
                                 options={props.options}

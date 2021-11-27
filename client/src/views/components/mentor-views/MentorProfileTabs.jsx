@@ -89,7 +89,7 @@ export default function ProfileTabs(props) {
               />
             </TabPanel>
             <TabPanel value={value} index={2}>
-            Coming Soon...
+            
             </TabPanel>
       </Box>
     )

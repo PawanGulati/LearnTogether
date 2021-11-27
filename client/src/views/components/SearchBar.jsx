@@ -17,10 +17,8 @@ export default function SearchBar(props) {
                 sx={{ ml: 1, flex: 1 }}
                 placeholder={props.placeholder}
                 inputProps={{ 'aria-label': 'search events' }}
-                value={props.value}
-                onChange={e => props.handleInputChange(e)}
             />
-            <IconButton type='submit' sx={{ p: '10px' }} aria-label="search">
+            <IconButton sx={{ p: '10px' }} aria-label="search">
                 <SearchIcon />
             </IconButton>
         </Paper>

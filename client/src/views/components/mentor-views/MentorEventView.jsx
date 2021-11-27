@@ -128,8 +128,8 @@ export default function MentorEventView() {
                     </Stack>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClosePrompt}>Disagree</Button>
-                    <Button onClick={ handleSubmit }>Agree</Button>
+                    <Button onClick={handleClosePrompt} color='error'>No</Button>
+                    <Button onClick={ handleSubmit }>Yes</Button>
                 </DialogActions>
             </Dialog>}
             <SnackBar />

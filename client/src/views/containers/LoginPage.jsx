@@ -124,8 +124,8 @@ export default function LoginPage(props) {
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs>
+              <Grid container justifyContent='center'>
+                <Grid item xs={6}>
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>

@@ -195,7 +195,7 @@ export default function StudentEventView(props) {
                           handleOpenJoinPropmt={handleOpenPrompt}
                         />
                       </TabPanel>
-                      <TabPanel value="2">Coming Soon...</TabPanel>
+                      <TabPanel value="2"></TabPanel>
                     </TabContext>
                 </Box>
               </RoundedPaper>
@@ -221,7 +221,7 @@ export default function StudentEventView(props) {
                         handleOpenJoinPropmt={handleOpenPrompt}
                       />
                     </TabPanel>
-                    <TabPanel value="2"sx={{height:'100%'}}>
+                    <TabPanel value="2"sx={{height:'100%', overflow: 'auto'}}>
                       <EventListLoaded 
                         isLoading={events === null} 
                         events={events} 
@@ -230,7 +230,7 @@ export default function StudentEventView(props) {
                         handleOpenJoinPropmt={handleOpenPrompt}
                       />
                     </TabPanel>
-                    <TabPanel value="3">
+                    <TabPanel value="3"sx={{height:'100%', overflow: 'auto'}}>
                       <EventListLoaded 
                         isLoading={events === null} 
                         events={events}
@@ -254,7 +254,7 @@ export default function StudentEventView(props) {
               aria-describedby="alert-dialog-slide-description"
             >
               <DialogTitle>{ 
-                isEvent ? "Do you like to join this EVENT ?" : "Do you like to convert this DEMAND ?"
+                isEvent ? "Do you like to join this EVENT ?" : "Do you like to convert this REQUEST ?"
               }</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description" sx={{overflowY:'auto', maxHeight:'100px'}}>
@@ -271,8 +271,8 @@ export default function StudentEventView(props) {
                     </DialogContentText>
                 </DialogContent>
               <DialogActions>
-                <Button onClick={handleClosePrompt}>Disagree</Button>
-                <Button onClick={ () => handleSubmit(isEvent) }>Agree</Button>
+                <Button onClick={handleClosePrompt} color='error'>No</Button>
+                <Button onClick={ () => handleSubmit(isEvent) }>Yes</Button>
               </DialogActions>
             </Dialog>
           }

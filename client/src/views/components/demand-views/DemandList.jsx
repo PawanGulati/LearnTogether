@@ -29,7 +29,7 @@ export default function DemandList(props) {
         <Stack sx={{overflow: 'auto', height: '100%'}} >
             {
                 props.demands.map((demand, idx)=>
-                    <div key={idx} style={{marginRight: ''}}>
+                    <div key={idx} style={{marginRight:10}}>
                         <DemandListItem 
                             data={demand} 
                             options={props.options} 

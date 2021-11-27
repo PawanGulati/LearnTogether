@@ -25,7 +25,7 @@ export default function DemandEventListItem(props) {
                 <Stack direction="row" spacing={1} sx={{flexWrap: 'wrap', height:'5em', overflow:'auto'}}>
                     {
                         topics.map((topic, idx) => 
-                            <Chip label={topic} sx={{textTransform: 'capitalize', margin:'3px 0px'}}/>
+                            <Chip label={topic} key={idx} sx={{textTransform: 'capitalize', margin:'3px 0px'}}/>
                         )
                     }
                 </Stack>

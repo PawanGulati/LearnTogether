@@ -46,7 +46,7 @@ exports.createEventFromDemand = async (req, res, next) =>{
 
 exports.createEventBooking = async (req, res, next)=>{
     try {
-        if(new Date(req.body.date) < new Date()) throw new Error('Not a valid Event')
+        if(new Date(req.body.date) < new Date()) throw new Error('Event can only be created in future')
 
         const mentor = await db.Mentor.findOne({'user': req.user._id})
 
@@ -74,7 +74,7 @@ exports.createEventBooking = async (req, res, next)=>{
 
 exports.createEvent = async (req, res, next)=>{
     try {
-        if(new Date(req.body.date) < new Date()) throw new Error('Not a valid Event')
+        if(new Date(req.body.date) < new Date()) throw new Error('Event can only be created in future')
 
         const mentor = await db.Mentor.findOne({'user': req.user._id})
 

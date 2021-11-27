@@ -20,7 +20,7 @@ const listPaperItemStyles = {
   alignItems:'center',
   padding:1,
   border: '2px solid var(--primary-blue-blur)',
-  boxShadow:0
+  boxShadow:0,
 }
 
 export default function EventListItem({data, ...xtra}) {
