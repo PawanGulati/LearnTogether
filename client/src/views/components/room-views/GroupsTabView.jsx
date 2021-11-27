@@ -15,7 +15,7 @@ export default function GroupsTabView() {
                     p={2}
                     color='text.secondary'
                 >
-                    All groups
+                    Rooms List
                 </Typography>
             </Grid>
             <Grid item p={2} xs={10} overflow='auto'>

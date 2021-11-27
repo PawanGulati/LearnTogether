@@ -10,6 +10,8 @@ import { selectCurMentor, selectMentorLoading } from '../../../store/mentor-stor
 import { connect } from 'react-redux'
 import { selectCurUser } from '../../../store/user-store/user-selectors'
 
+import ErrorBoundary from '../../../utils/ErrorBoundary/ErrorBoundary'
+
 const MentorHomeView = React.lazy(() => import('./MentorHomeView') )
 const MentorEventView = React.lazy(() => import('./MentorEventView') )
 const MentorRoomsView = React.lazy(() => import('./MentorRoomsView') )
@@ -29,52 +31,54 @@ export default connect(mapStateToProps)(function MentorHomeRoutes(props) {
     const pathname = props.match.path
     
     return (
-        <Suspense fallback={<Spinner />}>
-        <Switch>
-            <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
-                <Route 
-                    exact 
-                    path={`${pathname}`} 
-                    render={
-                        ()=> 
-                        <MentorHomeViewLoaded 
-                            isLoading={props.isLoading} 
-                        /> 
-                    } 
-                />
-                <Route 
-                    exact 
-                    path={`${pathname}profile`} 
-                    render={
-                        ()=> 
-                        <MentorProfileLoaded 
-                            isLoading={props.mentor_loading || props.isLoading} 
-                            cur_mentor={props.cur_mentor}
-                            cur_user={props.cur_user}
-                        /> 
-                    } 
-                />
-                <Route 
-                    exact 
-                    path={`${pathname}events`} 
-                    render={
-                        ()=> 
-                        <MentorEventViewLoaded 
-                            isLoading={props.isLoading} 
-                        /> 
-                    } 
-                />
-                <Route 
-                    path={`${pathname}rooms`} 
-                    render={
-                        ()=> 
-                        <MentorRoomsViewLoaded 
-                            isLoading={props.isLoading} 
-                        /> 
-                    } 
-                />
-            <Redirect to='/404' />
-        </Switch>
-        </Suspense>
+        <ErrorBoundary>
+            <Suspense fallback={<Spinner />}>
+            <Switch>
+                <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
+                    <Route 
+                        exact 
+                        path={`${pathname}`} 
+                        render={
+                            ()=> 
+                            <MentorHomeViewLoaded 
+                                isLoading={props.isLoading} 
+                            /> 
+                        } 
+                    />
+                    <Route 
+                        exact 
+                        path={`${pathname}profile`} 
+                        render={
+                            ()=> 
+                            <MentorProfileLoaded 
+                                isLoading={props.mentor_loading || props.isLoading} 
+                                cur_mentor={props.cur_mentor}
+                                cur_user={props.cur_user}
+                            /> 
+                        } 
+                    />
+                    <Route 
+                        exact 
+                        path={`${pathname}events`} 
+                        render={
+                            ()=> 
+                            <MentorEventViewLoaded 
+                                isLoading={props.isLoading} 
+                            /> 
+                        } 
+                    />
+                    <Route 
+                        path={`${pathname}rooms`} 
+                        render={
+                            ()=> 
+                            <MentorRoomsViewLoaded 
+                                isLoading={props.isLoading} 
+                            /> 
+                        } 
+                    />
+                <Redirect to='/404' />
+            </Switch>
+            </Suspense>
+        </ErrorBoundary>
     )
 })
