@@ -61,7 +61,6 @@ export default connect(mapStateToProps)(function MentorHomeRoutes(props) {
                 } 
             />
             <Route 
-                exact 
                 path={`${pathname}rooms`} 
                 render={
                     ()=> 

@@ -10,19 +10,25 @@ import TextField from '@mui/material/TextField';
 import RoomList from '../room-views/RoomList';
 import Room from '../room-views/Room';
 
+import RoomTabs from '../room-views/RoomTabs'
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
   chatSection: {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    borderRadius:10
   },
   headBG: {
       backgroundColor: '#e0e0e0'
   },
   borderRight500: {
-      borderRight: '1px solid #e0e0e0'
+      borderRight: '1px solid #e0e0e0',
+      display:'flex',
+      justifyContent:'center',
+      alignItems: 'center'
   }
 });
 
@@ -46,14 +52,10 @@ export default function MentorRoomView() {
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4, pt: 8}}>
         {/* Chat Section */}
         <Grid container component={Paper} className={classes.chatSection}>
-            <Grid item xs={3} className={classes.borderRight500}>
-                <Grid item xs={12} style={{padding: '10px'}}>
-                    <TextField id="outlined-basic-email" label="Search" variant="outlined" fullWidth />
-                </Grid>
-                <Divider />
-                <RoomList />
+            <Grid item xs={1} className={classes.borderRight500}>
+              <RoomTabs />
             </Grid>
-            <Room />          
+            <Room />            
       </Grid>
     </Container>
     </Box>

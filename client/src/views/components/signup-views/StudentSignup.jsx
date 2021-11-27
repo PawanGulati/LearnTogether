@@ -4,13 +4,6 @@ import { Button, Container, TextField, Typography } from '@mui/material';
 
 export default function StudentSignup({handleSignUp, handleInputChange, inputs, error}) {
 
-    const [touchedID, setTouchedID] = React.useState('fullname')
-
-    const handleTouch = (e, id) => {
-        console.log(id);
-        setTouchedID(id)
-    }
-
     return (
         <Container component="form" noValidate onSubmit={null} sx={{ mt: 1 }}>
             {error ? 

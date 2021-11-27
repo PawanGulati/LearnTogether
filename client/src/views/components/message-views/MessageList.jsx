@@ -8,13 +8,12 @@ import MessageListItem from './MessageListItem';
 export default function MessageList() {
     return (
         <List sx={{
-            height: '70vh',
             overflowY: 'auto'
         }}>
             {
                 [...Array(3)].map((msg, id)=> 
                     <ListItem key="1">
-                        <MessageListItem />
+                        <MessageListItem id={id}/>
                     </ListItem>
                 )
             }

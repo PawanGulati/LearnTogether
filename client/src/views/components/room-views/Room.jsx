@@ -1,15 +1,11 @@
 import React from 'react'
 
 import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
-import Fab from '@mui/material/Fab';
-import SendIcon from '@mui/icons-material/Send';
-import MessageList from '../message-views/MessageList';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurRoom } from '../../../store/room-store/room-selectors';
+import RoomTab from './RoomTab';
 
 const mapStateToProps = createStructuredSelector({
     room: selectCurRoom
@@ -29,9 +25,9 @@ export default connect(mapStateToProps)(function Room(props) {
     },[props.room])
 
     return (
-        <Grid item xs={9}>
-            <MessageList messages={messages} />
-            <Divider />
+        <Grid item xs={11}>
+            <RoomTab />
+            {/* <Divider />
             <Grid container style={{padding: '20px'}}>
                 <Grid item xs={11}>
                     <TextField 
@@ -45,7 +41,7 @@ export default connect(mapStateToProps)(function Room(props) {
                 <Grid item xs={1} align="right">
                     <Fab color="primary" aria-label="add"><SendIcon /></Fab>
                 </Grid>
-            </Grid>
+            </Grid> */}
         </Grid>
     )
 })

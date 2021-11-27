@@ -73,7 +73,6 @@ export default connect(mapStateToProps)(function StudentHomeRoutes(props) {
                 } 
             />
             <Route 
-                exact 
                 path={`${pathname}rooms`} 
                 render={
                     ()=> 
