@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const path = require('path')
+const compression = require('compression')
 
 const errorControl = require('./controllers')
 const routes = require('./routes')
@@ -12,6 +13,9 @@ require('./db/mongoose')
 
 // cors
 app.use(cors())
+
+// gzipping
+app.use(compression())
 
 // parsers
 app.use(express.urlencoded({
