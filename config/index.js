@@ -2,7 +2,12 @@ const path = require('path')
 
 if(process.env.NODE_ENV !== 'production')
     require('dotenv').config({
-        path: path.join(__dirname, '..', `.env${process.env.NODE_ENV === 'test' ? '.test': ''}`)
+        path: path.join(__dirname, '..', '.env')
+    })
+
+if(process.env.NODE_ENV !== 'test')
+    require('dotenv').config({
+        path: path.join(__dirname, '..', '.env.test')
     })
 
 module.exports = {

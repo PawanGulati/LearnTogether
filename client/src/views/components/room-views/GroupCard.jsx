@@ -11,7 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export default function RecipeReviewCard(props) {
   return (
-    <Card sx={{ width:'100%' ,height:'100%' }} sx={{border:'1px solid #e0e0e0', boxShadow:0}}>
+    <Card sx={{ width:'100%' ,height:'100%', border:'1px solid #e0e0e0', boxShadow:0 }} >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

@@ -111,19 +111,19 @@ export default connect(null, mapDispatchToProps)(function HeaderDrawer(props) {
               <Stack direction="row" spacing={3} alignItems='center'>
                 
                 <IconButton edge="end" color="inherit">
-                  <Badge badgeContent={5} color="secondary">
+                  <Badge badgeContent={5} color="error">
                       <ChatIcon />
                   </Badge>
                 </IconButton>
                 
                 <IconButton edge="end" color="inherit">
-                  <Badge badgeContent={2} color="secondary">
+                  <Badge badgeContent={2} color="error">
                       <PersonIcon />
                   </Badge>
                 </IconButton>
                 
                 <IconButton edge="end" color="inherit">
-                  <Badge badgeContent={4} color="secondary">
+                  <Badge badgeContent={4} color="error">
                       <NotificationsIcon />
                   </Badge>
                 </IconButton>

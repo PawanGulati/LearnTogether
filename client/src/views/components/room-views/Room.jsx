@@ -13,12 +13,12 @@ const mapStateToProps = createStructuredSelector({
 
 export default connect(mapStateToProps)(function Room(props) {
 
-    const [messages, setMessages] = React.useState([])
-    const [message, setMessage] = React.useState('')
+    // const [messages, setMessages] = React.useState([])
+    // const [message, setMessage] = React.useState('')
 
-    const handleInputChange = ({ target: { value } }) =>{
-        setMessage(value)
-    }
+    // const handleInputChange = ({ target: { value } }) =>{
+        // setMessage(value)
+    // }
 
     React.useEffect(()=>{
         // setMessage(props.room.messages)
