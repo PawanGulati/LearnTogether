@@ -14,6 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env: # Or as an environment variable
+      MONGO_URL: ${{ secrets.TESTING_MONGO_URI }}
+      SECRET_KEY_JWT: ${{secrets.SECRET_KEY_JWT}}
+
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
