@@ -79,7 +79,7 @@ export default function DemandListItem({data, ...xtra}) {
             {
                 xtra.options && (
                     <Tooltip title='Convert Event' >
-                        <IconButton onClick={()=>xtra.handleOpenJoinPropmt(data, false)}>
+                        <IconButton aria-label='convert-event-button' onClick={()=>xtra.handleOpenJoinPropmt(data, false)}>
                             <CachedOutlinedIcon />
                         </IconButton>
                     </Tooltip>

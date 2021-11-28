@@ -121,6 +121,7 @@ export default function StudentHomeView() {
                     Meet with like minded buddies to interact and study
                   </Typography>
                   <Button
+                    aria-label='create-request'
                     variant='contained'
                     sx={{
                       fontWeight:600,

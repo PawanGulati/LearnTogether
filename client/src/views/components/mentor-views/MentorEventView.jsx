@@ -1,6 +1,18 @@
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Stack, TextField, Typography } from '@mui/material'
-import { Box } from '@mui/system'
 import React from 'react'
+
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Slide from '@mui/material/Slide'
+import Stack from '@mui/material/Stack'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+
 import { book_event, set_all_events } from '../../../utils/services/events'
 import SearchBar from '../SearchBar'
 
@@ -128,8 +140,8 @@ export default function MentorEventView() {
                     </Stack>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClosePrompt} color='error'>No</Button>
-                    <Button onClick={ handleSubmit }>Yes</Button>
+                    <Button aria-label='book-no' onClick={handleClosePrompt} color='error'>No</Button>
+                    <Button aria-label='book-yes' onClick={ handleSubmit }>Yes</Button>
                 </DialogActions>
             </Dialog>}
             <SnackBar />

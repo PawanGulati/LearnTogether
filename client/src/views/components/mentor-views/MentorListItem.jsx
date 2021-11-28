@@ -60,14 +60,14 @@ export default connect(mapStateToProps)(function MentorListItem(props) {
                     followers.includes(props.cur_user._id) ?
                     (
                         <Tooltip title='UnFollow me'>
-                            <IconButton aria-label="share" onClick={ () => props.handleClickOpen(props.data, false) }>
+                            <IconButton aria-label="unfollow" onClick={ () => props.handleClickOpen(props.data, false) }>
                                 <PersonRemoveAlt1Icon />
                             </IconButton>
                         </Tooltip>
                     ) :
                     (
                         <Tooltip title='Follow me'>
-                            <IconButton aria-label="share" onClick={ () => props.handleClickOpen(props.data, true) }>
+                            <IconButton aria-label="follow" onClick={ () => props.handleClickOpen(props.data, true) }>
                                 <PersonAddAlt1Icon />
                             </IconButton>
                         </Tooltip>

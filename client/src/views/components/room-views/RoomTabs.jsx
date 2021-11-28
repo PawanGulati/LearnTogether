@@ -30,7 +30,7 @@ export default withRouter(function RoomTabs(props) {
     >
       <Grid xs={2} item height='100%' maxWidth='100%' width='100%'>
             <NavLink to={`${pathname}`}>
-              <IconButton sx={{height:'100%', width:'100%'}} disableRipple>
+              <IconButton aria-label='group-tab' sx={{height:'100%', width:'100%'}} disableRipple>
                 <Tooltip placement='left-start' title='Rooms'>
                   <GroupIcon />              
                 </Tooltip>
@@ -39,7 +39,7 @@ export default withRouter(function RoomTabs(props) {
       </Grid>
       <Grid xs={2} item height='100%' maxWidth='100%' width='100%'>
             <NavLink to={`${pathname}/chat`}>
-              <IconButton sx={{height:'100%', width:'100%'}} disableRipple>
+              <IconButton aria-label='chat-tab' sx={{height:'100%', width:'100%'}} disableRipple>
                 <Tooltip placement='left-start' title='Chats'>
                   <ChatIcon />              
                 </Tooltip>
@@ -48,7 +48,7 @@ export default withRouter(function RoomTabs(props) {
       </Grid>
       <Grid xs={2} item height='100%' maxWidth='100%' width='100%'>
             <NavLink to={`${pathname}/notes`}>
-              <IconButton sx={{height:'100%', width:'100%'}} disableRipple>
+              <IconButton aria-label='notes-tab' sx={{height:'100%', width:'100%'}} disableRipple>
                 <Tooltip placement='left-start' title='Notes'>
                   <ListAltIcon />              
                 </Tooltip>
@@ -57,7 +57,7 @@ export default withRouter(function RoomTabs(props) {
       </Grid>
       <Grid xs={2} item height='100%' maxWidth='100%' width='100%'>
             <NavLink to={`${pathname}/attachments`}>
-              <IconButton sx={{height:'100%', width:'100%'}} disableRipple>
+              <IconButton aria-label='attach-tab' sx={{height:'100%', width:'100%'}} disableRipple>
                 <Tooltip placement='left-start' title='Attachments'>
                   <AttachmentIcon />              
                 </Tooltip>
@@ -66,7 +66,7 @@ export default withRouter(function RoomTabs(props) {
       </Grid>
       <Grid xs={2} item height='100%' maxWidth='100%' width='100%'>
             <NavLink to={`${pathname}/meet`}>
-              <IconButton sx={{height:'100%', width:'100%'}} disableRipple>
+              <IconButton aria-label='meet-tab' sx={{height:'100%', width:'100%'}} disableRipple>
                 <Tooltip placement='left-start' title='Meet'>
                   <VideocamIcon />              
                 </Tooltip>

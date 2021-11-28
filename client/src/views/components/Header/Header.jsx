@@ -110,25 +110,25 @@ export default connect(null, mapDispatchToProps)(function HeaderDrawer(props) {
               
               <Stack direction="row" spacing={3} alignItems='center'>
                 
-                <IconButton edge="end" color="inherit">
+                <IconButton aria-label='message-button' edge="end" color="inherit">
                   <Badge badgeContent={5} color="error">
                       <ChatIcon />
                   </Badge>
                 </IconButton>
                 
-                <IconButton edge="end" color="inherit">
+                <IconButton aria-label='person-button' edge="end" color="inherit">
                   <Badge badgeContent={2} color="error">
                       <PersonIcon />
                   </Badge>
                 </IconButton>
                 
-                <IconButton edge="end" color="inherit">
+                <IconButton aria-label='notification' edge="end" color="inherit">
                   <Badge badgeContent={4} color="error">
                       <NotificationsIcon />
                   </Badge>
                 </IconButton>
                 
-                <IconButton edge="end" color="inherit" onClick={handleClick}>
+                <IconButton aria-label='avatar' edge="end" color="inherit" onClick={handleClick}>
                   <Avatar sx={{bgcolor: red[300]}}>P</Avatar>
                 </IconButton>
 

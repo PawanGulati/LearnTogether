@@ -103,7 +103,7 @@ export default function EventListItem({data, ...xtra}) {
                     {
                         xtra.options && (
                             <Tooltip title='Join Event'>
-                                <IconButton onClick={()=>xtra.handleOpenJoinPropmt(data, true)} >
+                                <IconButton aria-label='group-join-button' onClick={()=>xtra.handleOpenJoinPropmt(data, true)} >
                                     <GroupAddOutlinedIcon />
                                 </IconButton>
                             </Tooltip>

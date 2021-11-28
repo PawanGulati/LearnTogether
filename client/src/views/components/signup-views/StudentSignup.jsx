@@ -1,6 +1,9 @@
 import React from 'react'
 
-import { Button, Container, TextField, Typography } from '@mui/material';
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 
 export default function StudentSignup({handleSignUp, handleInputChange, inputs, error}) {
 
@@ -74,6 +77,7 @@ export default function StudentSignup({handleSignUp, handleInputChange, inputs, 
                 autoComplete="conform_password"
             />
             <Button
+                aria-label='student-signup'
                 type="submit"
                 fullWidth
                 variant="contained"

@@ -67,7 +67,7 @@ export default connect(mapStateToProps)(function Drawer(props) {
                 }}
             >
               
-            <IconButton onClick={toggleDrawer}>
+            <IconButton aria-label='drawer-close-button' onClick={toggleDrawer}>
                 <ChevronLeftIcon />
             </IconButton>
             </Toolbar>

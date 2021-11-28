@@ -19,7 +19,7 @@ export default function RecipeReviewCard(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="group-settings">
             <MoreVertIcon />
           </IconButton>
         }

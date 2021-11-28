@@ -92,7 +92,7 @@ export default function CreateChipModal({open, handleClose, text, create_async})
                     <Stack spacing={2} width={'100%'} height={'100%'} display='flex'>
                         <Stack direction='row' spacing={1}>
                             <PaperInput placeholder='Type topic name to add' topic={topic} handleInputChange={handleInputChange} />
-                            <IconButton onClick={handleAddTopic}>
+                            <IconButton aria-label='plus-add-button' onClick={handleAddTopic}>
                                 <AddBoxIcon color='primary' fontSize='large' sx={{transform: 'scale(2)'}}/>
                             </IconButton>
                         </Stack>
@@ -118,6 +118,7 @@ export default function CreateChipModal({open, handleClose, text, create_async})
                             }}
                         >
                             <Button
+                                aria-label='create-button'
                                 variant='contained'
                                 color='secondary'
                                 size='large'

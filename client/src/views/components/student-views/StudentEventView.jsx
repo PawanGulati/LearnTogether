@@ -271,8 +271,8 @@ export default function StudentEventView(props) {
                     </DialogContentText>
                 </DialogContent>
               <DialogActions>
-                <Button onClick={handleClosePrompt} color='error'>No</Button>
-                <Button onClick={ () => handleSubmit(isEvent) }>Yes</Button>
+                <Button aria-label='join-no' onClick={handleClosePrompt} color='error'>No</Button>
+                <Button aria-label='join-yes' onClick={ () => handleSubmit(isEvent) }>Yes</Button>
               </DialogActions>
             </Dialog>
           }

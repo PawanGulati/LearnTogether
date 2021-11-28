@@ -25,7 +25,7 @@ export default connect(mapStateToProps)(function RoomList(props) {
         <List>
             {
                 props.rooms_list.map((room, idx) => 
-                    <ListItem button key={idx} onClick={()=>roomSelectHandler(room._id)}>
+                    <ListItem button aria-label='group-tabs-buttons' key={idx} onClick={()=>roomSelectHandler(room._id)}>
                         <ListItemIcon>
                             <Avatar alt={`Room${idx}`} src="https://material-ui.com/static/images/avatar/1.jpg" />
                         </ListItemIcon>

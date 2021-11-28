@@ -90,7 +90,7 @@ export default function BookingListItem({data, ...xtra}) {
             {
                 xtra.options && (
                     <Tooltip title='Join Event' >
-                        <IconButton onClick={()=>xtra.handleOpenPropmt(data, true)} >
+                        <IconButton aria-label='group-add-button' onClick={()=>xtra.handleOpenPropmt(data, true)} >
                             <GroupAddOutlinedIcon />
                         </IconButton>
                     </Tooltip>

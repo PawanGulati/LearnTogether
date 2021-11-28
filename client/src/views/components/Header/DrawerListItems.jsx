@@ -12,25 +12,25 @@ import {withRouter} from 'react-router-dom'
 export default withRouter(function ListItems(props) {
   return (
     <div>
-      <ListItem button>
+      <ListItem button aria-label='home-button'>
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
         <ListItemText onClick={()=>props.history.push('/')} primary="Home" />
       </ListItem>
-      <ListItem button>
+      <ListItem button aria-label='event-button'>
         <ListItemIcon>
           <EventIcon />
         </ListItemIcon>
         <ListItemText onClick={()=>props.history.push('/events')} primary="Event" />
       </ListItem>
-      <ListItem button>
+      <ListItem button aria-label='chat-button'>
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
         <ListItemText onClick={()=>props.history.push('/rooms')} primary="Rooms" />
       </ListItem>
-      {props.userType === 'student' && <ListItem button>
+      {props.userType === 'student' && <ListItem button aria-label='people-button'>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>

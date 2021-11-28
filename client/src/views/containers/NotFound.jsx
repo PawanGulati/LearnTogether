@@ -53,7 +53,7 @@ export default function NotFound({history}) {
             <div className={classes.textPane}>
                 <Typography variant='h2' className={classes.headlineTypo}>I have bad news for you</Typography>
                 <Typography variant='h6' className={classes.paraTypo}>The page you are looking for might be removed or is temporarily unavailable</Typography>
-                <Button size='large' className={classes.button} variant='contained' color='primary' onClick={()=>{history.push('/')}}>Come Home</Button>
+                <Button aria-label='come-home' size='large' className={classes.button} variant='contained' color='primary' onClick={()=>{history.push('/')}}>Come Home</Button>
             </div>
             <NotFoundIMG className={classes.image} />
         </div>

@@ -117,8 +117,8 @@ export default connect(mapStateToProps)(function StudentMentorsView(props) {
           </Stack>
         </DialogTitle>
         <DialogActions>
-          <Button onClick={handleClose} color='error'>No</Button>
-          <Button onClick={followMentorHandler}>Yes</Button>
+          <Button aria-label='follow-no' onClick={handleClose} color='error'>No</Button>
+          <Button aria-label='follow-yes' onClick={followMentorHandler}>Yes</Button>
         </DialogActions>
       </Dialog>
       <SnackBar />

@@ -99,6 +99,7 @@ export default function MentorHomeView() {
                     Schedule sessions to help students to elevate their carrier
                   </Typography>
                   <Button
+                    aria-label='create-event'
                     variant='contained'
                     sx={{
                       fontWeight:600,

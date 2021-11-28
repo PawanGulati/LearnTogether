@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
-import BackGround from '../../constants/images/profile_background.jpg'
+import BackGround from '../../constants/images/profile_background.webp'
 import SocialLinks from './SocialLinks'
 
 export default function ProfileHead(props) {
@@ -54,6 +54,7 @@ export default function ProfileHead(props) {
                     <Grid container direction='column' spacing={2}>
                         <Grid item>
                             <Button
+                                aria-label='edit-profile'
                                 variant='contained'
                                 fullWidth
                             >Edit Profile</Button>

@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 export default function HomeThemedButton(props) {
     return (
         <Button
+            aria-label='join-us'
             variant="contained"
             sx={{
                 fontWeight:600,
