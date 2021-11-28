@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const {nanoid} = require('nanoid')
 
 const db = require('../db/models')
 
@@ -63,6 +64,8 @@ exports.createEventBooking = async (req, res, next)=>{
 
         await booking.save()
 
+        await (new db.Room({name: nanoid(8), booking: booking._id, admin: mentor._id})).save()
+
         return res.status(201).send(booking)
     } catch (error) {
         next({
@@ -113,6 +116,8 @@ exports.createEvent = async (req, res, next)=>{
         })
 
         await booking.save()
+
+        await (new db.Room({name: nanoid(8), booking: booking._id, admin: mentor._id})).save()
 
         return res.status(201).send(event)
     } catch (error) {

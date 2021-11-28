@@ -211,3 +211,47 @@ exports.getStudentFollowing = async(req, res, next)=>{
         })
     }
 }
+
+exports.updateProfile = async(req, res, next)=>{
+    try {
+        const user = await db.User.findById(req.user._id)
+        if(!user) throw new Error('User not exists')
+
+        const {name="", email="", institute="", ...social_links} = req.body
+
+        if(user.userType === UserTypes.mentor){
+            const mentor = await db.Mentor.findOne({user: user._id})
+            if(!mentor) throw new Error(`${user.userType} not exists`)
+
+            await db.Mentor.findByIdAndUpdate(mentor._id,{
+                institute,
+                'social_links':{
+                    ...social_links
+                }
+            })
+        }
+        else if(user.userType === UserTypes.student){
+            const student = await db.Student.findOne({user: user._id})
+            if(!student) throw new Error(`${user.userType} not exists`)
+
+            await db.Student.findByIdAndUpdate(student._id,{
+                institute,
+                'social_links':{
+                    ...social_links
+                }
+            })
+        }
+
+        const newUser = await db.User.findByIdAndUpdate(user._id,{
+            name,
+        },{new: true, upsert: true})
+
+        return res.status(201).send(newUser);
+        
+    } catch (error) {
+        next({
+            status: 400,
+            message: error.message
+        })
+    }
+}

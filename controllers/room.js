@@ -37,14 +37,14 @@ exports.getMyRooms = async(req, res, next)=>{
         //     rooms = user.mentor.bookings
         // }
         if(user['userType'] === UserTypes.mentor){
-            rooms = await db.Room.find({}).populate({
-                path: 'booking',
-                populate:{
-                    path:'mentor',
-                    match:{'user': {$eq: req.user._id}}
-                },
-                match:{$ifNull: 'mentor'}
-            })
+            rooms = await db.Room.find({})
+                .populate({
+                    path: 'admin',
+                    populate:{
+                        path: 'user',
+                        '_id': {$eq: user._id}
+                    }
+                })
         }
 
         return res.status(200).send(rooms)

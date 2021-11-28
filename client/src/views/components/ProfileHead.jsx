@@ -8,6 +8,7 @@ import Button from '@mui/material/Button'
 
 import BackGround from '../../constants/images/profile_background.webp'
 import SocialLinks from './SocialLinks'
+// import { FormCheckBasicFields, validateForm, validFormCheckInit } from '../../utils/FormValidators/formValidator'
 
 export default function ProfileHead(props) {
     const {
@@ -16,6 +17,66 @@ export default function ProfileHead(props) {
         followers,
         following
     } = props.user
+
+    // const INPUT_INIT_STATE = {
+    //     name: props.name, 
+    //     institute,
+    //     linkedin: social_links.linkedin,
+    //     facebook: social_links.facebook,
+    //     github: social_links.github,
+    //     twitter: social_links.twitter
+    // }
+    // 
+    // const [inputs, setInputs] = React.useState(INPUT_INIT_STATE)
+    
+    // const [errors, setErrors] = React.useState(INPUT_INIT_STATE)
+
+    // const [loginErr, setLoginErr] = React.useState('')
+    // const [regErr, setRegErr] = React.useState('')
+    
+    // const handleInputChange = ({ target: { name, value } }) => {
+    //     const inputErrors = FormCheckBasicFields(errors, value, name, inputs)
+
+    //     setErrors({
+    //         ...errors,
+    //         ...inputErrors
+    //     })
+
+    //     setInputs({
+    //         ...inputs,
+    //         [name]: value
+    //     })
+    // }
+
+    // const handleUpdateProfile = async e =>{
+    //     e.preventDefault()
+        
+    //     try {
+    //         const {
+    //         linkedin,
+    //         facebook,
+    //         github,
+    //         twitter,
+    //         ...compolsuryInputs
+    //         } = inputs
+
+    //         // validation checking
+    //         if(!validFormCheckInit(compolsuryInputs) || !validateForm(errors)){
+    //             throw new Error('Invalid Form')
+    //         }
+
+    //         // API call
+    //         const check = await props.set_cur_user({
+    //             ...api_inputs,
+    //             api_type: `register-${user_type}`
+    //         })
+
+    //         window.location.reload()
+    //     } catch (error) {
+    //     setRegErr(error.message)
+    //     }
+    // }
+
 
     return (
         <>

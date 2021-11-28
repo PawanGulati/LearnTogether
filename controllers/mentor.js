@@ -37,3 +37,7 @@ exports.getMentor = async (req, res, next)=>{
         })
     }
 }
+
+exports.updateMentor = async(req, res, next)=>{
+    
+}

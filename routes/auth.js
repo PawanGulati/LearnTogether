@@ -35,7 +35,9 @@ router.post(
 )
 
 // profile route
-router.get('/user/me', auth, control.getProfile)
+router.route('/user/me')
+    .get(auth, control.getProfile)
+    .patch(auth, control.updateProfile)
 
 router.post('/user/follow/:followeeID', auth, control.followUser)
 router.post('/user/unfollow/:followeeID', auth, control.unfollowUser)
